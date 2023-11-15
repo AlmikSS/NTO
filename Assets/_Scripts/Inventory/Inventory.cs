@@ -13,41 +13,48 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Item _mouseItem, _nullItem;
     [SerializeField] private RawImage _mouseItemImage;
 
+    private Input _playerInput;
+
+    private void Awake()
+    {
+        _playerInput = new Input();
+    }
+
     private void Start()
     {
         for (int i = 0; i < _width * _height; i++)
         {
-            GameObject newSlot = Instantiate(_button);
-            newSlot.transform.SetParent(_inventoryPanel, false);
-            newSlot.GetComponent<InventoryButton>().MyInv = this;
-            newSlot.GetComponent<InventoryButton>().MyID = i;
+            GameObject _newSlot = Instantiate(_button);
+            _newSlot.transform.SetParent(_inventoryPanel, false);
+            _newSlot.GetComponent<InventoryButton>().MyInv = this;
+            _newSlot.GetComponent<InventoryButton>().MyID = i;
         }
 
-        for (int i = 0; i < _width * _height; i++)
+        for (int i = 0; i < _height * _width; i++)
         {
-            GameObject newItem = new GameObject("Item", typeof(Item));
+            GameObject _newItem = new GameObject("Item", typeof(Item));
 
-            newItem.GetComponent<Item>().Name = Items[i].Name;
-            newItem.GetComponent<Item>().Stack = Items[i].Stack;
-            newItem.GetComponent<Item>().MaxStack = Items[i].MaxStack;
-            newItem.GetComponent<Item>().ID = Items[i].ID;
-            newItem.GetComponent<Item>().Image = Items[i].Image;
+            _newItem.GetComponent<Item>().Name = Items[i].Name;
+            _newItem.GetComponent<Item>().ID = Items[i].ID;
+            _newItem.GetComponent<Item>().Stack = Items[i].Stack;
+            _newItem.GetComponent<Item>().MaxStack = Items[i].MaxStack;
+            _newItem.GetComponent<Item>().Image = Items[i].Image;
 
-            Items[i] = newItem.GetComponent<Item>();
+            Items[i] = _newItem.GetComponent<Item>();
         }
         Redraw();
     }
 
     private void Update()
     {
-        _mouseItemImage.transform.position = Input.mousePosition - new Vector3(0, 0, 0);
+        _mouseItemImage.transform.position = _playerInput.Player.MousePosition.ReadValue<Vector2>();
     }
 
     public void SelectSlot(int ID)
     {
         if (Items[ID].ID == _mouseItem.ID)
         {
-            if (!Input.GetKey(KeyCode.LeftShift))
+            if (!_playerInput.Player.TakeAllStack.IsPressed())
             {
                 if (_mouseItem.Stack > Items[ID].MaxStack - Items[ID].Stack)
                 {
@@ -74,6 +81,7 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
+
         else
         {
             Item tempItem = Items[ID];
@@ -83,12 +91,12 @@ public class Inventory : MonoBehaviour
         Redraw();
     }
 
-    public void Redraw()
+    private void Redraw()
     {
         for (int i = 0; i < _width * _height; i++)
         {
             _inventoryPanel.GetChild(i).GetChild(0).GetComponent<RawImage>().texture = Items[i].Image;
-
+            
             if (Items[i].ID == 0 || Items[i].Stack == 0)
             {
                 _inventoryPanel.GetChild(i).GetChild(1).GetComponent<TMP_Text>().text = "";
@@ -111,4 +119,76 @@ public class Inventory : MonoBehaviour
             _mouseItemImage.transform.GetChild(0).GetComponent<TMP_Text>().text = _mouseItem.Stack.ToString();
         }
     }
+
+    public int CheckObjects(int id)
+    {
+        int _objectsCount = 0;
+
+        for (int i = 0; i < _width * _height; i++)
+        {
+            if (Items[i].ID == id)
+            {
+                _objectsCount += Items[i].Stack;
+            }
+        }
+
+        return _objectsCount;
+    }
+
+    public void ReduseObjects(int id, int count)
+    {
+        for (int i = 0; i < _width * _height; i++)
+        {
+            if (Items[i].ID == id)
+            {
+                if (Items[i].Stack >= count)
+                {
+                    if (Items[i].Stack == count)
+                    {
+                        Items[i] = _nullItem;
+                    }
+                    Items[i].Stack -= count;
+                    break;
+                }
+                else
+                {
+                    count -= Items[i].Stack;
+                    Items[i] = _nullItem;
+                }
+            }
+        }
+        Redraw();
+    }
+
+    public void AddItem(Item newItem)
+    {
+        for (int i = 0; i < _width * _height; i++)
+        {
+            if (CheckObjects(newItem.ID) > 0)
+            {
+                if (Items[i].ID == newItem.ID)
+                {
+                    Items[i].Stack++;
+                    break;
+                }
+            }
+            else if (Items[i].ID == 0)
+            {
+                GameObject newItemInv = new GameObject("Item", typeof(Item));
+
+                newItemInv.GetComponent<Item>().name = newItem.Name;
+                newItemInv.GetComponent<Item>().ID = newItem.ID;
+                newItemInv.GetComponent<Item>().Image = newItem.Image;
+                newItemInv.GetComponent<Item>().Stack = 1;
+                newItemInv.GetComponent<Item>().MaxStack = newItem.MaxStack;
+
+                Items[i] = newItemInv.GetComponent<Item>();
+                break;
+            }
+        }
+    }
+
+    private void OnEnable() => _playerInput.Enable();
+
+    private void OnDisable() => _playerInput.Disable();
 }

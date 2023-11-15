@@ -1,5 +1,5 @@
 {
-    "name": "PlayerInput",
+    "name": "Input",
     "maps": [
         {
             "name": "Player",
@@ -18,6 +18,42 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "8d84669c-5845-47d8-a1d7-6c9dd247d8af",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TakeAllStack",
+                    "type": "Button",
+                    "id": "30f305f6-b553-4688-b98b-fb138fb49747",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MousePosition",
+                    "type": "Value",
+                    "id": "5f24e5cf-aa2c-47ac-b770-9b5f85b980e2",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "NodsPanelOpen",
+                    "type": "Button",
+                    "id": "6ffdc755-d568-4752-a37f-bb3c55750c73",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Close",
+                    "type": "Button",
+                    "id": "600698db-ec2c-4ac8-8056-f885281da471",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -66,6 +102,50 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c0457a8f-86ec-49e0-acca-bb4881f98d9d",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "TakeAllStack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b094760c-c884-48df-aac3-846495ad6351",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "MousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cc086750-9c31-4645-846c-4489af680f12",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NodsPanelOpen",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e41e5cfa-d5f1-4a65-89b1-e0e84af11f9b",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Close",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

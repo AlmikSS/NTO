@@ -8,7 +8,7 @@ public class BlocksMovement : MonoBehaviour
     [SerializeField] GameObject[] AllNodes = new GameObject[1];//все ноды на уровне
     [SerializeField] float ClueDistnce = 15f;//дистанция склеивания нодов
     public void MoveBlock(Transform obj){
-        obj.position = Input.mousePosition; 
+        obj.position = Input.mousePosition;//Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)); 
         //когда пользователь начинает двигать блок он копирует позицию мыши
     }
     public void DropBlock(GameObject Obj){//когда пользователь отпускает нод
@@ -30,8 +30,8 @@ public class BlocksMovement : MonoBehaviour
         
         Vector2 _collPos = _coll.transform.position; //позиция сталкивающегося блока
         Vector2 _objPos = Obj.transform.position; //позиция передвигаемого блока
-        Vector2 _collSize = _coll.GetComponent<RectTransform>().sizeDelta; // размеры сталкивающегося блока
-        Vector2 _objSize = Obj.GetComponent<RectTransform>().sizeDelta; // размеры передвигаемого блока
+        Vector2 _collSize = new Vector2(_coll.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f),_coll.GetComponent<RectTransform>().sizeDelta.y*(Screen.height/1080f)); // размеры сталкивающегося блока
+        Vector2 _objSize = new Vector2(Obj.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f),Obj.GetComponent<RectTransform>().sizeDelta.y*(Screen.height/1080f)); // размеры передвигаемого блока
 
         float _downEdge = Mathf.Abs(_collPos.y-(_objPos.y+_objSize.y)); //расчитывает абсолютную разницу между верхней границей передвигаемого блока и нижней границей сталкивающегося
         float _upEdge = Mathf.Abs(_collPos.y+_collSize.y-_objPos.y); //расчитывает абсолютную разницу между нижней границей передвигаемого блока и верхней границей сталкивающегося

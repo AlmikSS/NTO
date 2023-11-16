@@ -2,25 +2,19 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private GameObject _nodsPanel;
+    [SerializeField] private GameObject _menuPanel;
 
     private Input _playerInput;
 
     private void Awake()
     {
         _playerInput = new Input();
-        _playerInput.Player.NodsPanelOpen.performed += context => ShowNodsPanel();
-        _playerInput.Player.Close.performed += context => CloseNodsPanel();
+        _playerInput.Player.Close.performed += context => ShowMenuPanel();
     }
 
-    private void ShowNodsPanel()
+    private void ShowMenuPanel()
     {
-        _nodsPanel.SetActive(true);
-    }
-
-     private void CloseNodsPanel()
-    {
-        _nodsPanel.SetActive(false);
+        _menuPanel.SetActive(true);
     }
 
     private void OnEnable() => _playerInput.Enable();

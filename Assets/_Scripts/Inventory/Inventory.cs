@@ -5,65 +5,67 @@ using TMPro;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] private int _width, _height;
-    [SerializeField] private Transform _inventoryPanel;
-    [SerializeField] private GameObject _button;
+    [SerializeField] private int _width, _height; // ширина и высота инвентаря
+    [SerializeField] private Transform _inventoryPanel; // ссылка на объект панели инвентаря
+    [SerializeField] private GameObject _button; // сылка на префаб слота/кнопки инвентаря
 
-    public List<Item> Items = new List<Item>();
-    [SerializeField] private Item _mouseItem, _nullItem;
-    [SerializeField] private RawImage _mouseItemImage;
+    [SerializeField] private List<Item> _items = new List<Item>(10); // список всех предметов в инвентаре
+    [SerializeField] private Item _mouseItem, _nullItem; // предмет в руке и null предмет
+    [SerializeField] private RawImage _mouseItemImage; // текстура предмета в руке
 
-    private Input _playerInput;
+    private Input _playerInput; // система ввода игрока
 
     private void Awake()
     {
-        _playerInput = new Input();
+        _playerInput = new Input(); // создаем экземпляр класса Input
     }
 
     private void Start()
     {
-        for (int i = 0; i < _width * _height; i++)
+        for (int i = 0; i < _width * _height; i++) // проходимся по колличеству слотов
         {
-            GameObject _newSlot = Instantiate(_button);
-            _newSlot.transform.SetParent(_inventoryPanel, false);
-            _newSlot.GetComponent<InventoryButton>().MyInv = this;
-            _newSlot.GetComponent<InventoryButton>().MyID = i;
+            GameObject _newSlot = Instantiate(_button); // создаем слот
+            _newSlot.transform.SetParent(_inventoryPanel, false); // делаем созданный слот дочерним объектом от _inventoryPanel
+            _newSlot.GetComponent<InventoryButton>().MyInv = this; // добавим кнопке ссылку на инвентарь
+            _newSlot.GetComponent<InventoryButton>().MyID = i; // добавим слоту ID
         }
 
-        for (int i = 0; i < _height * _width; i++)
+        for (int i = 0; i < _height * _width; i++) // проходимся по всем слотам
         {
-            GameObject _newItem = new GameObject("Item", typeof(Item));
-
-            _newItem.GetComponent<Item>().Name = Items[i].Name;
-            _newItem.GetComponent<Item>().ID = Items[i].ID;
-            _newItem.GetComponent<Item>().Stack = Items[i].Stack;
-            _newItem.GetComponent<Item>().MaxStack = Items[i].MaxStack;
-            _newItem.GetComponent<Item>().Image = Items[i].Image;
-
-            Items[i] = _newItem.GetComponent<Item>();
+            GameObject _newItem = new GameObject("Item", typeof(Item)); // создаем предмет
+            //задаем характеристики предмета
+            _newItem.GetComponent<Item>().Name = _items[i].Name;
+            _newItem.GetComponent<Item>().ID = _items[i].ID;
+            _newItem.GetComponent<Item>().Stack = _items[i].Stack;
+            _newItem.GetComponent<Item>().MaxStack = _items[i].MaxStack;
+            _newItem.GetComponent<Item>().Image = _items[i].Image;
+            //добавляем предмет в список
+            _items[i] = _newItem.GetComponent<Item>();
         }
-        Redraw();
+
+        Redraw(); // перерисовываем весь инвентарь
     }
 
     private void Update()
     {
-        _mouseItemImage.transform.position = _playerInput.Player.MousePosition.ReadValue<Vector2>();
+        _mouseItemImage.transform.position = _playerInput.Player.MousePosition.ReadValue<Vector2>(); // перемещение объекта в руку
     }
 
-    public void SelectSlot(int ID)
+    public void SelectSlot(int ID) // метод выбора слота
     {
-        if (Items[ID].ID == _mouseItem.ID)
+        if (_items[ID].ID == _mouseItem.ID) // если предмет в руке и предмет в слоте одинаковые
         {
-            if (!_playerInput.Player.TakeAllStack.IsPressed())
+            if (!_playerInput.Player.TakeAllStack.IsPressed()) // если нажата кнопка TakeAllStack
             {
-                if (_mouseItem.Stack > Items[ID].MaxStack - Items[ID].Stack)
+                if (_mouseItem.Stack > _items[ID].MaxStack - _items[ID].Stack) // если превысили размер стака
                 {
-                    _mouseItem.Stack -= Items[ID].MaxStack - Items[ID].Stack;
-                    Items[ID].Stack = Items[ID].MaxStack;
+                    _mouseItem.Stack -= _items[ID].MaxStack - _items[ID].Stack; // ставим в инвентарь часть предметов
+                    _items[ID].Stack = _items[ID].MaxStack; // в слоте теперь полный стак
                 }
-                else
+                else // если не превысили стак
                 {
-                    Items[ID].Stack += _mouseItem.Stack;
+                    _items[ID].Stack += _mouseItem.Stack; // добавляем предметы в слот
+                    // в руке теперь пустота
                     _mouseItem.name = _nullItem.Name;
                     _mouseItem.Image = _nullItem.Image;
                     _mouseItem.Stack = 0;
@@ -71,124 +73,125 @@ public class Inventory : MonoBehaviour
                     _mouseItem.ID = 0;
                 }
             }
-            else
+            else // ставим вещи по одному
             {
-                if (_mouseItem.Stack > 1 &&
-                    Items[ID].Stack < Items[ID].MaxStack)
+                if (_mouseItem.Stack > 0 && _items[ID].Stack < _items[ID].MaxStack) // если предметов в слоте меньше стака
                 {
-                    Items[ID].Stack++;
-                    _mouseItem.Stack--;
+                    _items[ID].Stack++; // увеличиваем колличество предметов в слоте
+                    _mouseItem.Stack--; // уменьшаем колличество предметов в руке
                 }
             }
         }
 
-        else
+        else // меняем предмет в руке 
         {
-            Item tempItem = Items[ID];
-            Items[ID] = _mouseItem;
-            _mouseItem = tempItem;
+            Item tempItem = _items[ID]; // временное поле для хранения предмета в слоте
+            _items[ID] = _mouseItem; // в слоте теперь предмет который был в руке
+            _mouseItem = tempItem; // в руке теперь предмет который был в слоте
         }
-        Redraw();
+
+        Redraw(); // перерисовываем инвентарь
     }
 
-    private void Redraw()
+    private void Redraw() // метод перерисовки инвентаря
     {
-        for (int i = 0; i < _width * _height; i++)
+        for (int i = 0; i < _width * _height; i++) // проходимся по всем слотам
         {
-            _inventoryPanel.GetChild(i).GetChild(0).GetComponent<RawImage>().texture = Items[i].Image;
+            _inventoryPanel.GetChild(i).GetChild(0).GetComponent<RawImage>().texture = _items[i].Image; // меняем текстуру слота на текстуру предмета в этом слоте
             
-            if (Items[i].ID == 0 || Items[i].Stack == 0)
+            if (_items[i].ID == 0 || _items[i].Stack == 0) // если предмета нет
             {
-                _inventoryPanel.GetChild(i).GetChild(1).GetComponent<TMP_Text>().text = "";
+                _inventoryPanel.GetChild(i).GetChild(1).GetComponent<TMP_Text>().text = ""; // меняем текст на пустоту
             }
-            else
+            else // предмет есть
             {
-                _inventoryPanel.GetChild(i).GetChild(1).GetComponent<TMP_Text>().text = Items[i].Stack.ToString();
+                _inventoryPanel.GetChild(i).GetChild(1).GetComponent<TMP_Text>().text = _items[i].Stack.ToString(); // меняем текст на колличество предмета
             }
         }
 
-        if (_mouseItem.Image == null)
+        if (_mouseItem.Image == null) // в руке ничего нет
         {
-            _mouseItemImage.GetComponent<RawImage>().color = new Color(0, 0, 0, 0);
-            _mouseItemImage.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
+            _mouseItemImage.GetComponent<RawImage>().color = new Color(0, 0, 0, 0); // делаем текстуру прозрачной
+            _mouseItemImage.transform.GetChild(0).GetComponent<TMP_Text>().text = ""; // меняем текст на пустоту
         }
         else
         {
-            _mouseItemImage.GetComponent<RawImage>().color = new Color(1, 1, 1, 1);
-            _mouseItemImage.GetComponent<RawImage>().texture = _mouseItem.Image;
-            _mouseItemImage.transform.GetChild(0).GetComponent<TMP_Text>().text = _mouseItem.Stack.ToString();
+            _mouseItemImage.GetComponent<RawImage>().color = new Color(1, 1, 1, 1); // делаем текстуру видимой
+            _mouseItemImage.GetComponent<RawImage>().texture = _mouseItem.Image; // меняем текстуру в руке
+            _mouseItemImage.transform.GetChild(0).GetComponent<TMP_Text>().text = _mouseItem.Stack.ToString(); // меняем текст в руке
         }
     }
 
-    public int CheckObjects(int id)
+    public int CheckObjects(int id) // метод проверки есть ли предмет в инвентаре
     {
-        int _objectsCount = 0;
-
-        for (int i = 0; i < _width * _height; i++)
+        int _objectsCount = 0; // общее колличество предметов
+        
+        for (int i = 0; i < _width * _height; i++) // проходимся по всем слотам
         {
-            if (Items[i].ID == id)
+            if (_items[i].ID == id) // если нашли предмет
             {
-                _objectsCount += Items[i].Stack;
+                _objectsCount += _items[i].Stack; // увеличиваем колличество найденных предметов
             }
         }
 
-        return _objectsCount;
+        return _objectsCount; // возвращаем колличество найденных предметов
     }
 
-    public void ReduseObjects(int id, int count)
+    public void ReduseObjects(int id, int count) // метод удаления объектов
     {
-        for (int i = 0; i < _width * _height; i++)
+        for (int i = 0; i < _width * _height; i++) // проходимся по всем слотам
         {
-            if (Items[i].ID == id)
+            if (_items[i].ID == id) // нашли нужный предмет
             {
-                if (Items[i].Stack >= count)
+                if (_items[i].Stack >= count) // если предмета хватате
                 {
-                    if (Items[i].Stack == count)
+                    if (_items[i].Stack == count) // если предмета хватает ровно
                     {
-                        Items[i] = _nullItem;
+                        _items[i] = _nullItem; // в слоте теперь пусто
                     }
-                    Items[i].Stack -= count;
-                    break;
+                    _items[i].Stack -= count; // уменьшаем колличество предмета
+                    break; // выходим из цикла
                 }
                 else
                 {
-                    count -= Items[i].Stack;
-                    Items[i] = _nullItem;
+                    count -= _items[i].Stack; // уменьшаем коллиество нужного предмета
+                    _items[i] = _nullItem; // в слоте теперь пустота
                 }
             }
         }
-        Redraw();
+
+        Redraw(); // перерисовываем инвентарь
     }
 
-    public void AddItem(Item newItem)
+    public void AddItem(Item newItem) // метод добавления предметов в инвентарь
     {
-        for (int i = 0; i < _width * _height; i++)
+        for (int i = 0; i < _width * _height; i++)  // проходимся по всем слотам
         {
-            if (CheckObjects(newItem.ID) > 0)
+            if (CheckObjects(newItem.ID) > 0) // если такой предмет уже есть
             {
-                if (Items[i].ID == newItem.ID)
+                if (_items[i].ID == newItem.ID) // ID совпадает
                 {
-                    Items[i].Stack++;
-                    break;
+                    _items[i].Stack++; // увеличиваем колличество предмета
+                    break; // выходим из цикла
                 }
             }
-            else if (Items[i].ID == 0)
+            else if (_items[i].ID == 0) // ищем пустой слот
             {
-                GameObject newItemInv = new GameObject("Item", typeof(Item));
-
+                GameObject newItemInv = new GameObject("Item", typeof(Item)); // создаем новый предмет
+                //задаем характеристики
                 newItemInv.GetComponent<Item>().name = newItem.Name;
                 newItemInv.GetComponent<Item>().ID = newItem.ID;
                 newItemInv.GetComponent<Item>().Image = newItem.Image;
                 newItemInv.GetComponent<Item>().Stack = 1;
                 newItemInv.GetComponent<Item>().MaxStack = newItem.MaxStack;
-
-                Items[i] = newItemInv.GetComponent<Item>();
-                break;
+                //добавляем предмет в список
+                _items[i] = newItemInv.GetComponent<Item>();
+                break; // выходим из цикла
             }
         }
     }
 
-    private void OnEnable() => _playerInput.Enable();
+    private void OnEnable() => _playerInput.Enable(); // включем систему ввода
 
-    private void OnDisable() => _playerInput.Disable();
+    private void OnDisable() => _playerInput.Disable(); // выключаем систему ввода
 }

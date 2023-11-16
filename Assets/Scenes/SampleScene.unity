@@ -201,7 +201,7 @@ MonoBehaviour:
   _height: 2
   _inventoryPanel: {fileID: 199450633}
   _button: {fileID: 1513556417573059283, guid: f5dd4603a832d6a448e7a5a203103112, type: 3}
-  Items:
+  _items:
   - {fileID: 1415834791889380480, guid: a93593eaa7e38384f9811ce2544db983, type: 3}
   - {fileID: 1415834791889380480, guid: a93593eaa7e38384f9811ce2544db983, type: 3}
   - {fileID: 1415834791889380480, guid: a93593eaa7e38384f9811ce2544db983, type: 3}
@@ -1204,7 +1204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a592931b5255b5b42b7e8a62d6fffbf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nodsPanel: {fileID: 565811363}
+  _menuPanel: {fileID: 0}
 --- !u!1 &1832534713
 GameObject:
   m_ObjectHideFlags: 0

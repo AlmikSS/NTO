@@ -1,8 +1,19 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class NodesLogic : MonoBehaviour
 {
+    [HideInInspector] public List<string> Programm = new List<string>();
+    public void OnDrop(GameObject Obj){
+        BlocksMovement _blocksMove = GameObject.Find("Canvas").GetComponent<BlocksMovement>(); 
 
+        string _edge =  _blocksMove.DropBlock(Obj);
+        GameObject _coll = _blocksMove.Coll;
+        if(Obj.name == "BeginNode" && Programm.Count == 0){
+            Programm.Add(Obj.name);
+            Programm.Add(_coll.name);
+        }
+    }
 }
 
 public class NumberNode

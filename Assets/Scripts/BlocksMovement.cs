@@ -6,30 +6,46 @@ public class BlocksMovement : MonoBehaviour
 
     [SerializeField] GameObject[] AllNodes = new GameObject[1];//все ноды на уровне
     [SerializeField] float ClueDistnce = 15f;//дистанция склеивания нодов
-    public void MoveBlock(Transform obj){
-        obj.position = Input.mousePosition;//Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)); 
-        //когда пользователь начинает двигать блок он копирует позицию мыши
+    [HideInInspector] public GameObject Coll;// создаем публичную переменнуб для ближайшего объекта 
+
+    
+
+    public void MoveBlock(Transform Obj){
+        if(Obj.transform.parent.parent.parent.name == "ProgrammView" && Input.mousePosition.x - Obj.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f)*0.5f >= 0.3f*Screen.width && Input.mousePosition.x <= Screen.width && Input.mousePosition.y >= 0 && Input.mousePosition.y <= Screen.height){
+            Obj.position = Input.mousePosition;//когда пользователь начинает двигать блок он копирует позицию мыши
+        }
+        else if(Obj.transform.parent.parent.parent.name == "NodesView" && Obj.position.x + Obj.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f)*0.5f >= 0.3f*Screen.width && Obj.position.x <= Screen.width && Obj.position.y >= 0 && Obj.position.y <= Screen.height){
+            Obj.transform.SetParent(GameObject.Find("ProgrammView").transform.Find("Viewport/Contented"));
+            Obj.position = new Vector2(Obj.position.x + Obj.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f), Input.mousePosition.y);
+        }
+        else if(Obj.transform.parent.parent.parent.name == "NodesView" && Input.mousePosition.x >= 0 && Input.mousePosition.x <= Screen.width && Input.mousePosition.y >= 0 && Input.mousePosition.y <= Screen.height){
+            Obj.position = Input.mousePosition;//когда пользователь начинает двигать блок он копирует позицию мыши
+        }
+        else{
+            GameObject.Find("Canvas").GetComponent<NodesLogic>().OnDrop(Obj.gameObject);
+            return;
+        }
     }
-    public void DropBlock(GameObject Obj){//когда пользователь отпускает нод
+     public string DropBlock(GameObject Obj){//когда пользователь отпускает нод
         List<float> _distances = new List<float>();//создаем пустой массив для дистанций
-        GameObject _coll = Obj;// создаем переменнуб для ближайшего объекта 
+
         float _minDist = 1000000000000000000f;// задаем минимум
         foreach (GameObject i in AllNodes)//перебираем все ноды
         {
-            float _dist = Vector2.Distance(i.transform.position, Obj.transform.position);//находим дистанцию до ближайшего нода
-            if (i != Obj){// если не равен передвигаемому ноду, то добавляем в дистанции и сравниваем с минимумом
+            float _dist = Vector2.Distance(i.transform.position, Obj.transform.position);//находим дистанцию до нода
+            if (i != Obj && Obj.transform.parent.transform.parent.name == i.transform.parent.transform.parent.name){// если не равен передвигаемому ноду, то добавляем в дистанции и сравниваем с минимумом
                 _distances.Add(_dist);
                 if( _dist<_minDist){
                     _minDist = _dist;
-                    _coll = i;
+                    Coll = i;
                 }
             }
            
         }
         
-        Vector2 _collPos = _coll.transform.position; //позиция сталкивающегося блока
+        Vector2 _collPos = Coll.transform.position; //позиция сталкивающегося блока
         Vector2 _objPos = Obj.transform.position; //позиция передвигаемого блока
-        Vector2 _collSize = new Vector2(_coll.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f),_coll.GetComponent<RectTransform>().sizeDelta.y*(Screen.height/1080f)); // размеры сталкивающегося блока
+        Vector2 _collSize = new Vector2(Coll.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f),Coll.GetComponent<RectTransform>().sizeDelta.y*(Screen.height/1080f)); // размеры сталкивающегося блока
         Vector2 _objSize = new Vector2(Obj.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f),Obj.GetComponent<RectTransform>().sizeDelta.y*(Screen.height/1080f)); // размеры передвигаемого блока
 
         float _downEdge = Mathf.Abs(_collPos.y-(_objPos.y+_objSize.y)); //расчитывает абсолютную разницу между верхней границей передвигаемого блока и нижней границей сталкивающегося
@@ -39,20 +55,21 @@ public class BlocksMovement : MonoBehaviour
 
         if(Mathf.Min(_downEdge, _upEdge) == _downEdge && _objPos.y >= _collPos.y-_collSize.y-ClueDistnce && Mathf.Abs(_leftEdge-_rightEdge) <= ClueDistnce){// проверяем если он касает нижней стороны и приклеиваем
             Obj.transform.position = new Vector2(_collPos.x,_collPos.y-_collSize.y);
-            Debug.Log("downEgde");
+            return "downEgde";
         }
         else if(Mathf.Min(_downEdge, _upEdge) == _upEdge && _objPos.y <= _collPos.y+_collSize.y+ClueDistnce && Mathf.Abs(_leftEdge-_rightEdge) <= ClueDistnce){// проверяем если он касает верхней стороны и приклеиваем
             Obj.transform.position = new Vector2(_collPos.x,_collPos.y+_collSize.y);
-            Debug.Log("upEdge");
+            return "upEdge";
         }
         else if(Mathf.Min(_leftEdge, _rightEdge) == _leftEdge && _objPos.x >= _collPos.x-_collSize.x-ClueDistnce && Mathf.Abs(_downEdge- _upEdge) <= ClueDistnce){// проверяем если он касает левой стороны и приклеиваем
             Obj.transform.position = new Vector2(_collPos.x-_collSize.x,_collPos.y);
-            Debug.Log("leftEdge");
+            return "leftEdge";
         }
         else if(Mathf.Min(_leftEdge, _rightEdge) == _rightEdge && _objPos.x <= _collPos.x+_collSize.x+ClueDistnce && Mathf.Abs(_downEdge- _upEdge) <= ClueDistnce){// проверяем если он касает правой стороны и приклеиваем
             Obj.transform.position = new Vector2(_collPos.x+_collSize.x,_collPos.y);
-            Debug.Log("rightEdge");
+            return "rightEdge";
         }
+        else{return "";}
     
     }
     

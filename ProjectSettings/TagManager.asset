@@ -4,7 +4,30 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Block
+  - VariableNode
+  - NumberNode
+  - StringNode
+  - InputNode
+  - OutputNode
+  - EndNode
+  - IfNode
+  - ElseNode
+  - WhileNode
+  - EmptyNode
+  - AdditionNode
+  - SubtractionNode
+  - MultiplicationNode
+  - DivisionNode
+  - IntDivisionNode
+  - RemainderNode
+  - MoreNode
+  - LessNode
+  - EqualNode
+  - MoreEqualNode
+  - LessEqualNode
+  - NotEqualNode
+  - AndNode
+  - OrNode
   layers:
   - Default
   - TransparentFX

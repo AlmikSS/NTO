@@ -75,7 +75,7 @@ public class Inventory : MonoBehaviour
             }
             else // ставим вещи по одному
             {
-                if (_mouseItem.Stack > 0 && _items[ID].Stack < _items[ID].MaxStack) // если предметов в слоте меньше стака
+                if (_mouseItem.Stack > 1 && _items[ID].Stack < _items[ID].MaxStack) // если предметов в слоте меньше стака
                 {
                     _items[ID].Stack++; // увеличиваем колличество предметов в слоте
                     _mouseItem.Stack--; // уменьшаем колличество предметов в руке
@@ -98,7 +98,7 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < _width * _height; i++) // проходимся по всем слотам
         {
             _inventoryPanel.GetChild(i).GetChild(0).GetComponent<RawImage>().texture = _items[i].Image; // меняем текстуру слота на текстуру предмета в этом слоте
-            
+
             if (_items[i].ID == 0 || _items[i].Stack == 0) // если предмета нет
             {
                 _inventoryPanel.GetChild(i).GetChild(1).GetComponent<TMP_Text>().text = ""; // меняем текст на пустоту
@@ -125,7 +125,7 @@ public class Inventory : MonoBehaviour
     public int CheckObjects(int id) // метод проверки есть ли предмет в инвентаре
     {
         int _objectsCount = 0; // общее колличество предметов
-        
+
         for (int i = 0; i < _width * _height; i++) // проходимся по всем слотам
         {
             if (_items[i].ID == id) // если нашли предмет
@@ -167,8 +167,9 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < _width * _height; i++)  // проходимся по всем слотам
         {
-            if (CheckObjects(newItem.ID) > 0) // если такой предмет уже есть
+            if (CheckObjects(newItem.ID) > 0 && _items[i].Stack < _items[i].MaxStack) // если такой предмет уже есть
             {
+                Debug.Log("Я тут!");
                 if (_items[i].ID == newItem.ID) // ID совпадает
                 {
                     _items[i].Stack++; // увеличиваем колличество предмета
@@ -189,6 +190,8 @@ public class Inventory : MonoBehaviour
                 break; // выходим из цикла
             }
         }
+
+        Redraw(); // перерисовываем инвентарь
     }
 
     private void OnEnable() => _playerInput.Enable(); // включем систему ввода

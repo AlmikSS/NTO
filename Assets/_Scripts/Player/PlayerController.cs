@@ -30,9 +30,8 @@ public class PlayerController : MonoBehaviour
     private void Move() // метод перемещения игрока
     {
         float _axis = _playerInput.Player.Move.ReadValue<float>(); // определяем направление движения 
-        Vector2 _direction = new Vector2(_axis, 0f); // создаем вектор движения 
 
-        _rb.AddForce(_direction * _moveSpeed, ForceMode2D.Force); // двигаемся
+        _rb.velocity = new Vector2(_axis * _moveSpeed, _rb.velocity.y); // двигаемся
     }
 
     private void SpeedControl() // метод контроля скорости

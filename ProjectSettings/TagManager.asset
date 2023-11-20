@@ -14,20 +14,10 @@ TagManager:
   - ElseNode
   - WhileNode
   - EmptyNode
-  - AdditionNode
-  - SubtractionNode
-  - MultiplicationNode
-  - DivisionNode
-  - IntDivisionNode
-  - RemainderNode
   - MoreNode
-  - LessNode
-  - EqualNode
-  - MoreEqualNode
-  - LessEqualNode
-  - NotEqualNode
-  - AndNode
-  - OrNode
+  - LogicalNodes
+  - MathNodes
+  - BeginNode
   layers:
   - Default
   - TransparentFX

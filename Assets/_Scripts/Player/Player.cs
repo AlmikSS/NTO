@@ -2,51 +2,75 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IDamageable, IDamager
 {
-    [SerializeField] private Transform _attackPosition;
-    [SerializeField] private LayerMask _attackMask;
-    [SerializeField] private float _attackRadius;
-    [SerializeField] private int _damage;
-    [SerializeField] private int _maxHealth;
-    private int _health;
+    [Header("Attack")]
+    [SerializeField] private Transform _attackPosition; // поле позиции нанесени€ урона
+    [SerializeField] private LayerMask _attackMask; // слой, которому наносим урон
+    [SerializeField] private float _attackRadius; // радиус аттаки
+    [SerializeField] private int _damage; // урон
 
-    private Input _playerInput;
+    [Header("General")]
+    [SerializeField] private int _maxHealth; // максимальное здоровье
+    [SerializeField] private GameObject _inventory; // поле инвентар€
+    private Animator _animator; // поле Animator
+    private int _health; // здоровье
+
+    private Input _playerInput; // ввод игрока
 
     private void Awake()
     {
-        _playerInput = new Input();
-        _playerInput.Player.Attack.performed += context => Attack();
+        _playerInput = new Input(); // создаем экземпл€р класса Input 
+        _playerInput.Player.Attack.performed += context => Attack(); // подписываем метод Attack к событию нажати€ кнопки атаки
+        _playerInput.Player.ShowInventory.performed += context => ShowCloseInventory(); // подписываем метод ShowCloseInventory к событию нажати€ кнопки инвентар€
     }
 
     private void Start()
     {
-        _health = _maxHealth;
+        _health = _maxHealth; // текущее здоровье равно максимальному
+        _animator = GetComponent<Animator>(); // кэшируем Animator
     }
 
-    public void Attack()
+    public void Attack() // метод атаки
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector2(_attackPosition.position.x, _attackPosition.position.y), _attackRadius, _attackMask);
+        MakeDamage(_damage); // наносим урон
+        _animator.SetTrigger("Attack"); // проигрывем анимацию
+    }
 
+    private void MakeDamage(int damage) // метод нанесени€ урона
+    {
+        // собираем все коллайдеры в зоне атаки
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector2(_attackPosition.position.x, _attackPosition.position.y), _attackRadius, _attackMask);
+        // проходимс€ по всем коллайдерам
         foreach (Collider2D enemy in colliders)
         {
-            enemy.GetComponent<Enemy>().TakeDamage(_damage);
+            enemy.GetComponent<Enemy>().TakeDamage(damage); // наносим урон
         }
     }
 
-    public void TakeDamage(int damage)
+    private void ShowCloseInventory() // метод открыти€ и закртыти€ инвентар€
     {
-        if (damage > 0)
-            _health -= damage;
+        _inventory.SetActive(!_inventory.activeSelf); // включаем/выключаем инвентарь
 
-        if (_health <= 0)
-            Die();
+        if (_inventory.activeSelf) // если инвентарь включен
+            Time.timeScale = 0f; // останавливаем врем€
+        else if (!_inventory.activeSelf) // если инвентарь выключен
+            Time.timeScale = 1f; // возобновл€ем врем€
     }
 
-    private void Die()
+    public void TakeDamage(int damage) // метод получени€ урона
     {
-        Destroy(gameObject);
+        if (damage > 0) // если урон больше 0
+            _health -= damage; // наносим урон
+
+        if (_health <= 0) // если здоровье меньше или равно нулю
+            Die(); // умираем
     }
 
-    private void OnEnable() => _playerInput.Enable();
+    private void Die() // метод смерти
+    {
+        Destroy(gameObject); // удаление этого объекта
+    }
 
-    private void OnDisable() => _playerInput.Disable();
+    private void OnEnable() => _playerInput.Enable(); // включаем систему ввода
+
+    private void OnDisable() => _playerInput.Disable(); // выключаем систему ввода
 }

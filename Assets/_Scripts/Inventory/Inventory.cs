@@ -12,6 +12,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] private List<Item> _items = new List<Item>(10); // список всех предметов в инвентаре
     [SerializeField] private Item _mouseItem, _nullItem; // предмет в руке и null предмет
     [SerializeField] private RawImage _mouseItemImage; // текстура предмета в руке
+    [SerializeField] private Craft _craftMenu;
 
     private Input _playerInput; // система ввода игрока
 
@@ -33,6 +34,7 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < _height * _width; i++) // проходимся по всем слотам
         {
             GameObject _newItem = new GameObject("Item", typeof(Item)); // создаем предмет
+
             //задаем характеристики предмета
             _newItem.GetComponent<Item>().Name = _items[i].Name;
             _newItem.GetComponent<Item>().ID = _items[i].ID;
@@ -44,6 +46,7 @@ public class Inventory : MonoBehaviour
         }
 
         Redraw(); // перерисовываем весь инвентарь
+        _craftMenu.Redraw(); // перерисовывем меню крафта
     }
 
     private void Update()
@@ -161,6 +164,7 @@ public class Inventory : MonoBehaviour
         }
 
         Redraw(); // перерисовываем инвентарь
+        _craftMenu.Redraw(); // перерисовывем меню крафта
     }
 
     public void AddItem(Item newItem) // метод добавления предметов в инвентарь
@@ -169,7 +173,6 @@ public class Inventory : MonoBehaviour
         {
             if (CheckObjects(newItem.ID) > 0 && _items[i].Stack < _items[i].MaxStack) // если такой предмет уже есть
             {
-                Debug.Log("Я тут!");
                 if (_items[i].ID == newItem.ID) // ID совпадает
                 {
                     _items[i].Stack++; // увеличиваем колличество предмета
@@ -192,6 +195,7 @@ public class Inventory : MonoBehaviour
         }
 
         Redraw(); // перерисовываем инвентарь
+        _craftMenu.Redraw(); // перерисовывем меню крафта
     }
 
     private void OnEnable() => _playerInput.Enable(); // включем систему ввода

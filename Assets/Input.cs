@@ -89,6 +89,51 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShowInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""d53f4017-3116-4f93-8d0e-49e3a7a1d9cd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Gadjet1"",
+                    ""type"": ""Button"",
+                    ""id"": ""83d17d6d-cb3d-43d6-b807-ba6f7c14cd91"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Gadjet2"",
+                    ""type"": ""Button"",
+                    ""id"": ""960afedc-18b0-4ab0-a620-b10d5fe7ca03"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Gadjet3"",
+                    ""type"": ""Button"",
+                    ""id"": ""98146d60-6331-47ec-8224-2f553ac61b36"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Gadjet4"",
+                    ""type"": ""Button"",
+                    ""id"": ""5428ce02-eecf-449f-9fbd-f8e31f665675"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -190,6 +235,61 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5014c3fc-7578-457f-a121-968c4ee46d22"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""ShowInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a5b46bdf-707b-4f7b-9d91-a03ee32b7788"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Gadjet1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e0286670-109e-4740-b696-260f25d162c9"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Gadjet2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""968fb4c9-2211-4ee2-a65f-bbc625cc02bc"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Gadjet3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a8fbe94-c970-4824-9116-4720dee692e2"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Gadjet4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -211,6 +311,11 @@ public partial class @Input: IInputActionCollection2, IDisposable
         m_Player_NodsPanelOpen = m_Player.FindAction("NodsPanelOpen", throwIfNotFound: true);
         m_Player_Close = m_Player.FindAction("Close", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+        m_Player_ShowInventory = m_Player.FindAction("ShowInventory", throwIfNotFound: true);
+        m_Player_Gadjet1 = m_Player.FindAction("Gadjet1", throwIfNotFound: true);
+        m_Player_Gadjet2 = m_Player.FindAction("Gadjet2", throwIfNotFound: true);
+        m_Player_Gadjet3 = m_Player.FindAction("Gadjet3", throwIfNotFound: true);
+        m_Player_Gadjet4 = m_Player.FindAction("Gadjet4", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -279,6 +384,11 @@ public partial class @Input: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_NodsPanelOpen;
     private readonly InputAction m_Player_Close;
     private readonly InputAction m_Player_Attack;
+    private readonly InputAction m_Player_ShowInventory;
+    private readonly InputAction m_Player_Gadjet1;
+    private readonly InputAction m_Player_Gadjet2;
+    private readonly InputAction m_Player_Gadjet3;
+    private readonly InputAction m_Player_Gadjet4;
     public struct PlayerActions
     {
         private @Input m_Wrapper;
@@ -290,6 +400,11 @@ public partial class @Input: IInputActionCollection2, IDisposable
         public InputAction @NodsPanelOpen => m_Wrapper.m_Player_NodsPanelOpen;
         public InputAction @Close => m_Wrapper.m_Player_Close;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
+        public InputAction @ShowInventory => m_Wrapper.m_Player_ShowInventory;
+        public InputAction @Gadjet1 => m_Wrapper.m_Player_Gadjet1;
+        public InputAction @Gadjet2 => m_Wrapper.m_Player_Gadjet2;
+        public InputAction @Gadjet3 => m_Wrapper.m_Player_Gadjet3;
+        public InputAction @Gadjet4 => m_Wrapper.m_Player_Gadjet4;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -320,6 +435,21 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
+            @ShowInventory.started += instance.OnShowInventory;
+            @ShowInventory.performed += instance.OnShowInventory;
+            @ShowInventory.canceled += instance.OnShowInventory;
+            @Gadjet1.started += instance.OnGadjet1;
+            @Gadjet1.performed += instance.OnGadjet1;
+            @Gadjet1.canceled += instance.OnGadjet1;
+            @Gadjet2.started += instance.OnGadjet2;
+            @Gadjet2.performed += instance.OnGadjet2;
+            @Gadjet2.canceled += instance.OnGadjet2;
+            @Gadjet3.started += instance.OnGadjet3;
+            @Gadjet3.performed += instance.OnGadjet3;
+            @Gadjet3.canceled += instance.OnGadjet3;
+            @Gadjet4.started += instance.OnGadjet4;
+            @Gadjet4.performed += instance.OnGadjet4;
+            @Gadjet4.canceled += instance.OnGadjet4;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -345,6 +475,21 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
+            @ShowInventory.started -= instance.OnShowInventory;
+            @ShowInventory.performed -= instance.OnShowInventory;
+            @ShowInventory.canceled -= instance.OnShowInventory;
+            @Gadjet1.started -= instance.OnGadjet1;
+            @Gadjet1.performed -= instance.OnGadjet1;
+            @Gadjet1.canceled -= instance.OnGadjet1;
+            @Gadjet2.started -= instance.OnGadjet2;
+            @Gadjet2.performed -= instance.OnGadjet2;
+            @Gadjet2.canceled -= instance.OnGadjet2;
+            @Gadjet3.started -= instance.OnGadjet3;
+            @Gadjet3.performed -= instance.OnGadjet3;
+            @Gadjet3.canceled -= instance.OnGadjet3;
+            @Gadjet4.started -= instance.OnGadjet4;
+            @Gadjet4.performed -= instance.OnGadjet4;
+            @Gadjet4.canceled -= instance.OnGadjet4;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -380,5 +525,10 @@ public partial class @Input: IInputActionCollection2, IDisposable
         void OnNodsPanelOpen(InputAction.CallbackContext context);
         void OnClose(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnShowInventory(InputAction.CallbackContext context);
+        void OnGadjet1(InputAction.CallbackContext context);
+        void OnGadjet2(InputAction.CallbackContext context);
+        void OnGadjet3(InputAction.CallbackContext context);
+        void OnGadjet4(InputAction.CallbackContext context);
     }
 }

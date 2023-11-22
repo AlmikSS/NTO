@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Null
   Image: {fileID: 0}
-  Stack: 0
+  Stack: -7
   MaxStack: 0
   ID: 0
   _itemsKey: 

@@ -16,6 +16,7 @@ public class BlocksMovement : MonoBehaviour
     }
 
     public void MoveBlock(Transform Obj){//когда пользователь начинает двигать блок
+
         if(Obj.position.x >= 0 && Obj.position.x <= Screen.width && Obj.position.y>= 0 && Obj.position.y <= Screen.height){
             Obj.SetParent(GameObject.Find("Canvas").transform);
             Obj.position = Input.mousePosition;//если блок находится в пределах экрана и не выходит за границы, то копирует позицию мыши
@@ -75,7 +76,7 @@ public class BlocksMovement : MonoBehaviour
         Vector2 _objPos = Obj.transform.position; //позиция передвигаемого блока
         Vector2 _collSize = new Vector2(Coll.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f),Coll.GetComponent<RectTransform>().sizeDelta.y*(Screen.height/1080f)); // размеры сталкивающегося блока
         Vector2 _objSize = new Vector2(Obj.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f),Obj.GetComponent<RectTransform>().sizeDelta.y*(Screen.height/1080f)); // размеры передвигаемого блока
-        Debug.Log(_objSize);
+        
         float _downEdge = Mathf.Abs(_collPos.y-(_objPos.y+_objSize.y)); //расчитывает абсолютную разницу между верхней границей передвигаемого блока и нижней границей сталкивающегося
         float _upEdge = Mathf.Abs(_collPos.y+_collSize.y-_objPos.y); //расчитывает абсолютную разницу между нижней границей передвигаемого блока и верхней границей сталкивающегося
         float _leftEdge = Mathf.Abs(_collPos.x-(_objPos.x+_objSize.x)); //расчитывает абсолютную разницу между правой границей передвигаемого блока и левой границей сталкивающегося

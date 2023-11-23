@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using System;
 public class NodesLogic : MonoBehaviour
 {
     [HideInInspector] public List<List<string>> Programm = new List<List<string>>();
@@ -27,7 +27,7 @@ public class NodesLogic : MonoBehaviour
             foreach(List<List<string>> i in AllCombinatoins){
                 foreach(List<string> j in i){
                     if(j.Contains(Obj.name)){
-                        j.Remove(Obj.name);}}}
+                        j.Remove(Obj.name); break;}}}
                     
             Destroy(Obj);//если пользователь отпускает блок над нодами, то он исчезает
             return;
@@ -36,54 +36,70 @@ public class NodesLogic : MonoBehaviour
         
         string _edge =  _blocksMove.DropBlock(Obj);
         GameObject _coll = _blocksMove.Coll;
-        int _programsCounter = 0;
-        int _strCounter = 0;
+        int _programsCounter = 0, _strCounter = 0, _strToInsert = -1, _progToInsert = -1, _progToAdd = -1;
+        bool _addNew = false;
         List<int> _strToRemove = new List<int>();
         List<int> _progToRemove = new List<int>();
         foreach(List<List<string>> i in AllCombinatoins){
-            _programsCounter++;
+
             _strCounter = 0;
             _strToRemove = new List<int>();
             foreach(List<string> j in i){
                 
-                if(j.Contains(Obj.name) && (j.Count != 1 || i.Count != 1)) {
+                if(j.Contains(Obj.name) && ((j.Count != 1 || i.Count != 1) || _edge!="")) {
                     j.Remove(Obj.name);
+                    if(_edge=="") _addNew = true;
                 }
 
-                if(_edge == "rightEdge" && j.Contains(_coll.name)) j.Insert(j.IndexOf(_coll.name),Obj.name);
+                if(_edge == "leftEdge" && j.Contains(_coll.name)) j.Insert(j.IndexOf(_coll.name),Obj.name);
 
-                else if(_edge == "leftEdge" && j.Contains(_coll.name)) j.Add(Obj.name);
+                else if(_edge == "rightEdge" && j.Contains(_coll.name)) j.Add(Obj.name);
 
                 else if(_edge == "upEdge" && j.Contains(_coll.name)){ 
-                    i.Insert(_strCounter,new List<string>(){Obj.name});
+                    _strToInsert = _strCounter;
+                    _progToInsert = _programsCounter;
                 }
                 
                 else if(_edge == "downEdge" && j.Contains(_coll.name)){
-                    i.Add(new List<string>(){Obj.name});
+                    _progToAdd = _programsCounter;
                 }
                 if(j.Count == 0){
                     _strToRemove.Add(i.IndexOf(j));
                 }
+                _strCounter++;
             }
             foreach(int r in _strToRemove) i.RemoveAt(r);
 
             if(i.Count == 0) _progToRemove.Add(AllCombinatoins.IndexOf(i));
-            _strCounter++;
+            
+            _programsCounter++;
         }
+
+        if( _progToAdd >= 0){ 
+            AllCombinatoins[_progToAdd].Add(new List<string>(){Obj.name});
+            _progToAdd = -1;
+        }
+        if( _strToInsert >= 0 && _progToInsert >= 0){
+             AllCombinatoins[_progToInsert].Insert(_strToInsert,new List<string>(){Obj.name});
+             _strToInsert = -1;
+             _progToInsert = -1;
+        }
+        if(_addNew) AllCombinatoins.Add(new List<List<string>>(){new List<string>(){Obj.name}});
 
         foreach(int r in _progToRemove) AllCombinatoins.RemoveAt(r);
         
+    
+    }
+
+    public void StartProgramm(){
         foreach(List<List<string>> i in AllCombinatoins){
-            //if(i[0][0].StartsWith("BeginNode") && i[^1][0].StartsWith("EndNode")){
-                Debug.Log("[");
+            if(i[0][0].StartsWith("BeginNode") && i[^1][0].StartsWith("EndNode")){
                 foreach(List<string> j in i){
                     Debug.Log("["+string.Join(", ", j)+"]");
                         
                 }
-                Debug.Log("]");
-            //}
+            }
         }
-    
     }
 }
 

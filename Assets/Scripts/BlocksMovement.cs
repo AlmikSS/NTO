@@ -29,23 +29,32 @@ public class BlocksMovement : MonoBehaviour
     }
 
      public string DropBlock(GameObject Obj){//когда пользователь отпускает нод
-        List<float> _distances = new List<float>();//создаем пустой массив для дистанций
         
+        
+        Vector2 _objPos = Obj.transform.position, _collSize, _collPos; //позиция передвигаемого блока
+        
+        Vector2 _objSize = new Vector2(Obj.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f),Obj.GetComponent<RectTransform>().sizeDelta.y*(Screen.height/1080f)); // размеры передвигаемого блока
         
         float _minDist = 1000000000000000000f;// задаем минимум
         foreach (GameObject i in AllNodes)//перебираем все ноды
         {
-            float _dist = Vector2.Distance(i.transform.position, Obj.transform.position);//находим дистанцию до нода
+            //находим дистанцию до нода
             if (i != Obj && Obj.transform.parent.transform.parent.name == i.transform.parent.transform.parent.name){// если не равен передвигаемому ноду и общий родитель, то добавляем в дистанции и сравниваем с минимумом
-                _distances.Add(_dist);
-                if( _dist<_minDist){
-                    _minDist = _dist;
+                _collSize = new Vector2(i.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f),i.GetComponent<RectTransform>().sizeDelta.y*(Screen.height/1080f)); // размеры сталкивающегося блока
+
+                float _leftDist = Vector2.Distance(new Vector2(i.transform.position.x-_collSize.x*0.5f, i.transform.position.y), new Vector2(Obj.transform.position.x+_objSize.x*0.5f, Obj.transform.position.y));
+                float _rightDist = Vector2.Distance(new Vector2(i.transform.position.x+_collSize.x*0.5f, i.transform.position.y), new Vector2(Obj.transform.position.x-_objSize.x*0.5f, Obj.transform.position.y));
+                float _upDist = Vector2.Distance(new Vector2(i.transform.position.x,i.transform.position.y+_collSize.y*0.5f), new Vector2(Obj.transform.position.x, Obj.transform.position.y-_objSize.y*0.5f));
+                float _downDist = Vector2.Distance(new Vector2(i.transform.position.x,i.transform.position.y-_collSize.y*0.5f), new Vector2(Obj.transform.position.x, Obj.transform.position.y+_objSize.y*0.5f));
+                if( Mathf.Min(_leftDist,_rightDist,_upDist,_downDist)<_minDist){
+                    _minDist = Mathf.Min(_leftDist,_rightDist,_upDist,_downDist);
                     Coll = i;
                 }
             }
            
         }
-
+        _collSize = new Vector2(Coll.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f),Coll.GetComponent<RectTransform>().sizeDelta.y*(Screen.height/1080f)); // размеры сталкивающегося блока
+        _collPos = Coll.transform.position; //позиция сталкивающегося блока
 
         bool _canRight = false, _canLeft = false, _canUp = false, _canDown = false;//переменные, разрешающие приклеивание нодов по данному направлению
         List<string> _objCanClue = new(), _collCanClue = new();//массивы, в которых хранятся все возможные варианты склеивания с этим нодом
@@ -72,10 +81,6 @@ public class BlocksMovement : MonoBehaviour
         if(_objCanClue.Contains("down") && _collCanClue.Contains("up")) _canUp = true;
 
 
-        Vector2 _collPos = Coll.transform.position; //позиция сталкивающегося блока
-        Vector2 _objPos = Obj.transform.position; //позиция передвигаемого блока
-        Vector2 _collSize = new Vector2(Coll.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f),Coll.GetComponent<RectTransform>().sizeDelta.y*(Screen.height/1080f)); // размеры сталкивающегося блока
-        Vector2 _objSize = new Vector2(Obj.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f),Obj.GetComponent<RectTransform>().sizeDelta.y*(Screen.height/1080f)); // размеры передвигаемого блока
         
         float _downEdge = Mathf.Abs(_collPos.y-(_objPos.y+_objSize.y)); //расчитывает абсолютную разницу между верхней границей передвигаемого блока и нижней границей сталкивающегося
         float _upEdge = Mathf.Abs(_collPos.y+_collSize.y-_objPos.y); //расчитывает абсолютную разницу между нижней границей передвигаемого блока и верхней границей сталкивающегося
@@ -84,7 +89,7 @@ public class BlocksMovement : MonoBehaviour
 
         if(_canDown && Mathf.Min(_downEdge, _upEdge) == _downEdge && _objPos.y >= _collPos.y-_collSize.y*0.5f-_objSize.y*0.5f-ClueDistnce && Mathf.Abs(_leftEdge-_rightEdge) <= ClueDistnce){// проверяем если он касает нижней стороны и приклеиваем
             Obj.transform.position = new Vector2(_collPos.x,_collPos.y-_collSize.y*0.5f-_objSize.y*0.5f);
-            return "downEgde";
+            return "downEdge";
         }
         else if(_canUp && Mathf.Min(_downEdge, _upEdge) == _upEdge && _objPos.y <= _collPos.y+_collSize.y*0.5f+_objSize.y*0.5f+ClueDistnce && Mathf.Abs(_leftEdge-_rightEdge) <= ClueDistnce){// проверяем если он касает верхней стороны и приклеиваем
             Obj.transform.position = new Vector2(_collPos.x,_collPos.y+_collSize.y*0.5f+_objSize.y*0.5f);

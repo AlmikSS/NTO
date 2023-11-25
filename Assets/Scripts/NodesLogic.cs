@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using System;
+using TMPro;
 public class NodesLogic : MonoBehaviour
 {
     [HideInInspector] public List<List<string>> Programm = new List<List<string>>();
@@ -92,18 +93,30 @@ public class NodesLogic : MonoBehaviour
     }
 
     public void StartProgramm(){
+
+        List<VariableNode> Variables = new();
         foreach(List<List<string>> i in AllCombinatoins){
             if(i[0][0].StartsWith("BeginNode") && i[^1][0].StartsWith("EndNode")){
-                foreach(List<string> j in i){
-                    Debug.Log("["+string.Join(", ", j)+"]");
-                        
+                foreach(List<string> str in i){
+                    Debug.Log("["+string.Join(", ", str)+"]");
+
+                    if(str[0].StartsWith("VariableNode")){
+                        GameObject obj = GameObject.Find(str[0]);
+                        string txt = obj.transform.GetChild(1).GetComponent<TMP_InputField>().text;
+                        string type;
+                        if(float.TryParse(txt,out var number)) type = "float";
+                        else type = "string";
+                        Variables.Add(new VariableNode(str[0],txt, type));
+                        Debug.Log(str[0]+" "+txt+" "+ type);
+                    }
                 }
             }
         }
+        
     }
 }
 
-public class NumberNode
+/*public class NumberNode
 {
     public float Value;
     public NumberNode(float TextValue){
@@ -116,22 +129,24 @@ public class StringNode
     public StringNode(string TextValue){
         Value = TextValue;
     }
-}
+}*/
 public class VariableNode
 {
     public string Name;
     public string Value;
-    public VariableNode(string TextName, string TextValue){
+    public string Type;
+    public VariableNode(string TextName, string TextValue, string TextType){
         Name = TextName;
         Value = TextValue;
+        Type = TextType;
     }
 
 }
 public class InputNode
 {
     public VariableNode InputVar;
-    public InputNode(string TextName, string InputValue){
-        InputVar = new(TextName, InputValue);
+    public InputNode(string TextName, string InputValue,  string TextType){
+        InputVar = new(TextName, InputValue, TextType);
     }
 }
 public class OutputNode

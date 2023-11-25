@@ -6,9 +6,9 @@ public class NodesLogic : MonoBehaviour
     [HideInInspector] public List<List<string>> Programm = new List<List<string>>(); // список позиций нодов для конечной программы
     List<List<List<string>>> AllCombinatoins = new List<List<List<string>>>(); // список позиций всех нодов по группам
     
-    [SerializeField] private string InputText;
-    [SerializeField] private string InputValue;
-    [SerializeField] private string Answer;
+    [SerializeField] string InputText;
+    [SerializeField] string InputValue;
+    [SerializeField] string Answer;
     [SerializeField] TMP_Text InputField;
     [SerializeField] TMP_Text OutputField;
     private void OnEnable() {
@@ -199,20 +199,7 @@ public class NodesLogic : MonoBehaviour
     }
 }
 
-/*public class NumberNode
-{
-    public float Value;
-    public NumberNode(float TextValue){
-        Value = TextValue;
-    }
-}
-public class StringNode
-{
-    public string Value;
-    public StringNode(string TextValue){
-        Value = TextValue;
-    }
-}*/
+
 public class VariableNode
 {
     public string Name;
@@ -224,18 +211,4 @@ public class VariableNode
         Type = TextType;
     }
 
-}
-public class InputNode
-{
-    public VariableNode InputVar;
-    public InputNode(string TextName, string InputValue,  string TextType){
-        InputVar = new(TextName, InputValue, TextType);
-    }
-}
-public class OutputNode
-{
-    public string OutputVar;
-    public OutputNode(VariableNode Node){
-        OutputVar = Node.Value;
-    }
 }

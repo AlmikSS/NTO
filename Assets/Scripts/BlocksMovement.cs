@@ -8,14 +8,14 @@ public class BlocksMovement : MonoBehaviour
     [SerializeField] float ClueDistnce = 15f;//дистанция склеивания нодов
     [HideInInspector] public GameObject Coll;// создаем публичную переменную для ближайшего объекта 
 
-    public void OnInitializeDrag(GameObject Obj){//когда пользователь начинает двигать блок
-        if(Obj.transform.parent.parent.parent.name == "NodesView"){
+    public void OnInitializeDrag(GameObject Obj){//когда пользователь начинает двигать нод
+        if(Obj.transform.parent.parent.parent.name == "NodesView"){//проверяем находится ли он в теле нодов
             GameObject _newObj = Instantiate(Obj, new Vector2(Obj.transform.position.x, Obj.transform.position.y),  Quaternion.identity, Obj.transform.parent);
-            AllNodes.Add(_newObj);
+            AllNodes.Add(_newObj);//создаем копию и добавляем в список ко всем
         }
     }
 
-    public void MoveBlock(Transform Obj){//когда пользователь начинает двигать блок
+    public void MoveBlock(Transform Obj){//когда пользователь двигает блок
 
         if(Obj.position.x >= 0 && Obj.position.x <= Screen.width && Obj.position.y>= 0 && Obj.position.y <= Screen.height){
             Obj.SetParent(GameObject.Find("Canvas").transform);
@@ -28,27 +28,27 @@ public class BlocksMovement : MonoBehaviour
         }
     }
 
-     public string DropBlock(GameObject Obj){//когда пользователь отпускает нод
+     public string DropBlock(GameObject Obj){//вызывается из NodesLogic
         
         
-        Vector2 _objPos = Obj.transform.position, _collSize, _collPos; //позиция передвигаемого блока
+        Vector2 _objPos = Obj.transform.position, _collSize, _collPos; //позиция текущего нода
         
-        Vector2 _objSize = new Vector2(Obj.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f),Obj.GetComponent<RectTransform>().sizeDelta.y*(Screen.height/1080f)); // размеры передвигаемого блока
+        Vector2 _objSize = new Vector2(Obj.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f),Obj.GetComponent<RectTransform>().sizeDelta.y*(Screen.height/1080f)); // размеры текущего нода
         
         float _minDist = 1000000000000000000f;// задаем минимум
         foreach (GameObject i in AllNodes)//перебираем все ноды
         {
             //находим дистанцию до нода
-            if (i != Obj && Obj.transform.parent.transform.parent.name == i.transform.parent.transform.parent.name){// если не равен передвигаемому ноду и общий родитель, то добавляем в дистанции и сравниваем с минимумом
-                _collSize = new Vector2(i.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f),i.GetComponent<RectTransform>().sizeDelta.y*(Screen.height/1080f)); // размеры сталкивающегося блока
+            if (i != Obj && Obj.transform.parent.transform.parent.name == i.transform.parent.transform.parent.name){// если не равен передвигаемому ноду и общий родитель
+                _collSize = new Vector2(i.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f),i.GetComponent<RectTransform>().sizeDelta.y*(Screen.height/1080f)); // размеры проверяемого нода
 
-                float _leftDist = Vector2.Distance(new Vector2(i.transform.position.x-_collSize.x*0.5f, i.transform.position.y), new Vector2(Obj.transform.position.x+_objSize.x*0.5f, Obj.transform.position.y));
-                float _rightDist = Vector2.Distance(new Vector2(i.transform.position.x+_collSize.x*0.5f, i.transform.position.y), new Vector2(Obj.transform.position.x-_objSize.x*0.5f, Obj.transform.position.y));
-                float _upDist = Vector2.Distance(new Vector2(i.transform.position.x,i.transform.position.y+_collSize.y*0.5f), new Vector2(Obj.transform.position.x, Obj.transform.position.y-_objSize.y*0.5f));
-                float _downDist = Vector2.Distance(new Vector2(i.transform.position.x,i.transform.position.y-_collSize.y*0.5f), new Vector2(Obj.transform.position.x, Obj.transform.position.y+_objSize.y*0.5f));
+                float _leftDist = Vector2.Distance(new Vector2(i.transform.position.x-_collSize.x*0.5f, i.transform.position.y), new Vector2(Obj.transform.position.x+_objSize.x*0.5f, Obj.transform.position.y)); //дистанция между левой стороной проверяемого нода и правой текущего нода
+                float _rightDist = Vector2.Distance(new Vector2(i.transform.position.x+_collSize.x*0.5f, i.transform.position.y), new Vector2(Obj.transform.position.x-_objSize.x*0.5f, Obj.transform.position.y));//дистанция между правой стороной проверяемого нода и леовй текущего нода
+                float _upDist = Vector2.Distance(new Vector2(i.transform.position.x,i.transform.position.y+_collSize.y*0.5f), new Vector2(Obj.transform.position.x, Obj.transform.position.y-_objSize.y*0.5f));//дистанция между верхней стороной проверяемого нода и нижней текущего нода
+                float _downDist = Vector2.Distance(new Vector2(i.transform.position.x,i.transform.position.y-_collSize.y*0.5f), new Vector2(Obj.transform.position.x, Obj.transform.position.y+_objSize.y*0.5f));//дистанция между нижней стороной проверяемого нода и верхней текущего нода
                 if( Mathf.Min(_leftDist,_rightDist,_upDist,_downDist)<_minDist){
                     _minDist = Mathf.Min(_leftDist,_rightDist,_upDist,_downDist);
-                    Coll = i;
+                    Coll = i;//находим минимум и присваиваем переменной для сталкивающегося с текущим нодом значение проверяемого
                 }
             }
            
@@ -59,7 +59,7 @@ public class BlocksMovement : MonoBehaviour
         bool _canRight = false, _canLeft = false, _canUp = false, _canDown = false;//переменные, разрешающие приклеивание нодов по данному направлению
         List<string> _objCanClue = new(), _collCanClue = new();//массивы, в которых хранятся все возможные варианты склеивания с этим нодом
 
-        /////////////////Для передвигаемого нода
+        /////////////////Для передвигаемого нода, для каждого нода разные варианты склейки
         if(Obj.tag=="BeginNode") _objCanClue.Add("down");
         else if(Obj.tag=="VariableNode"){ _objCanClue.Add("up"); _objCanClue.Add("down"); _objCanClue.Add("right"); _objCanClue.Add("left");}
         else if(Obj.tag=="NumberNode" || Obj.tag=="LogicalNodes" || Obj.tag=="StringNode" || Obj.tag=="MathNodes"){_objCanClue.Add("right"); _objCanClue.Add("left");}
@@ -67,7 +67,7 @@ public class BlocksMovement : MonoBehaviour
         else if(Obj.tag=="EmptyNode" || Obj.tag=="InputNode" || Obj.tag=="OutputNode") {_objCanClue.Add("up"); _objCanClue.Add("down");}
         else if(Obj.tag=="EndNode") _objCanClue.Add("up");
 
-        /////////////////Для ближайшего нода
+        /////////////////Для сталкивающегося нода,, для каждого нода разные варианты склейки
         if(Coll.tag=="BeginNode") _collCanClue.Add("down");
         else if(Coll.tag=="VariableNode"){ _collCanClue.Add("up"); _collCanClue.Add("down"); _collCanClue.Add("right"); _collCanClue.Add("left");}
         else if(Coll.tag=="NumberNode" || Coll.tag=="LogicalNodes" || Coll.tag=="StringNode" || Coll.tag=="MathNodes"){_collCanClue.Add("right"); _collCanClue.Add("left");}

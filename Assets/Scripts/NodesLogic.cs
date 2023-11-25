@@ -95,6 +95,7 @@ public class NodesLogic : MonoBehaviour
     public void StartProgramm(){
 
         List<VariableNode> Variables = new();
+
         foreach(List<List<string>> i in AllCombinatoins){
             if(i[0][0].StartsWith("BeginNode") && i[^1][0].StartsWith("EndNode")){
                 foreach(List<string> str in i){
@@ -102,17 +103,74 @@ public class NodesLogic : MonoBehaviour
 
                     if(str[0].StartsWith("VariableNode")){
                         GameObject obj = GameObject.Find(str[0]);
-                        string txt = obj.transform.GetChild(1).GetComponent<TMP_InputField>().text;
-                        string type;
-                        if(float.TryParse(txt,out var number)) type = "float";
-                        else type = "string";
-                        Variables.Add(new VariableNode(str[0],txt, type));
-                        Debug.Log(str[0]+" "+txt+" "+ type);
+                        string _txt = obj.transform.GetChild(1).GetComponent<TMP_InputField>().text;
+                        string _type;
+                        string _value = Assinment(AllCombinatoins.IndexOf(i),i.IndexOf(str));
+                        if(float.TryParse(_value,out var number)) _type = "float";
+                        else _type = "string";
+                        Variables.Add(new VariableNode(_txt,_value, _type));
+                        Debug.Log(_txt+" "+_value+" "+ _type);
                     }
                 }
             }
         }
-        
+        string Assinment(int i, int str){
+            string _value = "";
+            int _nodeCount = 0;
+            List<string> _currentStr = AllCombinatoins[i][str];
+            if(_currentStr.Count>1 && _currentStr[1].StartsWith("AssignmentNode")){
+                foreach(string node in _currentStr){
+
+                    if((node.StartsWith("NumberNode") || node.StartsWith("StringNode")) &&  _currentStr[_nodeCount-1].StartsWith("AssignmentNode")){
+                        string _txt = GameObject.Find(node).transform.GetChild(1).GetComponent<TMP_InputField>().text;
+                        _value =_txt;
+                    }
+
+                    else if(node.StartsWith("VariableNode") && _nodeCount>1 && _currentStr[_nodeCount-1].StartsWith("AssignmentNode")){
+                        string _txt = GameObject.Find(node).transform.GetChild(1).GetComponent<TMP_InputField>().text;
+                        _value += Variables.Find(x => x.Name ==  _txt).Value;
+                    }
+                    else if(GameObject.Find(node).tag=="MathNodes" && _currentStr.Count>=_nodeCount+1 && (_currentStr[_nodeCount-1].StartsWith("StringNode") || _currentStr[_nodeCount-1].StartsWith("NumberNode") || _currentStr[_nodeCount-1].StartsWith("VariableNode")) && (_currentStr[_nodeCount+1].StartsWith("StringNode") || _currentStr[_nodeCount+1].StartsWith("NumberNode") || _currentStr[_nodeCount+1].StartsWith("VariableNode"))){
+
+                        string _value2 = "";
+                        string _lastTxt = GameObject.Find(_currentStr[_nodeCount-1]).transform.GetChild(1).GetComponent<TMP_InputField>().text;
+                        string _nextTxt = GameObject.Find(_currentStr[_nodeCount+1]).transform.GetChild(1).GetComponent<TMP_InputField>().text;
+
+                        if((_currentStr[_nodeCount-1].StartsWith("NumberNode") || Variables.Exists(x => x.Name == _lastTxt && x.Type == "float")) && _currentStr[_nodeCount+1].StartsWith("NumberNode")){
+                            _value2 = _nextTxt;
+                        }
+                        else if((_currentStr[_nodeCount-1].StartsWith("NumberNode") || Variables.Exists(x => x.Name == _lastTxt && x.Type == "float")) && Variables.Exists(x => x.Name == _nextTxt && x.Type == "float")){
+                            _value2 = Variables.Find(x => x.Name == _nextTxt).Value;
+                        }
+                        else if((_currentStr[_nodeCount-1].StartsWith("StringNode") || Variables.Exists(x => x.Name == _lastTxt && x.Type == "string")) && _currentStr[_nodeCount+1].StartsWith("StringNode") ){
+                            _value2 = _nextTxt;
+                        }
+                        else if((_currentStr[_nodeCount-1].StartsWith("StringNode") || Variables.Exists(x => x.Name == _lastTxt && x.Type == "string")) && Variables.Exists(x => x.Name == _nextTxt && x.Type == "string")) {
+                            _value2 = Variables.Find(x => x.Name == _nextTxt).Value;
+                        }
+                        else return "";
+
+                        if(float.TryParse(_value,out var number1) && float.TryParse(_value2,out var number2)){
+                            if(node.StartsWith("AdditionNode")) _value=(float.Parse(_value) + float.Parse(_value2)).ToString();
+                            else if(node.StartsWith("SubstractionNode")) _value=(float.Parse(_value) - float.Parse(_value2)).ToString();
+                            else if(node.StartsWith("DevisionNode")) _value=(float.Parse(_value) / float.Parse(_value2)).ToString();
+                            else if(node.StartsWith("MultiplicationNode")) _value=(float.Parse(_value) * float.Parse(_value2)).ToString();
+                            else if(node.StartsWith("RemainderNode")) _value=(float.Parse(_value) % float.Parse(_value2)).ToString();
+                            else if(int.TryParse(_value,out var number3) && int.TryParse(_value2,out var number4) && node.StartsWith("IntDevisionNode")) {
+                                _value=(int.Parse(_value)/int.Parse(_value2)).ToString();
+                            }
+                        }
+                        else{
+                            if(node.StartsWith("AdditionNode")) _value+=_value2;
+                            else return "";
+                        }
+                    }
+                    
+                    _nodeCount++;
+                }
+            }
+            return _value;
+        }
     }
 }
 

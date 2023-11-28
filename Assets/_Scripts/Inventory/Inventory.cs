@@ -10,13 +10,14 @@ public class Inventory : MonoBehaviour
     [SerializeField] private GameObject _button; // сылка на префаб слота/кнопки инвентаря
 
     [SerializeField] private List<Item> _items = new List<Item>(10); // список всех предметов в инвентаре
-    [SerializeField] private Item _mouseItem, _nullItem; // предмет в руке и null предмет
+    [SerializeField] private Item _mouseItem; // предмет в руке
+    [SerializeField] private Item _nullItem; // пустой предмет
     [SerializeField] private RawImage _mouseItemImage; // текстура предмета в руке
     [SerializeField] private Craft _craftMenu;
 
     private Input _playerInput; // система ввода игрока
 
-    private void Awake()
+    public void Inizialize()
     {
         _playerInput = new Input(); // создаем экземпляр класса Input
     }
@@ -196,6 +197,11 @@ public class Inventory : MonoBehaviour
 
         Redraw(); // перерисовываем инвентарь
         _craftMenu.Redraw(); // перерисовывем меню крафта
+    }
+
+    public Item GetMouseItem()
+    {
+        return _mouseItem;
     }
 
     private void OnEnable() => _playerInput.Enable(); // включем систему ввода

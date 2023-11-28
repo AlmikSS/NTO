@@ -82,7 +82,7 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Attack"",
+                    ""name"": ""MouseLeftButtonClick"",
                     ""type"": ""Button"",
                     ""id"": ""01157e50-b92a-42c1-be26-beea58f0c6fb"",
                     ""expectedControlType"": ""Button"",
@@ -130,6 +130,15 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""name"": ""Gadjet4"",
                     ""type"": ""Button"",
                     ""id"": ""5428ce02-eecf-449f-9fbd-f8e31f665675"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseRightButtonClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""3ebbe8aa-65f9-421e-ba4d-94ccab277e48"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -232,7 +241,7 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Attack"",
+                    ""action"": ""MouseLeftButtonClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -290,6 +299,17 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""action"": ""Gadjet4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6b67eda3-a868-42c8-b92b-256463fd67f6"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MouseRightButtonClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -310,12 +330,13 @@ public partial class @Input: IInputActionCollection2, IDisposable
         m_Player_MousePosition = m_Player.FindAction("MousePosition", throwIfNotFound: true);
         m_Player_NodsPanelOpen = m_Player.FindAction("NodsPanelOpen", throwIfNotFound: true);
         m_Player_Close = m_Player.FindAction("Close", throwIfNotFound: true);
-        m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+        m_Player_MouseLeftButtonClick = m_Player.FindAction("MouseLeftButtonClick", throwIfNotFound: true);
         m_Player_ShowInventory = m_Player.FindAction("ShowInventory", throwIfNotFound: true);
         m_Player_Gadjet1 = m_Player.FindAction("Gadjet1", throwIfNotFound: true);
         m_Player_Gadjet2 = m_Player.FindAction("Gadjet2", throwIfNotFound: true);
         m_Player_Gadjet3 = m_Player.FindAction("Gadjet3", throwIfNotFound: true);
         m_Player_Gadjet4 = m_Player.FindAction("Gadjet4", throwIfNotFound: true);
+        m_Player_MouseRightButtonClick = m_Player.FindAction("MouseRightButtonClick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -383,12 +404,13 @@ public partial class @Input: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_MousePosition;
     private readonly InputAction m_Player_NodsPanelOpen;
     private readonly InputAction m_Player_Close;
-    private readonly InputAction m_Player_Attack;
+    private readonly InputAction m_Player_MouseLeftButtonClick;
     private readonly InputAction m_Player_ShowInventory;
     private readonly InputAction m_Player_Gadjet1;
     private readonly InputAction m_Player_Gadjet2;
     private readonly InputAction m_Player_Gadjet3;
     private readonly InputAction m_Player_Gadjet4;
+    private readonly InputAction m_Player_MouseRightButtonClick;
     public struct PlayerActions
     {
         private @Input m_Wrapper;
@@ -399,12 +421,13 @@ public partial class @Input: IInputActionCollection2, IDisposable
         public InputAction @MousePosition => m_Wrapper.m_Player_MousePosition;
         public InputAction @NodsPanelOpen => m_Wrapper.m_Player_NodsPanelOpen;
         public InputAction @Close => m_Wrapper.m_Player_Close;
-        public InputAction @Attack => m_Wrapper.m_Player_Attack;
+        public InputAction @MouseLeftButtonClick => m_Wrapper.m_Player_MouseLeftButtonClick;
         public InputAction @ShowInventory => m_Wrapper.m_Player_ShowInventory;
         public InputAction @Gadjet1 => m_Wrapper.m_Player_Gadjet1;
         public InputAction @Gadjet2 => m_Wrapper.m_Player_Gadjet2;
         public InputAction @Gadjet3 => m_Wrapper.m_Player_Gadjet3;
         public InputAction @Gadjet4 => m_Wrapper.m_Player_Gadjet4;
+        public InputAction @MouseRightButtonClick => m_Wrapper.m_Player_MouseRightButtonClick;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -432,9 +455,9 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @Close.started += instance.OnClose;
             @Close.performed += instance.OnClose;
             @Close.canceled += instance.OnClose;
-            @Attack.started += instance.OnAttack;
-            @Attack.performed += instance.OnAttack;
-            @Attack.canceled += instance.OnAttack;
+            @MouseLeftButtonClick.started += instance.OnMouseLeftButtonClick;
+            @MouseLeftButtonClick.performed += instance.OnMouseLeftButtonClick;
+            @MouseLeftButtonClick.canceled += instance.OnMouseLeftButtonClick;
             @ShowInventory.started += instance.OnShowInventory;
             @ShowInventory.performed += instance.OnShowInventory;
             @ShowInventory.canceled += instance.OnShowInventory;
@@ -450,6 +473,9 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @Gadjet4.started += instance.OnGadjet4;
             @Gadjet4.performed += instance.OnGadjet4;
             @Gadjet4.canceled += instance.OnGadjet4;
+            @MouseRightButtonClick.started += instance.OnMouseRightButtonClick;
+            @MouseRightButtonClick.performed += instance.OnMouseRightButtonClick;
+            @MouseRightButtonClick.canceled += instance.OnMouseRightButtonClick;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -472,9 +498,9 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @Close.started -= instance.OnClose;
             @Close.performed -= instance.OnClose;
             @Close.canceled -= instance.OnClose;
-            @Attack.started -= instance.OnAttack;
-            @Attack.performed -= instance.OnAttack;
-            @Attack.canceled -= instance.OnAttack;
+            @MouseLeftButtonClick.started -= instance.OnMouseLeftButtonClick;
+            @MouseLeftButtonClick.performed -= instance.OnMouseLeftButtonClick;
+            @MouseLeftButtonClick.canceled -= instance.OnMouseLeftButtonClick;
             @ShowInventory.started -= instance.OnShowInventory;
             @ShowInventory.performed -= instance.OnShowInventory;
             @ShowInventory.canceled -= instance.OnShowInventory;
@@ -490,6 +516,9 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @Gadjet4.started -= instance.OnGadjet4;
             @Gadjet4.performed -= instance.OnGadjet4;
             @Gadjet4.canceled -= instance.OnGadjet4;
+            @MouseRightButtonClick.started -= instance.OnMouseRightButtonClick;
+            @MouseRightButtonClick.performed -= instance.OnMouseRightButtonClick;
+            @MouseRightButtonClick.canceled -= instance.OnMouseRightButtonClick;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -524,11 +553,12 @@ public partial class @Input: IInputActionCollection2, IDisposable
         void OnMousePosition(InputAction.CallbackContext context);
         void OnNodsPanelOpen(InputAction.CallbackContext context);
         void OnClose(InputAction.CallbackContext context);
-        void OnAttack(InputAction.CallbackContext context);
+        void OnMouseLeftButtonClick(InputAction.CallbackContext context);
         void OnShowInventory(InputAction.CallbackContext context);
         void OnGadjet1(InputAction.CallbackContext context);
         void OnGadjet2(InputAction.CallbackContext context);
         void OnGadjet3(InputAction.CallbackContext context);
         void OnGadjet4(InputAction.CallbackContext context);
+        void OnMouseRightButtonClick(InputAction.CallbackContext context);
     }
 }

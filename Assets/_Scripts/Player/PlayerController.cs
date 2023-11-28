@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private Input _playerInput; // система ввода
     private Animator _animator; // поле Animator
 
-    private void Awake()
+    public void Awake()
     {
         _playerInput = new Input(); // создаем экземпл€р класса Input
         _playerInput.Player.Jump.performed += context => Jump(); // подписываем метод Jump к событию нажати€ на кнопку прыжка

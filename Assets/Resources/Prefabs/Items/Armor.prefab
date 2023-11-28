@@ -49,5 +49,6 @@ MonoBehaviour:
   Stack: 1
   MaxStack: 2
   ID: 2
+  GadjetType: 1
   _itemsKey: 01000000
   _itemsCount: 02000000

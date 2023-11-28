@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using System.Diagnostics;
 public class NodesLogic : MonoBehaviour
 {
     [HideInInspector] public List<List<string>> Programm = new List<List<string>>(); // список позиций нодов для конечной программы
@@ -106,127 +107,427 @@ public class NodesLogic : MonoBehaviour
         Error.SetActive(false);//деалем невидимой ошибку
         OutputField.text = "";//обнуляем строку вывода
         List<VariableNode> Variables = new();//создаем список всех переменных
-
+        List<int> _influenceNodes = new();//создаем список для нодов, которые будут находится под влиянием
+        List<string> str = new();
+        int _whileInd = 0;
         foreach(List<List<string>> i in AllCombinatoins){//перебираем все группы нодов
             if(i[0][0].StartsWith("BeginNode") && i[^1][0].StartsWith("EndNode")){//если есть начало и конец
-                foreach(List<string> str in i){//перебираем все строки
-                    Debug.Log("["+string.Join(", ", str)+"]");
+                Programm = i;
+                break;
+            }
+        }
 
-                    GameObject obj = GameObject.Find(str[0]);//получаем объект по имени первого нода
+        for(int k = 0;k < Programm.Count; k++){//перебираем все строки
+            
+            if(_whileInd>0) k = _whileInd;
+            str = Programm[k];
 
-                    if(str[0].StartsWith("VariableNode")){//если объявляем переменную
-                        string _name = obj.transform.GetChild(1).GetComponent<TMP_InputField>().text;//имя
-                        if(_name == ""){//проверяет является ли поле пустым и выводит ошибку
-                            OutputField.text = "Ошибка, "+(i.IndexOf(str)+1)+" строка: отсутстувует имя переменной";
-                            Error.SetActive(true);
-                            return;
-                        }
-                        string _type;//тип
-                        string _value = Assignment(AllCombinatoins.IndexOf(i),i.IndexOf(str));//функция для определения значение
-                        if(_value.StartsWith("Ошибка")){//если ошибка, то делаем активной ошибку и вводим сообщение в вывод
-                            OutputField.text = _value;
-                            Error.SetActive(true);
-                            return;
-                        }
-                        if(float.TryParse(_value,out var number)) _type = "float";//если возможно перевести в float
-                        else _type = "string";//иначе оставляем строкой
-                        Variables.Add(new VariableNode(_name,_value, _type));//добавляем переменную
-                        Debug.Log(_name+" "+_value+" "+ _type);
+            
+            GameObject obj = GameObject.Find(str[0]);//получаем объект по имени первого нода
+            if(_influenceNodes.Count>0 && _influenceNodes[^1]<=0){
+                _influenceNodes.RemoveAt(_influenceNodes.Count-1);
+            }
+            
+            if(_influenceNodes.Count>0 && _influenceNodes[^1]>0){
+                _influenceNodes[^1]--;
+                continue;
+            }
+            if(str[0].StartsWith("VariableNode")){//если объявляем переменную
+                string _name = obj.transform.GetChild(1).GetComponent<TMP_InputField>().text;//имя
+                string _type;//тип
+                string _value = Assignment(Programm.IndexOf(str));//функция для определения значение
+                if(_value.StartsWith("Ошибка")){//если ошибка, то делаем активной ошибку и вводим сообщение в вывод
+                    OutputField.text = _value;
+                    Error.SetActive(true);
+                    return;
+                }
+                if(float.TryParse(_value,out var number)) _type = "float";//если возможно перевести в float
+                else _type = "string";//иначе оставляем строкой
+
+                if(_name == ""){//проверяет является ли поле пустым и выводит ошибку
+                    OutputField.text = "Ошибка, "+(Programm.IndexOf(str)+1)+" строка: отсутстувует имя переменной";
+                    Error.SetActive(true);
+                    return;
+                }
+                else if(Variables.Exists(x => x.Name == _name)){
+                    Variables.Remove(Variables.Find(x => x.Name == _name));
+                }
+                Variables.Add(new VariableNode(_name,_value, _type));//добавляем переменную
+                
+
+            }
+            else if(str[0].StartsWith("InputNode")){//если нод ввода
+                string _name = obj.transform.GetChild(1).GetComponent<TMP_InputField>().text;//имя переменной
+                if(_name == ""){//проверяет является ли поле пустым и выводит ошибку
+                    OutputField.text = "Ошибка, "+(Programm.IndexOf(str)+1)+" строка: отсутстувует переменная ввода";
+                    Error.SetActive(true);
+                    return;
+                }
+                string _type;//тип
+                string _value = InputValue;//заносим значение из испектора
+                if(float.TryParse(_value,out var number)) _type = "float";//если возможно перевести в float
+                else _type = "string";//иначе оставляем строкой
+                Variables.Add(new VariableNode(_name,_value, _type));//добавляем переменную
+            }
+            else if(str[0].StartsWith("OutputNode")){//если нод вывода
+                try{
+                    OutputField.text = Variables.Find(x => x.Name == obj.transform.GetChild(1).GetComponent<TMP_InputField>().text).Value;//находим значение переменной и выносим в поле вывода
+                }
+                catch(NullReferenceException){//проверяет является ли поле пустым и выводит ошибку
+                    OutputField.text = "Ошибка, "+(Programm.IndexOf(str)+1)+" строка: отсутстувует переменная вывода";
+                    Error.SetActive(true);
+                    return;
+                }
+                if(Variables.Find(x => x.Name == obj.transform.GetChild(1).GetComponent<TMP_InputField>().text).Value == Answer){//проверяем правильность ответа
+                    GameObject.Find("Correct").GetComponent<Animation>().Play();
+                }
+                else GameObject.Find("Incorrect").GetComponent<Animation>().Play();
+            }
+            else if(str[0].StartsWith("IfNode")){//если нод условия
+                string _condition = CheckCondition(Programm.IndexOf(str));//проверяем условие
+        
+
+                int _nesting = 0, _influenceField = 0;
+                for(int i = Programm.IndexOf(str)+1; i < Programm.Count;i++){
+         
+                    string j =  Programm[i][0];
+                    if(j.StartsWith("EmptyNode") && _nesting==0){
+                        _influenceField = i-Programm.IndexOf(str);
+                        
                     }
-                    else if(str[0].StartsWith("InputNode")){//если нод ввода
-                        string _name = obj.transform.GetChild(1).GetComponent<TMP_InputField>().text;//имя переменной
-                        if(_name == ""){//проверяет является ли поле пустым и выводит ошибку
-                            OutputField.text = "Ошибка, "+(i.IndexOf(str)+1)+" строка: отсутстувует переменная ввода";
-                            Error.SetActive(true);
-                            return;
-                        }
-                        string _type;//тип
-                        string _value = InputValue;//заносим значение из испектора
-                        if(float.TryParse(_value,out var number)) _type = "float";//если возможно перевести в float
-                        else _type = "string";//иначе оставляем строкой
-                        Variables.Add(new VariableNode(_name,_value, _type));//добавляем переменную
+                    else if(j.StartsWith("EmptyNode")){
+                        _nesting--;
                     }
-                    else if(str[0].StartsWith("OutputNode")){//если нод вывода
-                        try{
-                            OutputField.text = Variables.Find(x => x.Name == obj.transform.GetChild(1).GetComponent<TMP_InputField>().text).Value;//находим значение переменной и выносим в поле вывода
-                        }
-                        catch(NullReferenceException){//проверяет является ли поле пустым и выводит ошибку
-                            OutputField.text = "Ошибка, "+(i.IndexOf(str)+1)+" строка: отсутстувует переменная вывода";
-                            Error.SetActive(true);
-                            return;
-                        }
-                        if(Variables.Find(x => x.Name == obj.transform.GetChild(1).GetComponent<TMP_InputField>().text).Value == Answer){//проверяем правильность ответа
-                            GameObject.Find("Correct").GetComponent<Animation>().Play();
-                        }
-                        else GameObject.Find("Incorrect").GetComponent<Animation>().Play();
+                    else if(j.StartsWith("IfNode") || j.StartsWith("ElseNode") || j.StartsWith("WhileNode")){
+                        _nesting++;
+                    }
+                }
+                if(_condition=="true") continue;
+                else if(_condition=="false") {
+                    _influenceNodes.Add(_influenceField);
+               
+                }
+                else if(_condition.StartsWith("Ошибка")){
+                    OutputField.text = _condition;
+                    Error.SetActive(true);
+                    return;
+                }
+                
+            }
+            else if(str[0].StartsWith("WhileNode")){//если нод условия
+                string _condition = CheckCondition(Programm.IndexOf(str));//проверяем условие
+
+                int _nesting = 0, _influenceField = 0;
+                for(int i = Programm.IndexOf(str)+1; i < Programm.Count;i++){
+         
+                    string j =  Programm[i][0];
+                    if(j.StartsWith("EmptyNode") && _nesting==0){
+                        _influenceField = i-Programm.IndexOf(str);
+                        
+                    }
+                    else if(j.StartsWith("EmptyNode")){
+                        _nesting--;
+                    }
+                    else if(j.StartsWith("IfNode") || j.StartsWith("ElseNode") || j.StartsWith("WhileNode")){
+                        _nesting++;
+                    }
+                }
+                if(_condition=="true"){ _whileInd = Programm.IndexOf(str); continue;}
+                else if(_condition=="false") {
+                    _whileInd = 0;
+                    _influenceNodes.Add(_influenceField);
+               
+                }
+                else if(_condition.StartsWith("Ошибка")){
+                    OutputField.text = _condition;
+                    Error.SetActive(true);
+                    return;
+                }
+                
+            }
+        }
+    
+
+        string CheckCondition(int str){
+            List<string> _currentStr = Programm[str], _simplifiedString = new();
+
+            foreach(string node in _currentStr){
+                if(node.StartsWith("AdditionNode")) _simplifiedString.Add("+");
+                else if(node.StartsWith("SubstractionNode")) _simplifiedString.Add("-");
+                else if(node.StartsWith("DevisionNode")) _simplifiedString.Add("/");
+                else if(node.StartsWith("MultiplicationNode")) _simplifiedString.Add("*");
+                else if(node.StartsWith("RemainderNode")) _simplifiedString.Add("%");
+                else if(node.StartsWith("IntDevisionNode")) _simplifiedString.Add("//");     
+                else if(node.StartsWith("EqualNode")) _simplifiedString.Add("==");
+                else if(node.StartsWith("MoreNode")) _simplifiedString.Add(">");
+                else if(node.StartsWith("LessNode")) _simplifiedString.Add("<");
+                else if(node.StartsWith("MoreEqualNode")) _simplifiedString.Add(">=");
+                else if(node.StartsWith("LessEqualNode")) _simplifiedString.Add("<=");
+                else if(node.StartsWith("NotEqualNode")) _simplifiedString.Add("!=");
+                else if(node.StartsWith("AndNode")) _simplifiedString.Add("&&");
+                else if(node.StartsWith("OrNode")) _simplifiedString.Add("||");
+                else if(node.StartsWith("NumberNode")){
+                    _simplifiedString.Add(GameObject.Find(node).transform.GetChild(1).GetComponent<TMP_InputField>().text);
+                }
+                else if(node.StartsWith("VariableNode")){
+                    if(Variables.Exists(x => x.Name == GameObject.Find(node).transform.GetChild(1).GetComponent<TMP_InputField>().text)){
+                        _simplifiedString.Add(Variables.Find(x => x.Name == GameObject.Find(node).transform.GetChild(1).GetComponent<TMP_InputField>().text).Value);
                     }
                 }
             }
-        }
-        string Assignment(int i, int str){
-            string _value = "";
-            int _nodeCount = 0;
-            List<string> _currentStr = AllCombinatoins[i][str];
-            if(_currentStr.Count>1 && _currentStr[1].StartsWith("AssignmentNode")){
-                foreach(string node in _currentStr){
-
-                    if((node.StartsWith("NumberNode") || node.StartsWith("StringNode")) &&  _currentStr[_nodeCount-1].StartsWith("AssignmentNode")){
-                        string _txt = GameObject.Find(node).transform.GetChild(1).GetComponent<TMP_InputField>().text;
-                        _value =_txt;
+  
+            for(int i = 0;i <_simplifiedString.Count;i++){
+                try{
+                    i = CheckMath(_simplifiedString, i, str);
+                    if(_simplifiedString[i].StartsWith("Ошибка")){
+                        return _simplifiedString[i];
                     }
-
-                    else if(node.StartsWith("VariableNode") && _nodeCount>1 && _currentStr[_nodeCount-1].StartsWith("AssignmentNode")){
-                        string _txt = GameObject.Find(node).transform.GetChild(1).GetComponent<TMP_InputField>().text;
-                        _value += Variables.Find(x => x.Name ==  _txt).Value;
-                    }
-                    else if(GameObject.Find(node).tag=="MathNodes" && _currentStr.Count>_nodeCount+1 && (_currentStr[_nodeCount-1].StartsWith("StringNode") || _currentStr[_nodeCount-1].StartsWith("NumberNode") || _currentStr[_nodeCount-1].StartsWith("VariableNode")) && (_currentStr[_nodeCount+1].StartsWith("StringNode") || _currentStr[_nodeCount+1].StartsWith("NumberNode") || _currentStr[_nodeCount+1].StartsWith("VariableNode"))){
-
-                        string _value2 = "";
-                        string _lastTxt = GameObject.Find(_currentStr[_nodeCount-1]).transform.GetChild(1).GetComponent<TMP_InputField>().text;
-                        string _nextTxt = GameObject.Find(_currentStr[_nodeCount+1]).transform.GetChild(1).GetComponent<TMP_InputField>().text;
-
-                        if((_currentStr[_nodeCount-1].StartsWith("NumberNode") || Variables.Exists(x => x.Name == _lastTxt && x.Type == "float")) && _currentStr[_nodeCount+1].StartsWith("NumberNode")){
-                            _value2 = _nextTxt;
-                        }
-                        else if((_currentStr[_nodeCount-1].StartsWith("NumberNode") || Variables.Exists(x => x.Name == _lastTxt && x.Type == "float")) && Variables.Exists(x => x.Name == _nextTxt && x.Type == "float")){
-                            _value2 = Variables.Find(x => x.Name == _nextTxt).Value;
-                        }
-                        else if((_currentStr[_nodeCount-1].StartsWith("StringNode") || Variables.Exists(x => x.Name == _lastTxt && x.Type == "string")) && _currentStr[_nodeCount+1].StartsWith("StringNode") ){
-                            _value2 = _nextTxt;
-                        }
-                        else if((_currentStr[_nodeCount-1].StartsWith("StringNode") || Variables.Exists(x => x.Name == _lastTxt && x.Type == "string")) && Variables.Exists(x => x.Name == _nextTxt && x.Type == "string")) {
-                            _value2 = Variables.Find(x => x.Name == _nextTxt).Value;
-                        }
-                        else return "Ошибка, "+(str+1)+" строка: неверные типы данных";
-
-                        if(float.TryParse(_value,out var number1) && float.TryParse(_value2,out var number2)){
-                            if(node.StartsWith("AdditionNode")) _value=(float.Parse(_value) + float.Parse(_value2)).ToString();
-                            else if(node.StartsWith("SubstractionNode")) _value=(float.Parse(_value) - float.Parse(_value2)).ToString();
-                            else if(node.StartsWith("DevisionNode")) _value=(float.Parse(_value) / float.Parse(_value2)).ToString();
-                            else if(node.StartsWith("MultiplicationNode")) _value=(float.Parse(_value) * float.Parse(_value2)).ToString();
-                            else if(node.StartsWith("RemainderNode")) _value=(float.Parse(_value) % float.Parse(_value2)).ToString();
-                            else if(int.TryParse(_value,out var number3) && int.TryParse(_value2,out var number4) && node.StartsWith("IntDevisionNode")) {
-                                _value=(int.Parse(_value)/int.Parse(_value2)).ToString();
-                            }
+                }
+                catch(Exception){return "Ошибка, "+(str+1)+" строка: ошибка в теле условия";} 
+            }
+            for(int i = 0;i <_simplifiedString.Count;i++){
+                if(_simplifiedString[i]=="=="){
+                    try{
+                        if(_simplifiedString[i-1] == _simplifiedString[i+1]){
+                            _simplifiedString[i]="true";
+                            _simplifiedString.RemoveAt(i+1);
+                            _simplifiedString.RemoveAt(i-1);
+                            i--;
                         }
                         else{
-                            if(node.StartsWith("AdditionNode")) _value+=_value2;
-                            else return "Ошибка, "+(str+1)+" строка: неверные типы данных";
+                            _simplifiedString[i]="false";
+                            _simplifiedString.RemoveAt(i+1);
+                            _simplifiedString.RemoveAt(i-1);
+                            i--;
                         }
                     }
-                    
-                    else if(!node.StartsWith("NumberNode") && !node.StartsWith("StringNode") && !node.StartsWith("VariableNode") && !node.StartsWith("AssignmentNode")){
-                        return "Ошибка, "+(str+1)+" строка: ошибка при объявлении переменной";
-                    }
-                    else if((node.StartsWith("NumberNode") || node.StartsWith("StringNode") || node.StartsWith("VariableNode")) && _nodeCount>1 && !_currentStr[_nodeCount-1].StartsWith("AssignmentNode") &&(GameObject.Find(_currentStr[_nodeCount-1]).tag!="MathNodes")){
-                        return "Ошибка, "+(str+1)+" строка: ошибка при объявлении переменной";
-                    }
-                    _nodeCount++;
+                    catch(Exception){return "Ошибка, "+(str+1)+" строка: ошибка в теле условия";}
                 }
-                return _value;
+                else if(_simplifiedString[i]==">="){
+                    try{
+                        if(float.Parse(_simplifiedString[i-1]) >= float.Parse(_simplifiedString[i+1])){
+                            _simplifiedString[i]="true";
+                            _simplifiedString.RemoveAt(i+1);
+                            _simplifiedString.RemoveAt(i-1);
+                            i--;
+                        }
+                        else{
+                            _simplifiedString[i]="false";
+                            _simplifiedString.RemoveAt(i+1);
+                            _simplifiedString.RemoveAt(i-1);
+                            i--;
+                        }
+                    }
+                    catch(Exception){return "Ошибка, "+(str+1)+" строка: ошибка в теле условия";}
+                }
+                else if(_simplifiedString[i]=="<="){
+                    try{
+                        if(float.Parse(_simplifiedString[i-1]) <= float.Parse(_simplifiedString[i+1])){
+                            _simplifiedString[i]="true";
+                            _simplifiedString.RemoveAt(i+1);
+                            _simplifiedString.RemoveAt(i-1);
+                            i--;
+                        }
+                        else{
+                            _simplifiedString[i]="false";
+                            _simplifiedString.RemoveAt(i+1);
+                            _simplifiedString.RemoveAt(i-1);
+                            i--;
+                        }
+                    }
+                    catch(Exception){return "Ошибка, "+(str+1)+" строка: ошибка в теле условия";}
+                }
+                else if(_simplifiedString[i]=="!="){
+                    try{
+                        if(float.Parse(_simplifiedString[i-1]) != float.Parse(_simplifiedString[i+1])){
+                            _simplifiedString[i]="true";
+                            _simplifiedString.RemoveAt(i+1);
+                            _simplifiedString.RemoveAt(i-1);
+                            i--;
+                        }
+                        else{
+                            _simplifiedString[i]="false";
+                            _simplifiedString.RemoveAt(i+1);
+                            _simplifiedString.RemoveAt(i-1);
+                            i--;
+                        }
+                    }
+                    catch(Exception){return "Ошибка, "+(str+1)+" строка: ошибка в теле условия";}
+                }
+                else if(_simplifiedString[i]==">"){
+                    try{
+                        if(float.Parse(_simplifiedString[i-1]) > float.Parse(_simplifiedString[i+1])){
+                            _simplifiedString[i]="true";
+                            _simplifiedString.RemoveAt(i+1);
+                            _simplifiedString.RemoveAt(i-1);
+                            i--;
+                        }
+                        else{
+                            _simplifiedString[i]="false";
+                            _simplifiedString.RemoveAt(i+1);
+                            _simplifiedString.RemoveAt(i-1);
+                            i--;
+                        }
+                    }
+                    catch(Exception){return "Ошибка, "+(str+1)+" строка: ошибка в теле условия";}
+                }
+                else if(_simplifiedString[i]=="<"){
+                    try{
+                        if(float.Parse(_simplifiedString[i-1]) < float.Parse(_simplifiedString[i+1])){
+                            _simplifiedString[i]="true";
+                            _simplifiedString.RemoveAt(i+1);
+                            _simplifiedString.RemoveAt(i-1);
+                            i--;
+                        }
+                        else{
+                            _simplifiedString[i]="false";
+                            _simplifiedString.RemoveAt(i+1);
+                            _simplifiedString.RemoveAt(i-1);
+                            i--;
+                        }
+                    }
+                    catch(Exception){return "Ошибка, "+(str+1)+" строка: ошибка в теле условия";}
+                }
+                
+            }
+            for(int i = 0;i <_simplifiedString.Count;i++){
+                if(_simplifiedString[i]=="&&"){
+                    try{
+                        if(bool.Parse(_simplifiedString[i-1]) && bool.Parse(_simplifiedString[i+1])){
+                            _simplifiedString[i]="true";
+                            _simplifiedString.RemoveAt(i+1);
+                            _simplifiedString.RemoveAt(i-1);
+                            i--;
+                        }
+                        else{
+                            _simplifiedString[i]="false";
+                            _simplifiedString.RemoveAt(i+1);
+                            _simplifiedString.RemoveAt(i-1);
+                            i--;
+                        }
+                    }
+                    catch(Exception){return "Ошибка, "+(str+1)+" строка: ошибка в теле условия";}
+                }
+                else if(_simplifiedString[i]=="||"){
+                    try{
+                        if(bool.Parse(_simplifiedString[i-1]) || bool.Parse(_simplifiedString[i+1])){
+                            _simplifiedString[i]="true";
+                            _simplifiedString.RemoveAt(i+1);
+                            _simplifiedString.RemoveAt(i-1);
+                            i--;
+                        }
+                        else{
+                            _simplifiedString[i]="false";
+                            _simplifiedString.RemoveAt(i+1);
+                            _simplifiedString.RemoveAt(i-1);
+                            i--;
+                        }
+                    }
+                    catch(Exception){return "Ошибка, "+(str+1)+" строка: ошибка в теле условия";}
+                }
+                
+            }
+            return _simplifiedString[0];
+        }
+        string Assignment(int str){
+            List<string> _currentStr = Programm[str], _simplifiedString = new();
+            if(_currentStr.Count>1 && _currentStr[1].StartsWith("AssignmentNode")){
+                
+                foreach(string node in _currentStr){
+                    if(node.StartsWith("AdditionNode")) _simplifiedString.Add("+");
+                    else if(node.StartsWith("SubstractionNode")) _simplifiedString.Add("-");
+                    else if(node.StartsWith("DevisionNode")) _simplifiedString.Add("/");
+                    else if(node.StartsWith("MultiplicationNode")) _simplifiedString.Add("*");
+                    else if(node.StartsWith("RemainderNode")) _simplifiedString.Add("%");
+                    else if(node.StartsWith("IntDevisionNode")) _simplifiedString.Add("//");     
+                    else if(node.StartsWith("NumberNode")){
+                        _simplifiedString.Add(GameObject.Find(node).transform.GetChild(1).GetComponent<TMP_InputField>().text);
+                    }
+                    else if( _currentStr.IndexOf(node)>1 && node.StartsWith("VariableNode")){
+                        if(Variables.Exists(x => x.Name == GameObject.Find(node).transform.GetChild(1).GetComponent<TMP_InputField>().text)){
+                            _simplifiedString.Add(Variables.Find(x => x.Name == GameObject.Find(node).transform.GetChild(1).GetComponent<TMP_InputField>().text).Value);
+                        }
+                    }
+                }
+                for(int i = 0;i <_simplifiedString.Count;i++){
+                    //try{
+                        i = CheckMath(_simplifiedString, i, str);
+                        if(_simplifiedString[i].StartsWith("Ошибка")){
+                            return _simplifiedString[i];
+                        }
+                    //}
+                    //catch(Exception){return "Ошибка, "+(str+1)+" строка: ошибка в теле условия";} 
+                }
+                return _simplifiedString[0];
             }
             else return "Ошибка, "+(str+1)+" строка: отсутствует нод присваивания";
             
+        }
+
+        int CheckMath(List<string> _simplifiedString, int i, int str){
+            if(_simplifiedString[i]=="+"){
+                try{
+                    _simplifiedString[i]=(float.Parse(_simplifiedString[i-1]) + float.Parse(_simplifiedString[i+1])).ToString();
+                    _simplifiedString.RemoveAt(i+1);
+                    _simplifiedString.RemoveAt(i-1);
+                    i--;
+                }
+                catch(Exception){
+                    try{
+                        _simplifiedString[i]=_simplifiedString[i-1] + _simplifiedString[i+1];
+                        _simplifiedString.RemoveAt(i+1);
+                        _simplifiedString.RemoveAt(i-1);
+                        i--;
+                    }
+                    catch(Exception){_simplifiedString[i]= "Ошибка, "+(str+1)+" строка: неверные типы данных";}
+                }
+            }
+            else if(_simplifiedString[i]=="-"){
+                try{
+                    _simplifiedString[i]=(float.Parse(_simplifiedString[i-1]) - float.Parse(_simplifiedString[i+1])).ToString();
+                    _simplifiedString.RemoveAt(i+1);
+                    _simplifiedString.RemoveAt(i-1);
+                    i--;
+                }
+                catch(Exception){_simplifiedString[i]= "Ошибка, "+(str+1)+" строка: неверные типы данных";}
+            }
+            else if(_simplifiedString[i]=="*"){
+                try{
+                    _simplifiedString[i]=(float.Parse(_simplifiedString[i-1]) * float.Parse(_simplifiedString[i+1])).ToString();
+                    _simplifiedString.RemoveAt(i+1);
+                    _simplifiedString.RemoveAt(i-1);
+                    i--;
+                }
+                catch(Exception){_simplifiedString[i]= "Ошибка, "+(str+1)+" строка: неверные типы данных";}
+            }
+            else if(_simplifiedString[i]=="/"){
+                try{
+                    _simplifiedString[i]=(float.Parse(_simplifiedString[i-1]) / float.Parse(_simplifiedString[i+1])).ToString();
+                    _simplifiedString.RemoveAt(i+1);
+                    _simplifiedString.RemoveAt(i-1);
+                    i--;
+                }
+                catch(Exception){_simplifiedString[i]= "Ошибка, "+(str+1)+" строка: неверные типы данных";}
+            }
+            else if(_simplifiedString[i]=="//"){
+                try{
+                    _simplifiedString[i]=(int.Parse(_simplifiedString[i-1]) / int.Parse(_simplifiedString[i+1])).ToString();
+                    _simplifiedString.RemoveAt(i+1);
+                    _simplifiedString.RemoveAt(i-1);
+                    i--;
+                }
+                catch(Exception){_simplifiedString[i]= "Ошибка, "+(str+1)+" строка: неверные типы данных";}
+            }
+            else if(_simplifiedString[i]=="%"){
+                try{
+                    _simplifiedString[i]=(float.Parse(_simplifiedString[i-1]) % float.Parse(_simplifiedString[i+1])).ToString();
+                    _simplifiedString.RemoveAt(i+1);
+                    _simplifiedString.RemoveAt(i-1);
+                    i--;
+                }
+                catch(Exception){_simplifiedString[i]= "Ошибка, "+(str+1)+" строка: неверные типы данных";}
+            }
+            return i;
         }
     }
 }

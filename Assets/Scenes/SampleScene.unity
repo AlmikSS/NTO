@@ -429,13 +429,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 767975447}
-  m_Horizontal: 0
+  m_Horizontal: 1
   m_Vertical: 1
   m_MovementType: 1
-  m_Elasticity: 0.25
+  m_Elasticity: 0.08
   m_Inertia: 1
-  m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_DecelerationRate: 0.05
+  m_ScrollSensitivity: 0.1
   m_Viewport: {fileID: 2079800510}
   m_HorizontalScrollbar: {fileID: 708355380}
   m_VerticalScrollbar: {fileID: 1012247015}
@@ -758,8 +758,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1942032943}
   m_HandleRect: {fileID: 1942032942}
   m_Direction: 0
-  m_Value: 12153168
-  m_Size: 0.9986268
+  m_Value: 0.00000014276648
+  m_Size: 0.43899578
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -927,10 +927,10 @@ RectTransform:
   m_Father: {fileID: 2079800510}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -22362898, y: 0.00036621094}
-  m_SizeDelta: {x: 1338.2, y: 2182.7344}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 855.03455, y: -967.1047}
+  m_SizeDelta: {x: 1710.0698, y: 1934.209}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &771287900 stripped
 GameObject:
@@ -1263,8 +1263,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1176404656}
   m_HandleRect: {fileID: 1176404655}
   m_Direction: 2
-  m_Value: 0.49999973
-  m_Size: 0.48832327
+  m_Value: 1.0000001
+  m_Size: 0.3552828
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2431,8 +2431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a27b71e4865c3f648a905dd57d45592d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InputText: "\u041B\u044E\u0431\u043E\u0435 \u043D\u0430\u0442\u0443\u0440\u0430\u043B\u044C\u043D\u043E\u0435
-    \u0447\u0438\u0441\u043B\u043E"
+  InputText: "\u041B\u044E\u0431\u043E\u0435 \u0446\u0435\u043B\u043E\u0435 \u0447\u0438\u0441\u043B\u043E"
   InputValue: 38
   Answer: 114
   InputField: {fileID: 940034080}
@@ -3211,7 +3210,7 @@ MonoBehaviour:
   m_Sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
   m_PreserveAspect: 0
-  m_FillCenter: 0
+  m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
   m_FillClockwise: 1
@@ -3233,7 +3232,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2079800509}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
   m_Name: 

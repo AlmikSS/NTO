@@ -107,8 +107,8 @@ public class NodesLogic : MonoBehaviour
         Error.SetActive(false);//деалем невидимой ошибку
         OutputField.text = "";//обнуляем строку вывода
         List<VariableNode> Variables = new();//создаем список всех переменных
-        List<int> _influenceNodes = new();//создаем список для нодов, которые будут находится под влиянием
-        List<string> str = new();
+        List<int> _influenceNodes = new(), _elseNodes = new();//создаем список для нодов, которые будут находится под влиянием, список для нодов иначе
+        List<string> str = new();//список для нодов в строке
         int _whileInd = 0;
         foreach(List<List<string>> i in AllCombinatoins){//перебираем все группы нодов
             if(i[0][0].StartsWith("BeginNode") && i[^1][0].StartsWith("EndNode")){//если есть начало и конец
@@ -119,7 +119,7 @@ public class NodesLogic : MonoBehaviour
 
         for(int k = 0;k < Programm.Count; k++){//перебираем все строки
             
-            if(_whileInd>0) k = _whileInd;
+            if(_whileInd>0 && bool.Parse(CheckCondition(_whileInd))) k = _whileInd+1;
             str = Programm[k];
 
             
@@ -185,15 +185,16 @@ public class NodesLogic : MonoBehaviour
             }
             else if(str[0].StartsWith("IfNode")){//если нод условия
                 string _condition = CheckCondition(Programm.IndexOf(str));//проверяем условие
-        
 
-                int _nesting = 0, _influenceField = 0;
+                int _nesting = 0, _influenceField = 0, _elseInd = 0;
                 for(int i = Programm.IndexOf(str)+1; i < Programm.Count;i++){
          
                     string j =  Programm[i][0];
                     if(j.StartsWith("EmptyNode") && _nesting==0){
                         _influenceField = i-Programm.IndexOf(str);
-                        
+                        if(Programm[i+1][0].StartsWith("ElseNode")){
+                            _elseInd = i+1;
+                        }
                     }
                     else if(j.StartsWith("EmptyNode")){
                         _nesting--;
@@ -205,6 +206,7 @@ public class NodesLogic : MonoBehaviour
                 if(_condition=="true") continue;
                 else if(_condition=="false") {
                     _influenceNodes.Add(_influenceField);
+                    if(_elseInd>0) _elseNodes.Add(_elseInd);
                
                 }
                 else if(_condition.StartsWith("Ошибка")){
@@ -213,6 +215,62 @@ public class NodesLogic : MonoBehaviour
                     return;
                 }
                 
+            }
+            else if(str[0].StartsWith("ElseNode") && _elseNodes.Contains(k)){//если нод иначе и он должен выполняться
+                if(str.Count==1) continue;
+                else{
+                
+                    string _condition = CheckCondition(Programm.IndexOf(str));//проверяем условие
+
+
+                    int _nesting = 0, _influenceField = 0, _elseInd = 0;
+                    for(int i = Programm.IndexOf(str)+1; i < Programm.Count;i++){
+            
+                        string j =  Programm[i][0];
+                        if(j.StartsWith("EmptyNode") && _nesting==0){
+                            _influenceField = i-Programm.IndexOf(str);
+                            if(Programm[i+1][0].StartsWith("ElseNode")){
+                                _elseInd = i+1;
+                            }
+                        }
+                        else if(j.StartsWith("EmptyNode")){
+                            _nesting--;
+                        }
+                        else if(j.StartsWith("IfNode") || j.StartsWith("ElseNode") || j.StartsWith("WhileNode")){
+                            _nesting++;
+                        }
+                    }
+                    if(_condition=="true") continue;
+                    else if(_condition=="false") {
+                        _influenceNodes.Add(_influenceField);
+                        if(_elseInd>0) _elseNodes.Add(_elseInd);
+                
+                    }
+                    else if(_condition.StartsWith("Ошибка")){
+                        OutputField.text = _condition;
+                        Error.SetActive(true);
+                        return;
+                    }
+                }
+                
+            }
+            else if(str[0].StartsWith("ElseNode") && !_elseNodes.Contains(k)){//если нод условия и он не должен выполняться
+
+                int _nesting = 0, _influenceField = 0;
+
+                for(int i = Programm.IndexOf(str)+1; i < Programm.Count;i++){
+                    string j =  Programm[i][0];
+                    if(j.StartsWith("EmptyNode") && _nesting==0){
+                        _influenceField = i-Programm.IndexOf(str);
+                    }
+                    else if(j.StartsWith("EmptyNode")){
+                        _nesting--;
+                    }
+                    else if(j.StartsWith("IfNode") || j.StartsWith("ElseNode") || j.StartsWith("WhileNode")){
+                        _nesting++;
+                    }
+                }
+                _influenceNodes.Add(_influenceField);
             }
             else if(str[0].StartsWith("WhileNode")){//если нод условия
                 string _condition = CheckCondition(Programm.IndexOf(str));//проверяем условие

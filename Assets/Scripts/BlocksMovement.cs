@@ -29,7 +29,7 @@ public class BlocksMovement : MonoBehaviour
     }
 
      public string DropBlock(GameObject Obj){//вызывается из NodesLogic
-        
+        NodesLogic _nodesLogic = GameObject.Find("Canvas").GetComponent<NodesLogic>(); //записываем скрипт логики в переменную 
         
         Vector2 _objPos = Obj.transform.position, _collSize, _collPos; //позиция текущего нода
         
@@ -67,7 +67,7 @@ public class BlocksMovement : MonoBehaviour
         else if(Obj.tag=="EmptyNode" || Obj.tag=="InputNode" || Obj.tag=="OutputNode") {_objCanClue.Add("up"); _objCanClue.Add("down");}
         else if(Obj.tag=="EndNode") _objCanClue.Add("up");
 
-        /////////////////Для сталкивающегося нода,, для каждого нода разные варианты склейки
+        /////////////////Для сталкивающегося нода, для каждого нода разные варианты склейки
         if(Coll.tag=="BeginNode") _collCanClue.Add("down");
         else if(Coll.tag=="VariableNode"){ _collCanClue.Add("up"); _collCanClue.Add("down"); _collCanClue.Add("right"); _collCanClue.Add("left");}
         else if(Coll.tag=="NumberNode" || Coll.tag=="LogicalNodes" || Coll.tag=="StringNode" || Coll.tag=="MathNodes"){_collCanClue.Add("right"); _collCanClue.Add("left");}
@@ -75,10 +75,27 @@ public class BlocksMovement : MonoBehaviour
         else if(Coll.tag=="EmptyNode" || Coll.tag=="InputNode" || Coll.tag=="OutputNode") {_collCanClue.Add("up"); _collCanClue.Add("down");}
         else if(Coll.tag=="EndNode") _collCanClue.Add("up");
         /////////////////Определение областей склеивания
-        if(_objCanClue.Contains("right") && _collCanClue.Contains("left")) _canLeft = true;
-        if(_objCanClue.Contains("left") && _collCanClue.Contains("right")) _canRight = true;
-        if(_objCanClue.Contains("up") && _collCanClue.Contains("down")) _canDown = true;
-        if(_objCanClue.Contains("down") && _collCanClue.Contains("up")) _canUp = true;
+        bool _contLeft = true, _contRight = true, _contDown = true, _contUp = true;
+        foreach(List<List<string>> i in _nodesLogic.AllCombinatoins){
+            foreach(List<string> j in i){
+                if(j.Contains(Coll.name) && j.IndexOf(Coll.name)<j.Count-1){
+                    _contRight = false;
+                }
+                if(j.Contains(Coll.name) && j.IndexOf(Coll.name)>0){
+                    _contLeft = false;
+                }
+                if(j.Contains(Coll.name) && i.IndexOf(j)<i.Count-1){
+                    _contDown = false;
+                }
+                if(j.Contains(Coll.name) && i.IndexOf(j)>0){
+                    _contUp = false;
+                }
+            }
+        }
+        if(_objCanClue.Contains("right") && _collCanClue.Contains("left") && _contLeft) _canLeft = true;
+        if(_objCanClue.Contains("left") && _collCanClue.Contains("right") && _contRight) _canRight = true;
+        if(_objCanClue.Contains("up") && _collCanClue.Contains("down") && _contDown) _canDown = true;
+        if(_objCanClue.Contains("down") && _collCanClue.Contains("up") && _contUp) _canUp = true;
 
 
         

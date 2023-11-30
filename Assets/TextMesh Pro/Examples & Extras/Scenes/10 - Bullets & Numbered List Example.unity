@@ -112,7 +112,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+<<<<<<< HEAD:Assets/TextMesh Pro/Examples & Extras/Scenes/10 - Bullets & Numbered List Example.unity
 --- !u!1 &1143834369
+=======
+--- !u!1 &1770738497
+>>>>>>> parent of e662cac (Начал делать гаджеты):Assets/Scenes/Main.unity
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,9 +124,15 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< HEAD:Assets/TextMesh Pro/Examples & Extras/Scenes/10 - Bullets & Numbered List Example.unity
   - component: {fileID: 1143834374}
   - component: {fileID: 1143834373}
   - component: {fileID: 1143834370}
+=======
+  - component: {fileID: 1770738500}
+  - component: {fileID: 1770738499}
+  - component: {fileID: 1770738498}
+>>>>>>> parent of e662cac (Начал делать гаджеты):Assets/Scenes/Main.unity
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera

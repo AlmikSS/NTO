@@ -3,31 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - VariableNode
-  - NumberNode
-  - StringNode
-  - InputNode
-  - OutputNode
-  - EndNode
-  - IfNode
-  - ElseNode
-  - WhileNode
-  - EmptyNode
-  - MoreNode
-  - LogicalNodes
-  - MathNodes
-  - BeginNode
+  tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Enemy
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Player
+  - Ground
+  - Obstacle
   - 
   - 
   - 

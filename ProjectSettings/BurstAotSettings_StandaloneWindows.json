@@ -5,7 +5,10 @@
     "EnableOptimisations": true,
     "EnableSafetyChecks": false,
     "EnableDebugInAllBuilds": false,
+<<<<<<< HEAD
     "DebugDataKind": 1,
+=======
+>>>>>>> parent of dc95020 (Revert "upd quest")
     "EnableArmv9SecurityFeatures": false,
     "CpuMinTargetX32": 0,
     "CpuMaxTargetX32": 0,

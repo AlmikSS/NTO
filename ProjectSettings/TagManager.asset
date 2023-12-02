@@ -3,7 +3,21 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - WhileNode
+  - InputNode
+  - StringNode
+  - EmptyNode
+  - LogicalNodes
+  - MathNodes
+  - ElseNode
+  - BeginNode
+  - VariableNode
+  - EndNode
+  - IfNode
+  - OutputNode
+  - NumberNode
+  - ElementParseNode
   layers:
   - Default
   - TransparentFX

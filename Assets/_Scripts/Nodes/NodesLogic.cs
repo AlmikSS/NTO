@@ -7,9 +7,12 @@ public class NodesLogic : MonoBehaviour
 {
     [HideInInspector] public List<List<string>> Programm = new(); // список позиций нодов для конечной программы
     [HideInInspector] public List<List<List<string>>>  AllCombinatoins = new(); // список позиций всех нодов по группам
-    
     [SerializeField]
-    string InputText, InputValue, Answer;//переменная для текста ввода, значиния ввода и правильного ответа
+    int VarCount = 0;//количество переменных на ввод
+    [SerializeField]
+    string InputText;
+    [SerializeField]
+    string[] InputValues, Answers;//переменная для текста ввода, значиния ввода и правильного ответа
     [SerializeField]
     TMP_Text InputField, OutputField;//переменная для поля ввода и вывода
     [SerializeField]
@@ -32,7 +35,7 @@ public class NodesLogic : MonoBehaviour
                             j.RemoveRange(j.IndexOf(Obj.name)+1, j.Count-j.IndexOf(Obj.name)-1);
                         }
 
-                        if(i.IndexOf(j)+1< i.Count){
+                        if(i.IndexOf(j)+1< i.Count && j.IndexOf(Obj.name)==0){
                             AllCombinatoins.Add(i.GetRange(i.IndexOf(j)+1, i.Count-i.IndexOf(j)-1).ToList());
                             i.RemoveRange(i.IndexOf(j)+1, i.Count-i.IndexOf(j)-1);
                         }
@@ -58,7 +61,7 @@ public class NodesLogic : MonoBehaviour
                             j.RemoveRange(j.IndexOf(Obj.name)+1, j.Count-j.IndexOf(Obj.name)-1);
                         }
 
-                        if(i.IndexOf(j)+1< i.Count){
+                        if(i.IndexOf(j)+1< i.Count && j.IndexOf(Obj.name)==0){
                             AllCombinatoins.Add(i.GetRange(i.IndexOf(j)+1, i.Count-i.IndexOf(j)-1).ToList());
                             i.RemoveRange(i.IndexOf(j)+1, i.Count-i.IndexOf(j)-1);
                         }
@@ -140,19 +143,16 @@ public class NodesLogic : MonoBehaviour
         List<VariableNode> Variables = new();//создаем список всех переменных
         List<int> _influenceNodes = new(), _elseNodes = new();//создаем список для нодов, которые будут находится под влиянием, список для нодов иначе
         List<string> str = new();//список для нодов в строке
-        int _whileInd = 0;
-        int _whileIteration = 0;
-        /*for(int i = 0; i<AllCombinatoins.Count;i++){
-            if(AllCombinatoins[i].Count==0 || (AllCombinatoins[i].Count==1 && AllCombinatoins[i][0].Count==0)){
-                AllCombinatoins.RemoveAt(i);
-            }
-        }*/
+        List<bool> Tests = new();
+        int _whileInd = 0, _whileIteration = 0, _parseCount = 0, _parseInd = 0, _endParseInd = 0;
+        string _strToParse = "";
+
         foreach(List<List<string>> i in AllCombinatoins){//перебираем все группы нодов
-            UnityEngine.Debug.Log("[");
+            Debug.Log("[");
             foreach(List<string> j in i){
-                UnityEngine.Debug.Log("["+String.Join(", ", j)+"]");
+                Debug.Log("["+String.Join(", ", j)+"]");
             }
-            UnityEngine.Debug.Log("]");
+            Debug.Log("]");
             if( i[0][0].StartsWith("BeginNode") && i[^1][0].StartsWith("EndNode")){//если есть начало и конец
                 Programm = i;
                 
@@ -160,121 +160,116 @@ public class NodesLogic : MonoBehaviour
             }
             
         }
+        int _answerInd = 0;
+        foreach(string _answer in Answers){
+            int _inputInd = _answerInd*VarCount;
+   
+            for(int k = 0;k < Programm.Count; k++){//перебираем все строки
 
-
-        for(int k = 0;k < Programm.Count; k++){//перебираем все строки
-            
-            if(_whileInd>0 && bool.Parse(CheckCondition(_whileInd)) && _whileIteration<1000) {
-                k = _whileInd+1;
-                _whileIteration++;
-            }
-            else if(_whileIteration>=1000){
-                OutputField.text = "Ошибка, "+Programm.IndexOf(str)+" строка: бесконечный или очень длинный цикл";
-                Error.SetActive(true);
-                return;
-            }
-            str = Programm[k];
-
-
-            GameObject obj = GameObject.Find(str[0]);//получаем объект по имени первого нода
-            if(_influenceNodes.Count>0 && _influenceNodes[^1]<=0){
-                _influenceNodes.RemoveAt(_influenceNodes.Count-1);
-            }
-            
-            if(_influenceNodes.Count>0 && _influenceNodes[^1]>0){
-                _influenceNodes[^1]--;
-                continue;
-            }
-            if(str[0].StartsWith("VariableNode")){//если объявляем переменную
-                string _name = obj.transform.GetChild(1).GetComponent<TMP_InputField>().text;//имя
-                string _type;//тип
-                string _value = Assignment(Programm.IndexOf(str));//функция для определения значение
-                if(_value.StartsWith("Ошибка")){//если ошибка, то делаем активной ошибку и вводим сообщение в вывод
-                    OutputField.text = _value;
+                if(_whileInd>0 && bool.Parse(CheckCondition(_whileInd)) && _whileIteration<1000) {
+                    k = _whileInd+1;
+                    _whileIteration++;
+                }
+                else if(_whileIteration>=1000){
+                    OutputField.text = "Ошибка, "+Programm.IndexOf(str)+" строка: бесконечный или очень длинный цикл";
                     Error.SetActive(true);
                     return;
                 }
-                if(float.TryParse(_value,out var number)) _type = "float";//если возможно перевести в float
-                else _type = "string";//иначе оставляем строкой
+                if(_strToParse != "" && _parseCount>0 && (_endParseInd+1 == k || _parseCount==_strToParse.Length)){
+                    string _type;//тип
+                    string _value = _strToParse[_strToParse.Length-_parseCount].ToString();
+                    if(float.TryParse(_value,out var number)) _type = "float";//если возможно перевести в float
+                    else _type = "string";//иначе оставляем строкой
 
-                if(_name == ""){//проверяет является ли поле пустым и выводит ошибку
-                    OutputField.text = "Ошибка, "+(Programm.IndexOf(str)+1)+" строка: отсутстувует имя переменной";
-                    Error.SetActive(true);
-                    return;
+                    Variables.Remove(Variables.Find(x => x.Name == "_element_"));// удаляем прошлое значение
+                    Variables.Add(new VariableNode("_element_",_value, _type));//добавляем переменную
+                    
+                    k = _parseInd+1;
+                    _parseCount--;
                 }
-                else if(Variables.Exists(x => x.Name == _name)){
-                    Variables.Remove(Variables.Find(x => x.Name == _name));
+                else if(_strToParse != "" && _parseCount<=0){
+                    _strToParse = "";
+                    Variables.Remove(Variables.Find(x => x.Name == "_element_"));
+                    _influenceNodes.Add(_endParseInd - _parseInd - 1);
                 }
-                Variables.Add(new VariableNode(_name,_value, _type));//добавляем переменную
-                
+                str = Programm[k];
 
-            }
-            else if(str[0].StartsWith("InputNode")){//если нод ввода
-                string _name = obj.transform.GetChild(1).GetComponent<TMP_InputField>().text;//имя переменной
-                if(_name == ""){//проверяет является ли поле пустым и выводит ошибку
-                    OutputField.text = "Ошибка, "+(Programm.IndexOf(str)+1)+" строка: отсутстувует переменная ввода";
-                    Error.SetActive(true);
-                    return;
-                }
-                string _type;//тип
-                string _value = InputValue;//заносим значение из испектора
-                if(float.TryParse(_value,out var number)) _type = "float";//если возможно перевести в float
-                else _type = "string";//иначе оставляем строкой
-                Variables.Add(new VariableNode(_name,_value, _type));//добавляем переменную
-            }
-            else if(str[0].StartsWith("OutputNode")){//если нод вывода
-                try{
-                    OutputField.text = Variables.Find(x => x.Name == obj.transform.GetChild(1).GetComponent<TMP_InputField>().text).Value;//находим значение переменной и выносим в поле вывода
-                }
-                catch(NullReferenceException){//проверяет является ли поле пустым и выводит ошибку
-                    OutputField.text = "Ошибка, "+(Programm.IndexOf(str)+1)+" строка: отсутстувует переменная вывода";
-                    Error.SetActive(true);
-                    return;
-                }
-                if(Variables.Find(x => x.Name == obj.transform.GetChild(1).GetComponent<TMP_InputField>().text).Value == Answer){//проверяем правильность ответа
-                    GameObject.Find("Correct").GetComponent<Animation>().Play();
-                }
-                else GameObject.Find("Incorrect").GetComponent<Animation>().Play();
-            }
-            else if(str[0].StartsWith("IfNode")){//если нод условия
-                string _condition = CheckCondition(Programm.IndexOf(str));//проверяем условие
 
-                int _nesting = 0, _influenceField = 0, _elseInd = 0;
-                for(int i = Programm.IndexOf(str)+1; i < Programm.Count;i++){
-         
-                    string j =  Programm[i][0];
-                    if(j.StartsWith("EmptyNode") && _nesting==0){
-                        _influenceField = i-Programm.IndexOf(str);
-                        if(Programm[i+1][0].StartsWith("ElseNode")){
-                            _elseInd = i+1;
-                        }
-                    }
-                    else if(j.StartsWith("EmptyNode")){
-                        _nesting--;
-                    }
-                    else if(j.StartsWith("IfNode") || j.StartsWith("ElseNode") || j.StartsWith("WhileNode")){
-                        _nesting++;
-                    }
-                }
-                if(_condition=="true") continue;
-                else if(_condition=="false") {
-                    _influenceNodes.Add(_influenceField);
-                    if(_elseInd>0) _elseNodes.Add(_elseInd);
-               
-                }
-                else if(_condition.StartsWith("Ошибка")){
-                    OutputField.text = _condition;
-                    Error.SetActive(true);
-                    return;
+                GameObject obj = GameObject.Find(str[0]);//получаем объект по имени первого нода
+                if(_influenceNodes.Count>0 && _influenceNodes[^1]<=0){
+                    _influenceNodes.RemoveAt(_influenceNodes.Count-1);
                 }
                 
-            }
-            else if(str[0].StartsWith("ElseNode") && _elseNodes.Contains(k)){//если нод иначе и он должен выполняться
-                if(str.Count==1) continue;
-                else{
+                if(_influenceNodes.Count>0 && _influenceNodes[^1]>0){
+                    _influenceNodes[^1]--;
+                    continue;
+                }
+                if(str[0].StartsWith("VariableNode")){//если объявляем переменную
+                    string _name = obj.transform.GetChild(1).GetComponent<TMP_InputField>().text;//имя
+                    string _type;//тип
+                    string _value = Assignment(Programm.IndexOf(str));//функция для определения значение
+                    if(_value.StartsWith("Ошибка")){//если ошибка, то делаем активной ошибку и вводим сообщение в вывод
+                        OutputField.text = _value;
+                        Error.SetActive(true);
+                        return;
+                    }
+                    if(float.TryParse(_value,out var number)) _type = "float";//если возможно перевести в float
+                    else _type = "string";//иначе оставляем строкой
+
+                    if(_name == ""){//проверяет является ли поле пустым и выводит ошибку
+                        OutputField.text = "Ошибка, "+(Programm.IndexOf(str)+1)+" строка: отсутстувует имя переменной";
+                        Error.SetActive(true);
+                        return;
+                    }
+                    else if(Variables.Exists(x => x.Name == _name)){
+                        Variables.Remove(Variables.Find(x => x.Name == _name));
+                    }
+                    Variables.Add(new VariableNode(_name,_value, _type));//добавляем переменную
+                    
+
+                }
                 
+                else if(str[0].StartsWith("InputNode")){//если нод ввода
+                    string _name = obj.transform.GetChild(1).GetComponent<TMP_InputField>().text;//имя переменной
+                    if(_name == ""){//проверяет является ли поле пустым и выводит ошибку
+                        OutputField.text = "Ошибка, "+(Programm.IndexOf(str)+1)+" строка: отсутстувует переменная ввода";
+                        Error.SetActive(true);
+                        return;
+                    }
+                    string _value;
+                    string _type;//тип
+ 
+                    if(_inputInd<_answerInd*VarCount+VarCount){
+                        Variables.Remove(Variables.Find(x => x.Name == _name));
+                        _value = InputValues[_inputInd];//заносим значение из испектора
+                        _inputInd++;
+                    }
+                    else{
+                        OutputField.text = "Ошибка, "+(Programm.IndexOf(str)+1)+" строка: слишком много нодов ввода";
+                        Error.SetActive(true);
+                        return;
+                    }
+                    if(float.TryParse(_value,out var number)) _type = "float";//если возможно перевести в float
+                    else _type = "string";//иначе оставляем строкой
+                    Variables.Add(new VariableNode(_name,_value, _type));//добавляем переменную
+                }
+                else if(str[0].StartsWith("OutputNode")){//если нод вывода
+                    try{
+                        OutputField.text = Variables.Find(x => x.Name == obj.transform.GetChild(1).GetComponent<TMP_InputField>().text).Value;//находим значение переменной и выносим в поле вывода
+                    }
+                    catch(NullReferenceException){//проверяет является ли поле пустым и выводит ошибку
+                        OutputField.text = "Ошибка, "+(Programm.IndexOf(str)+1)+" строка: отсутстувует переменная вывода";
+                        Error.SetActive(true);
+                        return;
+                    }
+                    
+                    if(Variables.Find(x => x.Name == obj.transform.GetChild(1).GetComponent<TMP_InputField>().text).Value == _answer){//проверяем правильность ответа
+                        Tests.Add(true);
+                    }
+                    else Tests.Add(false);
+                }
+                else if(str[0].StartsWith("IfNode")){//если нод условия
                     string _condition = CheckCondition(Programm.IndexOf(str));//проверяем условие
-
 
                     int _nesting = 0, _influenceField = 0, _elseInd = 0;
                     for(int i = Programm.IndexOf(str)+1; i < Programm.Count;i++){
@@ -304,66 +299,141 @@ public class NodesLogic : MonoBehaviour
                         Error.SetActive(true);
                         return;
                     }
+                    
                 }
+                else if(str[0].StartsWith("ElseNode") && _elseNodes.Contains(k)){//если нод иначе и он должен выполняться
+                    if(str.Count==1) continue;
+                    else{
+                    
+                        string _condition = CheckCondition(Programm.IndexOf(str));//проверяем условие
+
+
+                        int _nesting = 0, _influenceField = 0, _elseInd = 0;
+                        for(int i = Programm.IndexOf(str)+1; i < Programm.Count;i++){
                 
-            }
-            else if(str[0].StartsWith("ElseNode") && !Programm[k-1][0].StartsWith("EmptyNode")){//если нод условия и он не должен выполняться
-                    OutputField.text = "Ошибка, "+(Programm.IndexOf(str)+1)+" строка: нод иначе должен находиться сразу после поля нода условия или поля нода иначе с условием";
-                    Error.SetActive(true);
-                    return;
-            }
-            else if(str[0].StartsWith("ElseNode") && !_elseNodes.Contains(k)){//если нод условия и он не должен выполняться
-
-                int _nesting = 0, _influenceField = 0;
-
-                for(int i = Programm.IndexOf(str)+1; i < Programm.Count;i++){
-                    string j =  Programm[i][0];
-                    if(j.StartsWith("EmptyNode") && _nesting==0){
-                        _influenceField = i-Programm.IndexOf(str);
+                            string j =  Programm[i][0];
+                            if(j.StartsWith("EmptyNode") && _nesting==0){
+                                _influenceField = i-Programm.IndexOf(str);
+                                if(Programm[i+1][0].StartsWith("ElseNode")){
+                                    _elseInd = i+1;
+                                }
+                            }
+                            else if(j.StartsWith("EmptyNode")){
+                                _nesting--;
+                            }
+                            else if(j.StartsWith("IfNode") || j.StartsWith("ElseNode") || j.StartsWith("WhileNode") || j.StartsWith("ElementParseNode")){
+                                _nesting++;
+                            }
+                        }
+                        if(_condition=="true") continue;
+                        else if(_condition=="false") {
+                            _influenceNodes.Add(_influenceField);
+                            if(_elseInd>0) _elseNodes.Add(_elseInd);
+                    
+                        }
+                        else if(_condition.StartsWith("Ошибка")){
+                            OutputField.text = _condition;
+                            Error.SetActive(true);
+                            return;
+                        }
                     }
-                    else if(j.StartsWith("EmptyNode")){
-                        _nesting--;
-                    }
-                    else if(j.StartsWith("IfNode") || j.StartsWith("ElseNode") || j.StartsWith("WhileNode")){
-                        _nesting++;
-                    }
+                    
                 }
-                _influenceNodes.Add(_influenceField);
-            }
-            else if(str[0].StartsWith("WhileNode")){//если нод условия
-                string _condition = CheckCondition(Programm.IndexOf(str));//проверяем условие
-
-                int _nesting = 0, _influenceField = 0;
-                for(int i = Programm.IndexOf(str)+1; i < Programm.Count;i++){
-         
-                    string j =  Programm[i][0];
-                    if(j.StartsWith("EmptyNode") && _nesting==0){
-                        _influenceField = i-Programm.IndexOf(str);
-                        
-                    }
-                    else if(j.StartsWith("EmptyNode")){
-                        _nesting--;
-                    }
-                    else if(j.StartsWith("IfNode") || j.StartsWith("ElseNode") || j.StartsWith("WhileNode")){
-                        _nesting++;
-                    }
+                else if(str[0].StartsWith("ElseNode") && !Programm[k-1][0].StartsWith("EmptyNode")){//если нод иначе и он не под путсым нодом
+                        OutputField.text = "Ошибка, "+(Programm.IndexOf(str)+1)+" строка: нод иначе должен находиться сразу после поля нода условия или поля нода иначе с условием";
+                        Error.SetActive(true);
+                        return;
                 }
-                if(_condition=="true"){ _whileInd = Programm.IndexOf(str); continue;}
-                else if(_condition=="false") {
-                    _whileInd = 0;
+                else if(str[0].StartsWith("ElseNode") && !_elseNodes.Contains(k)){//если нод иначе и он не должен выполняться
+
+                    int _nesting = 0, _influenceField = 0;
+
+                    for(int i = Programm.IndexOf(str)+1; i < Programm.Count;i++){
+                        string j =  Programm[i][0];
+                        if(j.StartsWith("EmptyNode") && _nesting==0){
+                            _influenceField = i-Programm.IndexOf(str);
+                        }
+                        else if(j.StartsWith("EmptyNode")){
+                            _nesting--;
+                        }
+                        else if(j.StartsWith("IfNode") || j.StartsWith("ElseNode") || j.StartsWith("WhileNode") || j.StartsWith("ElementParseNode")){
+                            _nesting++;
+                        }
+                    }
                     _influenceNodes.Add(_influenceField);
-               
                 }
-                else if(_condition.StartsWith("Ошибка")){
-                    OutputField.text = _condition;
-                    Error.SetActive(true);
-                    return;
-                }
-                
-            }
-        }
-    
+                else if(str[0].StartsWith("WhileNode")){//если нод цикла
+                    string _condition = CheckCondition(Programm.IndexOf(str));//проверяем условие
 
+                    int _nesting = 0, _influenceField = 0;
+                    for(int i = Programm.IndexOf(str)+1; i < Programm.Count;i++){
+            
+                        string j =  Programm[i][0];
+                        if(j.StartsWith("EmptyNode") && _nesting==0){
+                            _influenceField = i-Programm.IndexOf(str);
+                            
+                        }
+                        else if(j.StartsWith("EmptyNode")){
+                            _nesting--;
+                        }
+                        else if(j.StartsWith("IfNode") || j.StartsWith("ElseNode") || j.StartsWith("WhileNode") || j.StartsWith("ElementParseNode")){
+                            _nesting++;
+                        }
+                    }
+                    if(_condition=="true"){ _whileInd = Programm.IndexOf(str); continue;}
+                    else if(_condition=="false") {
+                        _whileInd = 0;
+                        _influenceNodes.Add(_influenceField);
+                
+                    }
+                    else if(_condition.StartsWith("Ошибка")){
+                        OutputField.text = _condition;
+                        Error.SetActive(true);
+                        return;
+                    }
+                    
+                }
+                else if(str[0].StartsWith("ElementParseNode")){//если нод перебора элемнта в строке
+
+                    int _nesting = 0;//переменные для ветвления
+                    for(int i = Programm.IndexOf(str)+1; i < Programm.Count;i++){//перебираем все ноды после этого
+            
+                        string j =  Programm[i][0];
+                        if(j.StartsWith("EmptyNode") && _nesting==0){//если нашли конец цикла то записываем количество нодов в поле влияния
+                            string txt = GameObject.Find(str[0]).transform.GetChild(1).GetComponent<TMP_InputField>().text;
+                            _parseInd = Programm.IndexOf(str);
+                            _endParseInd = i;
+                            if(Variables.Exists(x => x.Name == txt)){
+                                _parseCount = (Variables.Find(x => x.Name == txt).Value).Length;
+                                _strToParse = Variables.Find(x => x.Name == txt).Value;
+                            }
+                            else{
+                                OutputField.text = "Ошибка, "+(Programm.IndexOf(str)+1)+" строка: необъявленная переменная";
+                                Error.SetActive(true);
+                                return;
+                            }
+                            
+                        }
+                        else if(j.StartsWith("EmptyNode")){//если обнаружили пустой нод, но он относится не к этому циклу
+                            _nesting--;
+                        }
+                        else if(j.StartsWith("IfNode") || j.StartsWith("ElseNode") || j.StartsWith("WhileNode") || j.StartsWith("ElementParseNode")){//если обнаружили ветвление, то прибавляем переменную
+                            _nesting++;
+                        }
+                    }
+                    
+                    
+                }
+            }
+            _answerInd++;
+            
+        }
+        bool allGood = true;
+        foreach(bool cond in Tests){
+            if(cond==false) {GameObject.Find("Incorrect").GetComponent<Animation>().Play(); allGood = false; break;}
+        }
+        if(allGood) GameObject.Find("Correct").GetComponent<Animation>().Play();
+        ////////////////////////////////////////проверка условия
         string CheckCondition(int str){
             List<string> _currentStr = Programm[str], _simplifiedString = new();
 
@@ -390,6 +460,13 @@ public class NodesLogic : MonoBehaviour
                         _simplifiedString.Add(Variables.Find(x => x.Name == GameObject.Find(node).transform.GetChild(1).GetComponent<TMP_InputField>().text).Value);
                     }
                 }
+                else if(node.StartsWith("ElementNode")){
+                    if(Variables.Exists(x => x.Name == "_element_")){
+                        _simplifiedString.Add(Variables.Find(x => x.Name == "_element_").Value);
+                    }
+                    else return "Ошибка, "+(str+1)+" строка: элемент находится вне цикла";
+                }
+                
             }
   
             for(int i = 0;i <_simplifiedString.Count;i++){
@@ -545,6 +622,7 @@ public class NodesLogic : MonoBehaviour
             }
             return _simplifiedString[0];
         }
+        /////////////////////////////////////объявление переменной
         string Assignment(int str){
             List<string> _currentStr = Programm[str], _simplifiedString = new();
             if(_currentStr.Count>1 && _currentStr[1].StartsWith("AssignmentNode")){
@@ -564,15 +642,19 @@ public class NodesLogic : MonoBehaviour
                             _simplifiedString.Add(Variables.Find(x => x.Name == GameObject.Find(node).transform.GetChild(1).GetComponent<TMP_InputField>().text).Value);
                         }
                     }
+                    else if(node.StartsWith("ElementNode")){
+                        if(Variables.Exists(x => x.Name == "_element_")){
+                            _simplifiedString.Add(Variables.Find(x => x.Name == "_element_").Value);
+                        }
+                        else return "Ошибка, "+(str+1)+" строка: элемент находится вне цикла";
+                    }
                 }
                 for(int i = 0;i <_simplifiedString.Count;i++){
-                    //try{
-                        i = CheckMath(_simplifiedString, i, str);
-                        if(_simplifiedString[i].StartsWith("Ошибка")){
-                            return _simplifiedString[i];
-                        }
-                    //}
-                    //catch(Exception){return "Ошибка, "+(str+1)+" строка: ошибка в теле условия";} 
+                    i = CheckMath(_simplifiedString, i, str);
+                    if(_simplifiedString[i].StartsWith("Ошибка")){
+                        return _simplifiedString[i];
+                    }
+
                 }
                 return _simplifiedString[0];
             }

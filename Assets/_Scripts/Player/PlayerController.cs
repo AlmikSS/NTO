@@ -4,77 +4,78 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private float _moveSpeed; // скорость передвижения
-    [SerializeField] private float _jumpForce; // сила прыжка
+    [SerializeField] private float _moveSpeed; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    [SerializeField] private float _jumpForce; // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     [SerializeField] private LayerMask _groundMask;
 
     [Header("General")]
-    private Vector3 _scale; // поле размера игрока
-    private bool _grounded; // логическая переменная показывающая находимся мы на земле или нет
-    private Rigidbody2D _rb; // поле Rigidbody2D для физических взаимодействий
-    private Input _playerInput; // система ввода
-    private Animator _animator; // поле Animator
+    private Vector3 _scale; // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    private bool _grounded; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ
+    private Rigidbody2D _rb; // пїЅпїЅпїЅпїЅ Rigidbody2D пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    private Input _playerInput; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    private Animator _animator; // пїЅпїЅпїЅпїЅ Animator
 
     public void Awake()
     {
-        _playerInput = new Input(); // создаем экземпляр класса Input
-        _playerInput.Player.Jump.performed += context => Jump(); // подписываем метод Jump к событию нажатия на кнопку прыжка
+        _playerInput = new Input(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ Input
+        _playerInput.UI.Disable();
+        _playerInput.Player.Jump.performed += context => Jump(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ Jump пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     }
 
     private void Start()
     {
-        _rb = GetComponent<Rigidbody2D>(); // кэшируем Rigidbody2D
-        _scale = transform.localScale; // кэшируем размер игрока
-        _animator = GetComponent<Animator>(); // кэшируем Animator
+        _rb = GetComponent<Rigidbody2D>(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Rigidbody2D
+        _scale = transform.localScale; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+        _animator = GetComponent<Animator>(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Animator
     }
 
     private void Update()
     {
-        _grounded = Physics2D.Raycast(transform.position ,Vector2.down, _scale.y / 2, _groundMask); // на земле ли мы
+        _grounded = Physics2D.Raycast(transform.position ,Vector2.down, _scale.y / 2, _groundMask); // пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ
 
-        SpeedControl(); // вызываем метод SpeedControl
+        SpeedControl(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ SpeedControl
 
-        // включаем анимации
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         _animator.SetFloat("Speed", Mathf.Abs(_rb.velocity.x));
         _animator.SetBool("Grounded", _grounded);
     }
 
     private void FixedUpdate()
     {
-        Move(); // в FixedUpdate вызываем метод Move      
+        Move(); // пїЅ FixedUpdate пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ Move      
     }
 
-    private void Move() // метод перемещения игрока
+    private void Move() // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     {
-        float _axis = _playerInput.Player.Move.ReadValue<float>(); // определяем направление движения 
-        _rb.velocity = new Vector2(_axis * _moveSpeed, _rb.velocity.y); // двигаемся
+        float _axis = _playerInput.Player.Move.ReadValue<float>(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
+        _rb.velocity = new Vector2(_axis * _moveSpeed, _rb.velocity.y); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-        if (_axis > 0) // двигаемся вправо
-            transform.localScale = _scale; // смотрим вправо
-        else if (_axis < 0) // двигаемся влево
-            transform.localScale = new Vector3(-_scale.x, _scale.y, _scale.z); // смотрим влево
+        if (_axis > 0) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+            transform.localScale = _scale; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+        else if (_axis < 0) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+            transform.localScale = new Vector3(-_scale.x, _scale.y, _scale.z); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     }
 
-    private void SpeedControl() // метод контроля скорости
+    private void SpeedControl() // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     {
-        Vector2 _flatVel = new Vector2(_rb.velocity.x, 0f); // вектор текущей скорости
+        Vector2 _flatVel = new Vector2(_rb.velocity.x, 0f); // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-        if (_flatVel.magnitude > _moveSpeed) // текущая скорость больше скорости передвижения
+        if (_flatVel.magnitude > _moveSpeed) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         {
-            Vector2 _limitedVel = _flatVel.normalized * _moveSpeed; // вектор с нормализованной скоростью
-            _rb.velocity = new Vector2(_limitedVel.x, _rb.velocity.y); // задаем движение
+            Vector2 _limitedVel = _flatVel.normalized * _moveSpeed; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            _rb.velocity = new Vector2(_limitedVel.x, _rb.velocity.y); // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         }
     }
 
-    private void Jump() // метод прыжка
+    private void Jump() // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     {
-        if (_grounded) // находимся на земле
+        if (_grounded) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         {
-            _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse); // прыгаем
+            _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         }
     }
 
-    private void OnEnable() => _playerInput.Enable(); // включаем систему ввода
+    private void OnEnable() => _playerInput.Enable(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
   
-    private void OnDisable() => _playerInput.Disable(); // выключаем систему ввода
+    private void OnDisable() => _playerInput.Disable(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 }

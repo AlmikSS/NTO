@@ -101,8 +101,8 @@ MonoBehaviour:
           m_MethodName: MoveBlock
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 7648028060471951689}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+            m_ObjectArgument: {fileID: 7648028060471951686}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -466,8 +466,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -45.432404, y: -1.545}
-  m_SizeDelta: {x: 74.2423, y: 90.1634}
+  m_AnchoredPosition: {x: -41.277, y: -0.7167}
+  m_SizeDelta: {x: 82.554, y: 67.9482}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7648028061691773355
 CanvasRenderer:
@@ -498,7 +498,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: e555a8f12f9e2514bb00d664bb0b07f9, type: 3}
     m_FontSize: 9
     m_FontStyle: 0
     m_BestFit: 1
@@ -510,7 +510,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u0412\u044B\u0432\u043E\u0434"
+  m_Text: "\u0412\u042B\u0412\u041E\u0414"
 --- !u!1 &7648028061851810234
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,7 +680,7 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_RichText: 1
-  m_GlobalFontAsset: {fileID: 0}
+  m_GlobalFontAsset: {fileID: 11400000, guid: 7299f8e24853c4841b378993fa86c66d, type: 2}
   m_OnFocusSelectAll: 1
   m_ResetOnDeActivation: 1
   m_RestoreOriginalTextOnEscape: 1

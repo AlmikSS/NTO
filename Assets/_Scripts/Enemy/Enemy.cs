@@ -9,47 +9,47 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IDamageable, IDamager
 {
     [Header("Attack")]
-    [SerializeField] private int _maxHealth; // поле максимального значения здоровья
-    [SerializeField] private Transform _attackPoint; // поле точки атаки
-    [SerializeField] private float _attackRadius; // радиус атаки
-    [SerializeField] private int _damage; // урон
-    [SerializeField] private LayerMask _attackMask; // слой которому наносим урон
-    [SerializeField] private float _attackDistance; // дистанция на которой враг начинает аттаковать
-    [SerializeField] private bool _canShoot = false; // переменная может ли враг стрелять
+    [SerializeField] private int _maxHealth; // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    [SerializeField] private Transform _attackPoint; // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    [SerializeField] private float _attackRadius; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    [SerializeField] private int _damage; // пїЅпїЅпїЅпїЅ
+    [SerializeField] private LayerMask _attackMask; // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+    [SerializeField] private float _attackDistance; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    [SerializeField] private bool _canShoot = false; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-    private AIDestinationSetter _destinationSetter; // скрипт нахождения пути до игрока
-    private Vector3 _scale; // размер врага
-    private int _health; // текующее здоровье
+    private AIDestinationSetter _destinationSetter; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    private Vector3 _scale; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    private int _health; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
     private void Start()
     {
-        _health = _maxHealth; // текущее здоровье равно максимальному
-        _scale = transform.localScale; // кэшируем размер
-        _destinationSetter = GetComponent<AIDestinationSetter>(); // кэшируем AIDestinationSetter
+        _health = _maxHealth; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        _scale = transform.localScale; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+        _destinationSetter = GetComponent<AIDestinationSetter>(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ AIDestinationSetter
     }
 
-    public void Attack() // метод атаки
+    public void Attack() // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector2(_attackPoint.position.x, _attackPoint.position.y), _attackRadius, _attackMask); // собираем коллайдеры в зоне аттаки
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector2(_attackPoint.position.x, _attackPoint.position.y), _attackRadius, _attackMask); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
-        foreach (Collider2D col in colliders) // проходимся по всем коллайдерам
+        foreach(Collider2D col in colliders) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         {
-            col.GetComponent<Player>().TakeDamage(_damage); // наносим урон
+            col.GetComponent<Player>().TakeDamage(_damage); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         }
     }
 
     private void Update()
     {
-        if ((transform.position.x - _destinationSetter.CurrentTarget.position.x) < 0) // двигаемся вправо
-            transform.localScale = _scale; // смотрим вправо
-        else if ((transform.position.x - _destinationSetter.CurrentTarget.position.x) > 0) // двигаемся влево
-            transform.localScale = new Vector3(-_scale.x, _scale.y, _scale.z); // смотрим влево
+        if((transform.position.x - _destinationSetter.CurrentTarget.position.x) < 0) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+            transform.localScale = _scale; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+        else if((transform.position.x - _destinationSetter.CurrentTarget.position.x) > 0) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+            transform.localScale = new Vector3(-_scale.x, _scale.y, _scale.z); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     }
 
-    public void TakeDamage(int damage) // метод получения урона
+    public void TakeDamage(int damage) // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     {
-        if (damage > 0) // если урон больше 0
-            _health -= damage; // наносим урон
+        if(damage > 0) // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 0
+            _health -= damage; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         if (_health < 0)
             Die();
     }

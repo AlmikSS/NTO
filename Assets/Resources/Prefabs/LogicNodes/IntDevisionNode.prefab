@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000022888, y: -0.0000095367}
-  m_SizeDelta: {x: 167.2943, y: 73.8169}
+  m_AnchoredPosition: {x: 0, y: -0.000010251999}
+  m_SizeDelta: {x: 60.5125, y: 71.0433}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6409748283767196958
 CanvasRenderer:
@@ -67,9 +67,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 021b46da0ffe6164ca652baa870ed8cc, type: 3}
     m_FontSize: 9
-    m_FontStyle: 1
+    m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 166
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 6409748284833391335}
   - component: {fileID: 6409748284833391334}
   m_Layer: 5
-  m_Name: InDevisionNode
+  m_Name: IntDevisionNode
   m_TagString: MathNodes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,8 +180,8 @@ MonoBehaviour:
           m_MethodName: MoveBlock
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 6409748284833391333}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+            m_ObjectArgument: {fileID: 6409748284833391332}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 

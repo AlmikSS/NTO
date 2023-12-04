@@ -7,21 +7,20 @@ public class NodesLogic : MonoBehaviour
 {
     [HideInInspector] public List<List<string>> Programm = new(); // список позиций нодов для конечной программы
     [HideInInspector] public List<List<List<string>>>  AllCombinatoins = new(); // список позиций всех нодов по группам
-    [SerializeField]
-    int VarCount = 0;//количество переменных на ввод
-    [SerializeField]
-    string InputText;
-    [SerializeField]
-    string[] InputValues, Answers;//переменная для текста ввода, значиния ввода и правильного ответа
-    [SerializeField]
-    TMP_Text InputField, OutputField;//переменная для поля ввода и вывода
-    [SerializeField]
-    GameObject Error;//изображение ошибки
+
+    [SerializeField] int VarCount = 0;//количество переменных на ввод
+    [SerializeField] string InputText, OutputText, QuizText;
+    [SerializeField] string[] InputValues, Answers;//переменная для текста ввода, значиния ввода и правильного ответа
+    [SerializeField] TMP_Text InputField, OutputField, QuizField;//переменная для поля ввода и вывода
+    [SerializeField] GameObject Error;//изображение ошибки
+
     private void OnEnable() {
         InputField.text = InputText;
+        OutputField.text = OutputText;
+        QuizField.text = QuizText;
     }
     public void OnDrop(GameObject Obj){ // при бросании
-        BlocksMovement _blocksMove = GameObject.Find("Canvas").GetComponent<BlocksMovement>(); //записываем скрипт передвижения в переменную 
+        BlocksMovement _blocksMove = gameObject.GetComponent<BlocksMovement>(); //записываем скрипт передвижения в переменную 
 
         if(Obj.transform.position.x - Obj.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f)*0.5f > 0.3f*Screen.width && Obj.transform.position.x <= Screen.width && Obj.transform.position.y + Obj.GetComponent<RectTransform>().sizeDelta.y*(Screen.height/1080f)*0.5f >= 0 && Obj.transform.position.y - Obj.GetComponent<RectTransform>().sizeDelta.y*(Screen.height/1080f)*0.5f <= Screen.height){ //проверяем входит ли в блок программирования при бросании
             Obj.transform.SetParent(GameObject.Find("ProgrammView").transform.Find("Viewport/Contented")); // становится ребенком блока программирования
@@ -146,14 +145,14 @@ public class NodesLogic : MonoBehaviour
         List<bool> Tests = new();
         int _whileInd = 0, _whileIteration = 0, _parseCount = 0, _parseInd = 0, _endParseInd = 0;
         string _strToParse = "";
-
+        Programm = new();
         foreach(List<List<string>> i in AllCombinatoins){//перебираем все группы нодов
             Debug.Log("[");
             foreach(List<string> j in i){
                 Debug.Log("["+String.Join(", ", j)+"]");
             }
             Debug.Log("]");
-            if( i[0][0].StartsWith("BeginNode") && i[^1][0].StartsWith("EndNode")){//если есть начало и конец
+            if(i[0].Count>0 && i[^1].Count>0 && i[0][0].StartsWith("BeginNode") && i[^1][0].StartsWith("EndNode")){//если есть начало и конец
                 Programm = i;
                 
                 break;
@@ -254,10 +253,8 @@ public class NodesLogic : MonoBehaviour
                     Variables.Add(new VariableNode(_name,_value, _type));//добавляем переменную
                 }
                 else if(str[0].StartsWith("OutputNode")){//если нод вывода
-                    try{
-                        OutputField.text = Variables.Find(x => x.Name == obj.transform.GetChild(1).GetComponent<TMP_InputField>().text).Value;//находим значение переменной и выносим в поле вывода
-                    }
-                    catch(NullReferenceException){//проверяет является ли поле пустым и выводит ошибку
+                    if(Variables.Exists(x => x.Name == obj.transform.GetChild(1).GetComponent<TMP_InputField>().text))
+                    {//проверяет является ли поле пустым и выводит ошибку
                         OutputField.text = "Ошибка, "+(Programm.IndexOf(str)+1)+" строка: отсутстувует переменная вывода";
                         Error.SetActive(true);
                         return;
@@ -428,11 +425,13 @@ public class NodesLogic : MonoBehaviour
             _answerInd++;
             
         }
-        bool allGood = true;
-        foreach(bool cond in Tests){
-            if(cond==false) {GameObject.Find("Incorrect").GetComponent<Animation>().Play(); allGood = false; break;}
+        if(Programm.Count>0 && Tests.Count>0){
+            bool allGood = true;
+            foreach(bool cond in Tests){
+                if(cond==false) {GameObject.Find("Incorrect").GetComponent<Animation>().Play(); allGood = false; break;}
+            }
+            if(allGood) GameObject.Find("Correct").GetComponent<Animation>().Play();
         }
-        if(allGood) GameObject.Find("Correct").GetComponent<Animation>().Play();
         ////////////////////////////////////////проверка условия
         string CheckCondition(int str){
             List<string> _currentStr = Programm[str], _simplifiedString = new();
@@ -656,7 +655,8 @@ public class NodesLogic : MonoBehaviour
                     }
 
                 }
-                return _simplifiedString[0];
+                try {return _simplifiedString[0];}
+                catch(Exception) {return "Ошибка, "+(str+1)+" строка: неполное объявление переменной";}
             }
             else return "Ошибка, "+(str+1)+" строка: отсутствует нод присваивания";
             

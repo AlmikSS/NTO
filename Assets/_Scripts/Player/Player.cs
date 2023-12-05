@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IDamageable, IDamager
 {
-    private const float DOUBLECLICKTIME = 0.5f; // константа времени двойного клика
+    private const float DOUBLECLICKTIME = 1f; // константа времени двойного клика
     [Header("Attack")]
     [SerializeField] private Transform _attackPosition; // поле позиции нанесения урона
     [SerializeField] private LayerMask _attackMask; // слой, которому наносим урон

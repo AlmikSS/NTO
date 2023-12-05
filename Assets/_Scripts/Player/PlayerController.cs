@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("General")]
     private Vector3 _scale; // поле размера игрока
-    private bool _grounded; // логическа€ переменна€ показывающа€ находимс€ мы на земле или нет
+    public bool Grounded; // логическа€ переменна€ показывающа€ находимс€ мы на земле или нет
     private Rigidbody2D _rb; // поле Rigidbody2D дл€ физических взаимодействий
     private Input _playerInput; // система ввода
     private Animator _animator; // поле Animator
@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     public void Awake()
     {
         _playerInput = new Input(); // создаем экземпл€р класса Input
-        _playerInput.Player.Jump.performed += context => Jump(); // подписываем метод Jump к событию нажати€ на кнопку прыжка
+        _playerInput.Player.Jump.performed += context => Jump(Grounded); // подписываем метод Jump к событию нажати€ на кнопку прыжка
     }
 
     private void Start()
@@ -30,13 +30,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        _grounded = Physics2D.Raycast(transform.position ,Vector2.down, _scale.y / 2, _groundMask); // на земле ли мы
+        Grounded = Physics2D.Raycast(transform.position ,Vector2.down, _scale.y / 2, _groundMask); // на земле ли мы
 
         SpeedControl(); // вызываем метод SpeedControl
 
         // включаем анимации
         _animator.SetFloat("Speed", Mathf.Abs(_rb.velocity.x));
-        _animator.SetBool("Grounded", _grounded);
+        _animator.SetBool("Grounded", Grounded);
     }
 
     private void FixedUpdate()
@@ -66,9 +66,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Jump() // метод прыжка
+    public void Jump(bool jump) // метод прыжка
     {
-        if (_grounded) // находимс€ на земле
+        if (jump) // находимс€ на земле
         {
             _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse); // прыгаем
         }

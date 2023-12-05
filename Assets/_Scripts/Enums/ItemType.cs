@@ -2,5 +2,8 @@
 {
     Null = 0,
     Item = 1,
-    Gadjet = 2
+    DoubleJumpGadjet = 2,
+    RangedAttackGadjet = 3,
+    ShieldGadjet = 4,
+    HPGadjet = 5
 }

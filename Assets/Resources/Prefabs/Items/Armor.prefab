@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3467056530616253665}
   - component: {fileID: 3732552707677817643}
-  - component: {fileID: -5413795609677705445}
   m_Layer: 0
   m_Name: Armor
   m_TagString: Untagged
@@ -50,18 +49,6 @@ MonoBehaviour:
   Stack: 1
   MaxStack: 1
   ID: 2
-  ItemType: 2
-  _itemsKey: 01000000
-  _itemsCount: 02000000
---- !u!114 &-5413795609677705445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3208601296762705722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32cb3cdaba8660141ac4b9cfa1bb24fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  ItemType: 4
+  _itemsKey: 
+  _itemsCount: 

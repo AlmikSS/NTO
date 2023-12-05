@@ -10,10 +10,10 @@ public class GadjetsInventory : MonoBehaviour
     [SerializeField] private GameObject _button; // сылка на префаб слота/кнопки инвентаря
     [SerializeField] private Inventory _inv;
 
-    [SerializeField] private List<Item> _items = new List<Item>(4); // список всех предметов в инвентаре
+    [SerializeField] private GadjetsVisualization _visualization;
     [SerializeField] private Item _nullItem; // пустой предмет
+    public List<Item> Items = new List<Item>(4); // список всех предметов в инвентаре
 
-    public List<Gadjet> Gadjets = new List<Gadjet>();
     private Input _playerInput; // система ввода игрока
 
     private void Awake()
@@ -33,9 +33,17 @@ public class GadjetsInventory : MonoBehaviour
 
         for (int i = 0; i < _height * _width; i++) // проходимся по всем слотам
         {
-            GameObject _newGadjet = new GameObject("Gadjet", typeof(Gadjet)); // создаем предмет
+            GameObject _newItem = new GameObject("Gadjet", typeof(Item)); // создаем предмет
+
+            //задаем характеристики предмета
+            _newItem.GetComponent<Item>().Name = Items[i].Name;
+            _newItem.GetComponent<Item>().ID = Items[i].ID;
+            _newItem.GetComponent<Item>().Stack = Items[i].Stack;
+            _newItem.GetComponent<Item>().MaxStack = Items[i].MaxStack;
+            _newItem.GetComponent<Item>().Image = Items[i].Image;
+            _newItem.GetComponent<Item>().ItemType = Items[i].ItemType;
             //добавляем предмет в список
-            Gadjets[i] = _newGadjet.GetComponent<Gadjet>();
+            Items[i] = _newItem.GetComponent<Item>();
         }
         
         Redraw(); // перерисовываем весь инвентарь
@@ -43,11 +51,11 @@ public class GadjetsInventory : MonoBehaviour
 
     public void SelectSlot(int ID) // метод выбора слота
     {
-        if (_inv.MouseItem.ItemType == ItemType.Gadjet || _inv.MouseItem.ItemType == ItemType.Null)
+        if (_inv.MouseItem.ItemType != ItemType.Item || _inv.MouseItem.ItemType == ItemType.Null)
         {
-            Gadjet tempItem = Gadjets[ID].GetComponent<Gadjet>(); // временное поле для хранения предмета в слоте
-            Gadjets[ID] = _inv.MouseItem.GetComponent<Gadjet>(); // в слоте теперь предмет который был в руке
-            _inv.MouseItem = tempItem.GetComponent<Item>(); // в руке теперь предмет который был в слотеSs
+            Item tempItem = Items[ID]; // временное поле для хранения предмета в слоте
+            Items[ID] = _inv.MouseItem; // в слоте теперь предмет который был в руке
+            _inv.MouseItem = tempItem; // в руке теперь предмет который был в слоте
         }
 
         Redraw(); // перерисовываем инвентарь
@@ -57,19 +65,20 @@ public class GadjetsInventory : MonoBehaviour
     {
         for (int i = 0; i < _width * _height; i++) // проходимся по всем слотам
         {
-            _inventoryPanel.GetChild(i).GetChild(0).GetComponent<RawImage>().texture = _items[i].Image; // меняем текстуру слота на текстуру предмета в этом слоте
+            _inventoryPanel.GetChild(i).GetChild(0).GetComponent<RawImage>().texture = Items[i].Image; // меняем текстуру слота на текстуру предмета в этом слоте
 
-            if (_items[i].ID == 0 || _items[i].Stack == 0) // если предмета нет
+            if (Items[i].ID == 0 || Items[i].Stack == 0) // если предмета нет
             {
                 _inventoryPanel.GetChild(i).GetChild(1).GetComponent<TMP_Text>().text = ""; // меняем текст на пустоту
             }
             else // предмет есть
             {
-                _inventoryPanel.GetChild(i).GetChild(1).GetComponent<TMP_Text>().text = _items[i].Stack.ToString(); // меняем текст на колличество предмета
+                _inventoryPanel.GetChild(i).GetChild(1).GetComponent<TMP_Text>().text = Items[i].Stack.ToString(); // меняем текст на колличество предмета
             }
         }
 
         _inv.Redraw();
+        _visualization.Redraw();
     }
 
     private void OnEnable() => _playerInput.Enable(); // включем систему ввода

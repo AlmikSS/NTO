@@ -17,7 +17,7 @@ public class Inventory : MonoBehaviour
 
     private Input _playerInput; // система ввода игрока
 
-    public void Inizialize()
+    public void Awake()
     {
         _playerInput = new Input(); // создаем экземпляр класса Input
     }

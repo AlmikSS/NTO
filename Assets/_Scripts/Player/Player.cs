@@ -27,8 +27,17 @@ public class Player : MonoBehaviour, IDamageable, IDamager
 
     private void Start()
     {
+        Load();
         _health = _maxHealth; // текущее здоровье равно максимальному
         _animator = GetComponent<Animator>(); // кэшируем Animator
+    }
+
+    private void Load()
+    {
+        int posX = PlayerPrefs.GetInt("PosX");
+        int posY = PlayerPrefs.GetInt("PosY");
+
+        transform.position = new Vector3(posX, posY, 0);
     }
 
     public void Attack() // метод атаки

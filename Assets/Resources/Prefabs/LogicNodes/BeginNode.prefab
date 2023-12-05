@@ -67,9 +67,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: e555a8f12f9e2514bb00d664bb0b07f9, type: 3}
     m_FontSize: 9
-    m_FontStyle: 2
+    m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 166
@@ -79,7 +79,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u041D\u0430\u0447\u0430\u043B\u043E"
+  m_Text: "\u041D\u0410\u0427\u0410\u041B\u041E"
 --- !u!1 &4229846307476031572
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,8 +180,8 @@ MonoBehaviour:
           m_MethodName: MoveBlock
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 4229846307476031575}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+            m_ObjectArgument: {fileID: 4229846307476031572}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 

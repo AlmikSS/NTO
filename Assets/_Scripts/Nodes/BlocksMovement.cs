@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BlocksMovement : MonoBehaviour
@@ -7,19 +8,20 @@ public class BlocksMovement : MonoBehaviour
     public List<GameObject> AllNodes = new List<GameObject>();//все ноды на уровне
     [SerializeField] float ClueDistnce = 15f;//дистанция склеивания нодов
     [HideInInspector] public GameObject Coll;// создаем публичную переменную для ближайшего объекта 
-
+    private NodesLogic _nodesLogic; //записываем скрипт логики в переменную 
     private Input _playerInput;
 
     private void OnEnable()
     {
         _playerInput = new Input();
         _playerInput.Enable();
+        _nodesLogic = GetComponent<NodesLogic>();
     }
     private void OnDisable()
     {
         _playerInput.Disable();
     }
-
+    
     public void OnInitializeDrag(GameObject Obj){//когда пользователь начинает двигать нод
         if(Obj.transform.parent.parent.parent.name == "NodesView"){//проверяем находится ли он в теле нодов
             GameObject _newObj = Instantiate(Obj, new Vector2(Obj.transform.position.x, Obj.transform.position.y),  Quaternion.identity, Obj.transform.parent);
@@ -27,21 +29,42 @@ public class BlocksMovement : MonoBehaviour
         }
     }
 
-    public void MoveBlock(Transform Obj){//когда пользователь двигает блок
-
-        if(Obj.position.x >= 0 && Obj.position.x <= Screen.width && Obj.position.y>= 0 && Obj.position.y <= Screen.height){
-            Obj.SetParent(GameObject.Find("Canvas").transform);
-            Obj.position = _playerInput.Player.MousePosition.ReadValue<Vector2>();//если блок находится в пределах экрана и не выходит за границы, то копирует позицию мыши
+    public void MoveBlock(GameObject Obj){//когда пользователь двигает блок
+        if(Obj.transform.position.x >= 0 && Obj.transform.position.x <= Screen.width && Obj.transform.position.y>= 0 && Obj.transform.position.y <= Screen.height){
+            Obj.transform.SetParent(GameObject.Find("Canvas").transform);
+            Obj.transform.position = _playerInput.UI.MousePosition.ReadValue<Vector2>();//если блок находится в пределах экрана и не выходит за границы, то копирует позицию мыши
         }
         else{
             AllNodes.Remove(Obj.gameObject);
-            Destroy(Obj.gameObject);
-            return;//если блок выходит за границы, автоматически удаляется
+            bool _del = false;
+            foreach(List<List<string>> i in _nodesLogic.AllCombinatoins){
+                foreach(List<string> j in i){
+                    if(j.Contains(Obj.name)){
+
+                        if(j.IndexOf(Obj.name)+1<j.Count){
+                            _nodesLogic.AllCombinatoins.Add(new List<List<string>>(){j.GetRange(j.IndexOf(Obj.name)+1, j.Count-j.IndexOf(Obj.name)-1).ToList()});
+                            j.RemoveRange(j.IndexOf(Obj.name)+1, j.Count-j.IndexOf(Obj.name)-1);
+                        }
+
+                        if(i.IndexOf(j)+1< i.Count && j.IndexOf(Obj.name)==0){
+                            _nodesLogic.AllCombinatoins.Add(i.GetRange(i.IndexOf(j)+1, i.Count-i.IndexOf(j)-1).ToList());
+                            i.RemoveRange(i.IndexOf(j)+1, i.Count-i.IndexOf(j)-1);
+                        }
+                        j.Remove(Obj.name);
+                        _del = true;
+                        break;
+                    }
+                }
+                if(_del) break;
+            } // удаляем из списка позиций всех нодов
+
+            Destroy(Obj); //удаляем
+            return;
         }
     }
 
      public string DropBlock(GameObject Obj){//вызывается из NodesLogic
-        NodesLogic _nodesLogic = GameObject.Find("Canvas").GetComponent<NodesLogic>(); //записываем скрипт логики в переменную 
+
         
         Vector2 _objPos = Obj.transform.position, _collSize, _collPos; //позиция текущего нода
         

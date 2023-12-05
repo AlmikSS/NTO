@@ -145,9 +145,9 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Use"",
+                    ""name"": ""Iteract"",
                     ""type"": ""Button"",
-                    ""id"": ""f6f9dbdf-c4b0-4773-9e98-96e096e8362d"",
+                    ""id"": ""e05a8fbd-2ce1-40f2-8f63-becdc5220449"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -322,12 +322,71 @@ public partial class @Input: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""99a1eb68-1e60-4354-b484-c647cc846b9b"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""id"": ""0b12d0b9-c7f8-47ad-87fd-0d6e1ce9122a"",
+                    ""path"": ""<Keyboard>/#(E)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Iteract"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0acbee68-5fa1-46d6-8930-525e214db96a"",
+                    ""path"": ""<Keyboard>/#(У)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Iteract"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""d064dc28-edc2-4c37-a80d-0d5c53f32c25"",
+            ""actions"": [
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""ab4a1ef8-c598-4f4e-9ed0-b70fc4fcd9cd"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""e97cf26a-5a14-4d49-98f5-4702f5e240e0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""14f30caf-01ae-4bbc-bda8-94ed2e4e7481"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0d57ac04-476c-4ee4-aeb0-631ab0142770"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Use"",
+                    ""action"": ""Escape"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -357,7 +416,11 @@ public partial class @Input: IInputActionCollection2, IDisposable
         m_Player_Gadjet3 = m_Player.FindAction("Gadjet3", throwIfNotFound: true);
         m_Player_Gadjet4 = m_Player.FindAction("Gadjet4", throwIfNotFound: true);
         m_Player_MouseRightButtonClick = m_Player.FindAction("MouseRightButtonClick", throwIfNotFound: true);
-        m_Player_Use = m_Player.FindAction("Use", throwIfNotFound: true);
+        m_Player_Iteract = m_Player.FindAction("Iteract", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_MousePosition = m_UI.FindAction("MousePosition", throwIfNotFound: true);
+        m_UI_Escape = m_UI.FindAction("Escape", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -432,7 +495,7 @@ public partial class @Input: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Gadjet3;
     private readonly InputAction m_Player_Gadjet4;
     private readonly InputAction m_Player_MouseRightButtonClick;
-    private readonly InputAction m_Player_Use;
+    private readonly InputAction m_Player_Iteract;
     public struct PlayerActions
     {
         private @Input m_Wrapper;
@@ -450,7 +513,7 @@ public partial class @Input: IInputActionCollection2, IDisposable
         public InputAction @Gadjet3 => m_Wrapper.m_Player_Gadjet3;
         public InputAction @Gadjet4 => m_Wrapper.m_Player_Gadjet4;
         public InputAction @MouseRightButtonClick => m_Wrapper.m_Player_MouseRightButtonClick;
-        public InputAction @Use => m_Wrapper.m_Player_Use;
+        public InputAction @Iteract => m_Wrapper.m_Player_Iteract;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -499,9 +562,9 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @MouseRightButtonClick.started += instance.OnMouseRightButtonClick;
             @MouseRightButtonClick.performed += instance.OnMouseRightButtonClick;
             @MouseRightButtonClick.canceled += instance.OnMouseRightButtonClick;
-            @Use.started += instance.OnUse;
-            @Use.performed += instance.OnUse;
-            @Use.canceled += instance.OnUse;
+            @Iteract.started += instance.OnIteract;
+            @Iteract.performed += instance.OnIteract;
+            @Iteract.canceled += instance.OnIteract;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -545,9 +608,9 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @MouseRightButtonClick.started -= instance.OnMouseRightButtonClick;
             @MouseRightButtonClick.performed -= instance.OnMouseRightButtonClick;
             @MouseRightButtonClick.canceled -= instance.OnMouseRightButtonClick;
-            @Use.started -= instance.OnUse;
-            @Use.performed -= instance.OnUse;
-            @Use.canceled -= instance.OnUse;
+            @Iteract.started -= instance.OnIteract;
+            @Iteract.performed -= instance.OnIteract;
+            @Iteract.canceled -= instance.OnIteract;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -565,6 +628,60 @@ public partial class @Input: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+    private readonly InputAction m_UI_MousePosition;
+    private readonly InputAction m_UI_Escape;
+    public struct UIActions
+    {
+        private @Input m_Wrapper;
+        public UIActions(@Input wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MousePosition => m_Wrapper.m_UI_MousePosition;
+        public InputAction @Escape => m_Wrapper.m_UI_Escape;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void AddCallbacks(IUIActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+            @MousePosition.started += instance.OnMousePosition;
+            @MousePosition.performed += instance.OnMousePosition;
+            @MousePosition.canceled += instance.OnMousePosition;
+            @Escape.started += instance.OnEscape;
+            @Escape.performed += instance.OnEscape;
+            @Escape.canceled += instance.OnEscape;
+        }
+
+        private void UnregisterCallbacks(IUIActions instance)
+        {
+            @MousePosition.started -= instance.OnMousePosition;
+            @MousePosition.performed -= instance.OnMousePosition;
+            @MousePosition.canceled -= instance.OnMousePosition;
+            @Escape.started -= instance.OnEscape;
+            @Escape.performed -= instance.OnEscape;
+            @Escape.canceled -= instance.OnEscape;
+        }
+
+        public void RemoveCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUIActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -589,6 +706,11 @@ public partial class @Input: IInputActionCollection2, IDisposable
         void OnGadjet3(InputAction.CallbackContext context);
         void OnGadjet4(InputAction.CallbackContext context);
         void OnMouseRightButtonClick(InputAction.CallbackContext context);
-        void OnUse(InputAction.CallbackContext context);
+        void OnIteract(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnMousePosition(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
     }
 }

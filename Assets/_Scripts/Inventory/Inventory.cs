@@ -195,7 +195,7 @@ public class Inventory : MonoBehaviour
                 newItemInv.GetComponent<Item>().Image = newItem.Image;
                 newItemInv.GetComponent<Item>().Stack = 1;
                 newItemInv.GetComponent<Item>().MaxStack = newItem.MaxStack;
-                newItemInv.GetComponent<Item>().ItemType = _items[i].ItemType;
+                newItemInv.GetComponent<Item>().ItemType = newItem.ItemType;
                 //добавляем предмет в список
                 _items[i] = newItemInv.GetComponent<Item>();
                 break; // выходим из цикла

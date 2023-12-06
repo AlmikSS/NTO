@@ -3,79 +3,112 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    [Header("Settings")]
-    [SerializeField] private float _moveSpeed; // �������� ������������
-    [SerializeField] private float _jumpForce; // ���� ������
-    [SerializeField] private LayerMask _groundMask;
+    [Header("Movement")]
+    [SerializeField] private float _movementSpeed;
+    [SerializeField] private float _slidingSpeed;
+    [SerializeField] private float _wallCheckDistance;
 
-    [Header("General")]
-    private Vector3 _scale; // ���� ������� ������
-    public bool Grounded; // ���������� ���������� ������������ ��������� �� �� ����� ��� ���
-    private Rigidbody2D _rb; // ���� Rigidbody2D ��� ���������� ��������������
-    private Input _playerInput; // ������� �����
-    private Animator _animator; // ���� Animator
+    [Header("Jumping")]
+    [SerializeField] private Transform _groundCheck;
+    [SerializeField] private LayerMask _groundedMask;
+    [SerializeField] private float _jumpForce;
+      
+    private Rigidbody2D _rb;
+    private Animator _animator;
+    private Input _playerInput;
+    private bool _isJumping;
+    private bool _isSliding;
+    private bool _isTouchingWall;
+    private bool _isFacingRight = true;
+    private float _moveDirection;
 
-    public void Awake()
+    public bool Grounded;
+
+    private void Awake()
     {
-        _playerInput = new Input(); // ������� ��������� ������ Input
-        _playerInput.UI.Disable();
-        _playerInput.Player.Jump.performed += context => Jump(Grounded); // ����������� ����� Jump � ������� ������� �� ������ ������
+        _playerInput = new Input();
+        _playerInput.Player.Jump.performed += context => Jump(Grounded);
     }
 
     private void Start()
     {
-        _rb = GetComponent<Rigidbody2D>(); // �������� Rigidbody2D
-        _scale = transform.localScale; // �������� ������ ������
-        _animator = GetComponent<Animator>(); // �������� Animator
+        _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        Grounded = Physics2D.Raycast(transform.position ,Vector2.down, _scale.y / 2, _groundMask); // �� ����� �� ��
-
-        SpeedControl(); // �������� ����� SpeedControl
-
-        // �������� ��������
-        _animator.SetFloat("Speed", Mathf.Abs(_rb.velocity.x));
-        _animator.SetBool("Grounded", Grounded);
+        Grounded = Physics2D.OverlapCircle(_groundCheck.position, 0.3f, _groundedMask);
+        _moveDirection = _playerInput.Player.Move.ReadValue<float>();
+        if (Physics2D.Raycast(transform.position, Vector2.right, _wallCheckDistance, _groundedMask) || Physics2D.Raycast(transform.position, Vector2.left, _wallCheckDistance, _groundedMask))
+            _isTouchingWall = true;
+        else
+            _isTouchingWall = false;
+        Flip();
+        ApplyAnimations();
+        CheckSliding();
     }
 
     private void FixedUpdate()
     {
-        Move(); // � FixedUpdate �������� ����� Move      
+        Move();
     }
 
-    private void Move() // ����� ����������� ������
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        float _axis = _playerInput.Player.Move.ReadValue<float>(); // ���������� ����������� �������� 
-        _rb.velocity = new Vector2(_axis * _moveSpeed, _rb.velocity.y); // ���������
-
-        if (_axis > 0) // ��������� ������
-            transform.localScale = _scale; // ������� ������
-        else if (_axis < 0) // ��������� �����
-            transform.localScale = new Vector3(-_scale.x, _scale.y, _scale.z); // ������� �����
+        if (collision.gameObject.CompareTag("Ground"))
+            _isJumping = false;
     }
 
-    private void SpeedControl() // ����� �������� ��������
+    private void CheckSliding()
     {
-        Vector2 _flatVel = new Vector2(_rb.velocity.x, 0f); // ������ ������� ��������
+        if (_isTouchingWall && !Grounded)
+            _isSliding = true;
+        else
+            _isSliding = false;
+    }
 
-        if (_flatVel.magnitude > _moveSpeed) // ������� �������� ������ �������� ������������
+    private void ApplyAnimations()
+    {
+        _animator.SetFloat("Speed", _moveDirection);
+        _animator.SetBool("Grounded", Grounded);
+    }
+
+    public void Jump(bool ready)
+    {
+        if (ready)
         {
-            Vector2 _limitedVel = _flatVel.normalized * _moveSpeed; // ������ � ��������������� ���������
-            _rb.velocity = new Vector2(_limitedVel.x, _rb.velocity.y); // ������ ��������
+            _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+            _isJumping = true;
         }
     }
 
-    public void Jump(bool ready) // ����� ������
+    private void Move()
     {
-        if (ready) // ��������� �� �����
+        if (Grounded || _isJumping)
+            _rb.velocity = new Vector2(_movementSpeed * _moveDirection, _rb.velocity.y);
+
+        if (_isSliding)
         {
-            _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse); // �������
+            if (_rb.velocity.y < -_slidingSpeed)
+            {
+                _rb.velocity = new Vector2(_rb.velocity.x, -_slidingSpeed);
+            }
         }
     }
 
-    private void OnEnable() => _playerInput.Enable(); // �������� ������� �����
-  
-    private void OnDisable() => _playerInput.Disable(); // ��������� ������� �����
+    private void Flip()
+    {
+        if (_isFacingRight && _moveDirection < 0 || !_isFacingRight && _moveDirection > 0)
+        {
+            _isFacingRight = !_isFacingRight;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1;
+            transform.localScale = localScale;
+        }
+    }
+
+    private void OnEnable() => _playerInput.Enable();
+
+    private void OnDisable() => _playerInput.Disable();
 }

@@ -40,6 +40,8 @@ public class Player : MonoBehaviour, IDamageable, IDamager
         int posX = PlayerPrefs.GetInt("PosX");
         int posY = PlayerPrefs.GetInt("PosY");
 
+        PlayerPrefs.DeleteKey("PosX");
+        PlayerPrefs.DeleteKey("PosY");
         transform.position = new Vector3(posX, posY, 0);
     }
 

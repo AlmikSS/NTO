@@ -18,6 +18,7 @@ public class Craft : MonoBehaviour
             _inventory.ReduseObjects(item._itemsKey[i], item._itemsCount[i]); // удаляем предметы из инвентаря
         }
 
+        _inventory.Redraw();
         _inventory.AddItem(item); // добавляем предмет
     }
 

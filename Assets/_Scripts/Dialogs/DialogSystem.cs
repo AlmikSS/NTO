@@ -12,28 +12,23 @@ public class DialogSystem : MonoBehaviour
     private bool canPrint = true;
     private char[] b;
     private int i=0;
-    private bool getE = false;
+    private bool getE = false, _first = true;
     private Coroutine printCoroutine;
     private Input _playerInput;
-    public void OnEnable() {
+    private void Awake() {
         _playerInput = new Input();
-        _playerInput.Enable();
         _playerInput.Player.Iteract.performed += PerformIteract;
-
     }
+    public void OnEnable() {_playerInput.Enable();}
 
-    public void OnDisable() {
-        _playerInput.Player.Iteract.performed -= PerformIteract;
-        _playerInput.Disable();
-
-    }
+    public void OnDisable() {_playerInput.Disable();}
     
     private void PerformIteract(InputAction.CallbackContext context)
     {
-        if( i>=TextStrings.Length)
-            CloseDialog();
-        else
+        if(_first){
             getE = true;
+            _first = false;
+        }
     }
    
 
@@ -46,12 +41,9 @@ public class DialogSystem : MonoBehaviour
     }
 /////////////////////////////////////////////////////
     private void OnTriggerStay2D(Collider2D other) {
-        if(getE && other.gameObject.tag=="Player" && canPrint){
+        if(getE && other.gameObject.tag=="Player"){
             PreparePrint();
-        }
-        else if(getE && other.gameObject.tag=="Player" && !canPrint){
-            speed = 0.01f;
-            getE=false;
+            getE = false;
         }
 
     }
@@ -65,7 +57,7 @@ public class DialogSystem : MonoBehaviour
     }
 /////////////////////////////////////////////////////
     public void OnClick(){
-        if(i>=TextStrings.Length)
+        if(i>=TextStrings.Length && canPrint)
             CloseDialog();
         else if(canPrint){
             PreparePrint();
@@ -85,7 +77,6 @@ public class DialogSystem : MonoBehaviour
         dialogField.SetActive(true);
         canPrint = false;
         printCoroutine = StartCoroutine(Print());
-        getE=false;
     }
 /////////////////////////////////////////////////////
     IEnumerator Print(){
@@ -96,13 +87,13 @@ public class DialogSystem : MonoBehaviour
         }
         i++;
         canPrint = true;
-        getE=false;
     }
 /////////////////////////////////////////////////////
     private void CloseDialog(){
         dialogField.SetActive(false);
         txt.text = "";
         getE=false;
+        _first = true;
         canPrint=true;
         i=0;
         if(printCoroutine!=null)

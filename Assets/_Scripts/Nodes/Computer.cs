@@ -10,21 +10,18 @@ public class Computer : MonoBehaviour
     [SerializeField] private Player _pl;
     private bool _collides = false;
     private Input _playerInput;
-    public void OnEnable() {
+    private void Awake() {
         _playerInput = new Input();
-        _playerInput.Enable();
         _playerInput.Player.Iteract.performed += PerformIteract;
         _playerInput.UI.Escape.performed += PerformEscape;
     }
-
-    
-
-    public void OnDisable() {
-        _playerInput.Player.Iteract.performed -= PerformIteract;
-        _playerInput.UI.Escape.performed -= PerformEscape;
-        _playerInput.Disable();
-
+    public void OnEnable() {
+        _playerInput.Enable();
     }
+    public void OnDisable() {
+        _playerInput.Disable();
+    }
+    
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.tag=="Player") _collides = true;
     }

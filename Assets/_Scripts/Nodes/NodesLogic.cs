@@ -253,7 +253,7 @@ public class NodesLogic : MonoBehaviour
                     Variables.Add(new VariableNode(_name,_value, _type));//добавляем переменную
                 }
                 else if(str[0].StartsWith("OutputNode")){//если нод вывода
-                    if(Variables.Exists(x => x.Name == obj.transform.GetChild(1).GetComponent<TMP_InputField>().text))
+                    if(!Variables.Exists(x => x.Name == obj.transform.GetChild(1).GetComponent<TMP_InputField>().text))
                     {//проверяет является ли поле пустым и выводит ошибку
                         OutputField.text = "Ошибка, "+(Programm.IndexOf(str)+1)+" строка: отсутстувует переменная вывода";
                         Error.SetActive(true);

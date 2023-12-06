@@ -186,7 +186,7 @@ MonoBehaviour:
   _inventoryPanel: {fileID: 686133990025881628}
   _button: {fileID: 1513556417573059283, guid: d406e3a4a1719c54aab426ca31d3e656, type: 3}
   _inv: {fileID: 686133990106910166}
-  _visualization: {fileID: 5951842607051729123}
+  _visualization: {fileID: 8786957743008149700}
   _nullItem: {fileID: 1415834791889380480, guid: a93593eaa7e38384f9811ce2544db983, type: 3}
   Items:
   - {fileID: 1415834791889380480, guid: a93593eaa7e38384f9811ce2544db983, type: 3}
@@ -949,8 +949,8 @@ GameObject:
   - component: {fileID: 686133991514325458}
   - component: {fileID: 686133991514325460}
   - component: {fileID: 686133991514325459}
-  - component: {fileID: 5951842607417010068}
   - component: {fileID: 1238577459165696521}
+  - component: {fileID: 2637835109291219835}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -1138,25 +1138,6 @@ MonoBehaviour:
   _maxHealth: 100
   _inventory: {fileID: 686133990524198492}
   _abilities: {fileID: 0}
---- !u!114 &5951842607417010068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 686133991514325461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7ae5d36f98ec9445a9f5a212ec661cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _doubleJumpCulDown: 2
-  _shieldTime: 30
-  _shieldCulDown: 15
-  _shieldPrefab: {fileID: 7134705347530553648, guid: 3e3cb97b21a01ca4ab0833b424a971a1, type: 3}
-  _shiledSpawnPoint: {fileID: 5951842607742105531}
-  ReadyToDoubleJump: 1
-  ReadyToInstShield: 1
 --- !u!114 &1238577459165696521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1170,6 +1151,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inv: {fileID: 686133990025881630}
+--- !u!114 &2637835109291219835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686133991514325461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2db295fe38c11e84ba2e266565287771, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _doubleJumpCulDown: 2
+  _shieldTime: 15
+  _shieldCulDown: 10
+  _shieldPrefab: {fileID: 7134705347530553648, guid: 3e3cb97b21a01ca4ab0833b424a971a1, type: 3}
+  _shiledSpawnPoint: {fileID: 5951842607742105531}
+  ReadyToDoubleJump: 1
+  ReadyToInstShield: 1
 --- !u!1 &686133991760054150
 GameObject:
   m_ObjectHideFlags: 0
@@ -1867,7 +1867,7 @@ GameObject:
   - component: {fileID: 5951842607051729132}
   - component: {fileID: 5951842607051729121}
   - component: {fileID: 5951842607051729122}
-  - component: {fileID: 5951842607051729123}
+  - component: {fileID: 8786957743008149700}
   m_Layer: 6
   m_Name: GadjetsPanel
   m_TagString: Untagged
@@ -1938,7 +1938,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5951842607051729123
+--- !u!114 &8786957743008149700
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1947,7 +1947,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5951842607051729133}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9fffcbd5fe2ba8469e7b2b191282cbf, type: 3}
+  m_Script: {fileID: 11500000, guid: d13b978f9239f6d4c9b9f7f5771a1342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _inventory: {fileID: 686133990025881630}

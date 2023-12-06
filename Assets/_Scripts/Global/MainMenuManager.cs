@@ -7,9 +7,8 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
-        int scene = PlayerPrefs.GetInt("Scene");
-        if (scene != CurrentScene) 
-            CurrentScene = scene;
+        if (PlayerPrefs.HasKey("Scene"))
+            CurrentScene = PlayerPrefs.GetInt("Scene");
     }
 
     public void Exit() => Application.Quit();

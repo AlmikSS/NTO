@@ -3,6 +3,7 @@ using UnityEngine;
 public class MoveCamera : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed; // поле скорости передвижения камеры
+    [SerializeField] private float _stopInPointTime;
     public Transform Target; // поле Transform цели
 
     private void FixedUpdate()

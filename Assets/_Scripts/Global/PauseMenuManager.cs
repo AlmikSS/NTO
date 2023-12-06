@@ -21,8 +21,11 @@ public class PauseMenuManager : MonoBehaviour
 
     private void Stop()
     {
-        _pausePanal.SetActive(true);
-        Time.timeScale = 0;
+        _pausePanal.SetActive(!_pausePanal.activeSelf);
+        if (Time.timeScale == 0)
+            Time.timeScale = 1;
+        else if (Time.timeScale == 1)
+            Time.timeScale = 0;
     }
 
     public void PlayButton()

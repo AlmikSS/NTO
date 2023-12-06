@@ -12,6 +12,10 @@ public class GadjetsVisualization : MonoBehaviour
         for (int i = 0; i < _gadjetsImage.Count; i++)
         {
             _gadjetsImage[i].texture = _inventory.Items[i].Image;
+            if (_inventory.Items[i].ItemType != ItemType.Null)
+                _gadjetsImage[i].color = new Color(1, 1, 1, 1);
+            else if (_inventory.Items[i].ItemType == ItemType.Null)
+                _gadjetsImage[i].color = new Color(0, 0, 0, 0);
         }
     }
 }

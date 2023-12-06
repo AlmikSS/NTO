@@ -16,6 +16,9 @@ public class Player : MonoBehaviour, IDamageable, IDamager
     private Animator _animator; // поле Animator
     private int _health; // здоровье
 
+    [Header("Gadjets")]
+    [SerializeField] private GadjetsAbilitys _abilities;
+
     private Input _playerInput; // ввод игрока
 
     public void Awake()

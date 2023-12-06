@@ -51,7 +51,7 @@ public class GadjetsInventory : MonoBehaviour
 
     public void SelectSlot(int ID) // метод выбора слота
     {
-        if (_inv.MouseItem.ItemType != ItemType.Item || _inv.MouseItem.ItemType == ItemType.Null)
+        if (_inv.MouseItem.ItemType != ItemType.Item)
         {
             Item tempItem = Items[ID]; // временное поле для хранения предмета в слоте
             Items[ID] = _inv.MouseItem; // в слоте теперь предмет который был в руке
@@ -65,16 +65,12 @@ public class GadjetsInventory : MonoBehaviour
     {
         for (int i = 0; i < _width * _height; i++) // проходимся по всем слотам
         {
-            _inventoryPanel.GetChild(i).GetChild(0).GetComponent<RawImage>().texture = Items[i].Image; // меняем текстуру слота на текстуру предмета в этом слоте
+            _inventoryPanel.GetChild(i).GetChild(1).GetComponent<RawImage>().texture = Items[i].Image; // меняем текстуру слота на текстуру предмета в этом слоте
 
-            if (Items[i].ID == 0 || Items[i].Stack == 0) // если предмета нет
-            {
-                _inventoryPanel.GetChild(i).GetChild(1).GetComponent<TMP_Text>().text = ""; // меняем текст на пустоту
-            }
-            else // предмет есть
-            {
-                _inventoryPanel.GetChild(i).GetChild(1).GetComponent<TMP_Text>().text = Items[i].Stack.ToString(); // меняем текст на колличество предмета
-            }
+            if (Items[i].ItemType != ItemType.Null)
+                _inventoryPanel.GetChild(i).GetChild(1).GetComponent<RawImage>().color = new Color(1, 1, 1, 1);
+            else if (Items[i].ItemType == ItemType.Null)
+                _inventoryPanel.GetChild(i).GetChild(1).GetComponent<RawImage>().color = new Color(0, 0, 0, 0);
         }
 
         _inv.Redraw();

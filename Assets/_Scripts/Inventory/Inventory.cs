@@ -102,15 +102,20 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < _width * _height; i++) // проходимся по всем слотам
         {
-            _inventoryPanel.GetChild(i).GetChild(0).GetComponent<RawImage>().texture = _items[i].Image; // меняем текстуру слота на текстуру предмета в этом слоте
+            _inventoryPanel.GetChild(i).GetChild(1).GetComponent<RawImage>().texture = _items[i].Image; // меняем текстуру слота на текстуру предмета в этом слоте
+
+            if (_items[i].ItemType != ItemType.Null)
+                _inventoryPanel.GetChild(i).GetChild(1).GetComponent<RawImage>().color = new Color(1, 1, 1, 1);
+            else if (_items[i].ItemType == ItemType.Null)
+                _inventoryPanel.GetChild(i).GetChild(1).GetComponent<RawImage>().color = new Color(0, 0, 0, 0);
 
             if (_items[i].ID == 0 || _items[i].Stack == 0) // если предмета нет
             {
-                _inventoryPanel.GetChild(i).GetChild(1).GetComponent<TMP_Text>().text = ""; // меняем текст на пустоту
+                _inventoryPanel.GetChild(i).GetChild(2).GetComponent<TMP_Text>().text = ""; // меняем текст на пустоту
             }
             else // предмет есть
             {
-                _inventoryPanel.GetChild(i).GetChild(1).GetComponent<TMP_Text>().text = _items[i].Stack.ToString(); // меняем текст на колличество предмета
+                _inventoryPanel.GetChild(i).GetChild(2).GetComponent<TMP_Text>().text = _items[i].Stack.ToString(); // меняем текст на колличество предмета
             }
         }
 

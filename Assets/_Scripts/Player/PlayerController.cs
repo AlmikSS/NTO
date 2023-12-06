@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("General")]
     private Vector3 _scale; // ���� ������� ������
-    private bool _grounded; // ���������� ���������� ������������ ��������� �� �� ����� ��� ���
+    public bool Grounded; // ���������� ���������� ������������ ��������� �� �� ����� ��� ���
     private Rigidbody2D _rb; // ���� Rigidbody2D ��� ���������� ��������������
     private Input _playerInput; // ������� �����
     private Animator _animator; // ���� Animator
@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     {
         _playerInput = new Input(); // ������� ��������� ������ Input
         _playerInput.UI.Disable();
-        _playerInput.Player.Jump.performed += context => Jump(); // ����������� ����� Jump � ������� ������� �� ������ ������
+        _playerInput.Player.Jump.performed += context => Jump(Grounded); // ����������� ����� Jump � ������� ������� �� ������ ������
     }
 
     private void Start()
@@ -31,13 +31,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        _grounded = Physics2D.Raycast(transform.position ,Vector2.down, _scale.y / 2, _groundMask); // �� ����� �� ��
+        Grounded = Physics2D.Raycast(transform.position ,Vector2.down, _scale.y / 2, _groundMask); // �� ����� �� ��
 
         SpeedControl(); // �������� ����� SpeedControl
 
         // �������� ��������
         _animator.SetFloat("Speed", Mathf.Abs(_rb.velocity.x));
-        _animator.SetBool("Grounded", _grounded);
+        _animator.SetBool("Grounded", Grounded);
     }
 
     private void FixedUpdate()
@@ -67,9 +67,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Jump() // ����� ������
+    public void Jump(bool ready) // ����� ������
     {
-        if (_grounded) // ��������� �� �����
+        if (ready) // ��������� �� �����
         {
             _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse); // �������
         }

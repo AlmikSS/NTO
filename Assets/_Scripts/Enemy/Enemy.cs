@@ -1,6 +1,4 @@
 using Pathfinding;
-using System;
-using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(AIDestinationSetter))]

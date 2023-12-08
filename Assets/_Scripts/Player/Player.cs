@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour, IDamageable, IDamager
@@ -69,7 +70,12 @@ public class Player : MonoBehaviour, IDamageable, IDamager
         // ���������� �� ���� �����������
         foreach (Collider2D enemy in colliders)
         {
-            enemy.GetComponent<Enemy>().TakeDamage(damage); // ������� ����
+            try{
+                enemy.GetComponent<Enemy>().TakeDamage(damage);
+            } // ������� ����
+            catch(Exception){
+                enemy.GetComponent<ShootingEnemy>().TakeDamage(damage);
+            }
         }
     }
 

@@ -1,18 +1,8 @@
 <?xml version="1.0"?>
 <ArrayOfItemData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ItemData>
-    <Name>Null</Name>
-    <Stack>-2</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Null</Name>
-    <Stack>-2</Stack>
+    <Name />
+    <Stack>0</Stack>
     <MaxStack>0</MaxStack>
     <ID>0</ID>
     <ItemType>Null</ItemType>
@@ -32,7 +22,7 @@
   </ItemData>
   <ItemData>
     <Name>Null</Name>
-    <Stack>-2</Stack>
+    <Stack>-4</Stack>
     <MaxStack>0</MaxStack>
     <ID>0</ID>
     <ItemType>Null</ItemType>
@@ -42,7 +32,37 @@
   </ItemData>
   <ItemData>
     <Name>Null</Name>
-    <Stack>-2</Stack>
+    <Stack>-4</Stack>
+    <MaxStack>0</MaxStack>
+    <ID>0</ID>
+    <ItemType>Null</ItemType>
+    <IsItem>false</IsItem>
+    <_itemsKey />
+    <_itemsCount />
+  </ItemData>
+  <ItemData>
+    <Name />
+    <Stack>0</Stack>
+    <MaxStack>0</MaxStack>
+    <ID>0</ID>
+    <ItemType>Null</ItemType>
+    <IsItem>false</IsItem>
+    <_itemsKey />
+    <_itemsCount />
+  </ItemData>
+  <ItemData>
+    <Name />
+    <Stack>0</Stack>
+    <MaxStack>0</MaxStack>
+    <ID>0</ID>
+    <ItemType>Null</ItemType>
+    <IsItem>false</IsItem>
+    <_itemsKey />
+    <_itemsCount />
+  </ItemData>
+  <ItemData>
+    <Name />
+    <Stack>0</Stack>
     <MaxStack>0</MaxStack>
     <ID>0</ID>
     <ItemType>Null</ItemType>
@@ -62,7 +82,7 @@
   </ItemData>
   <ItemData>
     <Name>Null</Name>
-    <Stack>-2</Stack>
+    <Stack>-4</Stack>
     <MaxStack>0</MaxStack>
     <ID>0</ID>
     <ItemType>Null</ItemType>
@@ -71,31 +91,11 @@
     <_itemsCount />
   </ItemData>
   <ItemData>
-    <Name>Null</Name>
-    <Stack>-2</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Null</Name>
-    <Stack>-2</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Null</Name>
-    <Stack>-2</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
+    <Name>DoubleJump</Name>
+    <Stack>1</Stack>
+    <MaxStack>1</MaxStack>
+    <ID>1</ID>
+    <ItemType>DoubleJumpGadjet</ItemType>
     <IsItem>false</IsItem>
     <_itemsKey />
     <_itemsCount />

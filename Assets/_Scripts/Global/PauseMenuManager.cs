@@ -42,6 +42,7 @@ public class PauseMenuManager : MonoBehaviour
     public void ExitButton()
     {
         _inv.Save();
+        MainMenuManager.Save("Scene");
         SceneManager.LoadScene(0);
     }
 

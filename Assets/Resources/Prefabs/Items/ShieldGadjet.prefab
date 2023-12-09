@@ -51,6 +51,9 @@ MonoBehaviour:
   ID: 2
   ItemType: 3
   IsItem: 0
+  Description: "\u0413\u0410\u0414\u0416\u0415\u0422 \u041D\u0410\u041A\u041B\u0410\u0414\u042B\u0412\u0410\u0415\u0422
+    \u0429\u0418\u0422\u042C \u041D\u0410 \u041E\u041F\u0420\u0415\u0414\u0415\u041B\u0401\u041D\u041D\u041E\u0415
+    \u0412\u0420\u0415\u041C\u042F"
   _itemsKey: 03000000
   _itemsCount: 02000000
   Data:
@@ -60,5 +63,6 @@ MonoBehaviour:
     ID: 0
     ItemType: 0
     IsItem: 0
+    Description: 
     _itemsKey: 
     _itemsCount: 

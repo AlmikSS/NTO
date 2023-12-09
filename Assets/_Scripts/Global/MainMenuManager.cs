@@ -4,29 +4,27 @@ using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour
 {
     public static int CurrentScene = 1;
-    private static string _path;
 
     public void Exit()
     {
-        Save(_path);
+        Save("Scene");
         Application.Quit();
     }
     public void Play()
     {
-        Load(_path);
+        Load("Scene");
         SceneManager.LoadScene(CurrentScene);
     }
 
     public static void Save(string path)
     {  
-        _path = "Scene";
-        SaveManager.SaveScene(CurrentScene, _path);
+        SaveManager.SaveScene(CurrentScene, path);
     }
 
     public static void Load(string path)
     {
-        if (SaveManager.LoadScene(_path) > CurrentScene)
-            CurrentScene = SaveManager.LoadScene(_path);
+        if (SaveManager.LoadScene("Scene") > CurrentScene)
+            CurrentScene = SaveManager.LoadScene("Scene");
         else
             CurrentScene = 1;
     }

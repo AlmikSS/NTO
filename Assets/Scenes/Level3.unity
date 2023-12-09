@@ -899,6 +899,10 @@ PrefabInstance:
       propertyPath: _pivot
       value: 
       objectReference: {fileID: 179900159}
+    - target: {fileID: 7003934708092897893, guid: c0a1f5c5d67229a499748de2ea5c163d, type: 3}
+      propertyPath: _levelManager
+      value: 
+      objectReference: {fileID: 901239104}
     - target: {fileID: 7003934708092897894, guid: c0a1f5c5d67229a499748de2ea5c163d, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1046,6 +1050,10 @@ PrefabInstance:
       propertyPath: _pivot
       value: 
       objectReference: {fileID: 501788540}
+    - target: {fileID: 7003934708092897893, guid: c0a1f5c5d67229a499748de2ea5c163d, type: 3}
+      propertyPath: _levelManager
+      value: 
+      objectReference: {fileID: 901239104}
     - target: {fileID: 7003934708092897894, guid: c0a1f5c5d67229a499748de2ea5c163d, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1776,6 +1784,10 @@ PrefabInstance:
       propertyPath: _rightPatrolPosition
       value: 
       objectReference: {fileID: 1743661320}
+    - target: {fileID: 4997063067374851870, guid: dad3ceb576bd7304285506026167ef2a, type: 3}
+      propertyPath: _levelManager
+      value: 
+      objectReference: {fileID: 901239104}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dad3ceb576bd7304285506026167ef2a, type: 3}
 --- !u!4 &754415155 stripped
@@ -1863,6 +1875,7 @@ GameObject:
   m_Component:
   - component: {fileID: 901239103}
   - component: {fileID: 901239102}
+  - component: {fileID: 901239104}
   m_Layer: 7
   m_Name: Level
   m_TagString: Ground
@@ -1910,6 +1923,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &901239104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 901239101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e8b4c810979bf74ba78fe719839489c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _door: {fileID: 1831085623}
+  _level2SpawnPoint: {fileID: 0}
+  _level3SpawnPoint: {fileID: 0}
+  _level4SpawnPoint: {fileID: 0}
+  _enemyCount: 6
+  DiedEnemyCount: 0
 --- !u!1001 &909040518
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1977,6 +2008,10 @@ PrefabInstance:
       propertyPath: _rightPatrolPosition
       value: 
       objectReference: {fileID: 1744405837}
+    - target: {fileID: 4997063067374851870, guid: dad3ceb576bd7304285506026167ef2a, type: 3}
+      propertyPath: _levelManager
+      value: 
+      objectReference: {fileID: 901239104}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dad3ceb576bd7304285506026167ef2a, type: 3}
 --- !u!4 &909040519 stripped
@@ -19219,6 +19254,10 @@ PrefabInstance:
       propertyPath: _rightPatrolPosition
       value: 
       objectReference: {fileID: 1441663179}
+    - target: {fileID: 4997063067374851870, guid: dad3ceb576bd7304285506026167ef2a, type: 3}
+      propertyPath: _levelManager
+      value: 
+      objectReference: {fileID: 901239104}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dad3ceb576bd7304285506026167ef2a, type: 3}
 --- !u!4 &1644547964 stripped
@@ -20072,6 +20111,10 @@ PrefabInstance:
       propertyPath: _pivot
       value: 
       objectReference: {fileID: 1574614444}
+    - target: {fileID: 7003934708092897893, guid: c0a1f5c5d67229a499748de2ea5c163d, type: 3}
+      propertyPath: _levelManager
+      value: 
+      objectReference: {fileID: 901239104}
     - target: {fileID: 7003934708092897894, guid: c0a1f5c5d67229a499748de2ea5c163d, type: 3}
       propertyPath: m_RootOrder
       value: 0

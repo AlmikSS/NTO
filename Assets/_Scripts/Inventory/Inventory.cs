@@ -57,6 +57,7 @@ public class Inventory : MonoBehaviour
             _newItem.GetComponent<Item>().Image = SetImage(_itemsData[i].ItemType);
             _newItem.GetComponent<Item>().ItemType = _itemsData[i].ItemType;
             _newItem.GetComponent<Item>().Data = _itemsData[i];
+            _newItem.GetComponent<Item>().IsItem = _itemsData[i].IsItem;
             _newItem.GetComponent<Item>().Inizialize();
             //добавляем предмет в список
             _items[i] = _newItem.GetComponent<Item>();
@@ -102,6 +103,7 @@ public class Inventory : MonoBehaviour
             _newItem.GetComponent<Item>().Image = _items[i].Image;
             _newItem.GetComponent<Item>().ItemType = _items[i].ItemType;
             _newItem.GetComponent<Item>().Data = _items[i].Data;
+            _newItem.GetComponent<Item>().IsItem = _items[i].IsItem;
             _newItem.GetComponent<Item>().Inizialize();
             //добавляем предмет в список
             _items[i] = _newItem.GetComponent<Item>();
@@ -271,6 +273,7 @@ public class Inventory : MonoBehaviour
                 newItemInv.GetComponent<Item>().Image = newItem.Image;
                 newItemInv.GetComponent<Item>().ItemType = newItem.ItemType;
                 newItemInv.GetComponent<Item>().Data = newItem.Data;
+                newItemInv.GetComponent<Item>().IsItem = newItem.IsItem;
                 newItemInv.GetComponent<Item>().Inizialize();
                 //добавляем предмет в список
                 _items[i] = newItemInv.GetComponent<Item>();

@@ -12,11 +12,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform _groundCheck;
     [SerializeField] private LayerMask _groundedMask;
     [SerializeField] private float _jumpForce;
-      
+
     private Rigidbody2D _rb;
     private Animator _animator;
     private Input _playerInput;
-    public bool IsJumping;
     private bool _isSliding;
     private bool _isTouchingWall;
     private bool _isFacingRight = true;
@@ -54,12 +53,6 @@ public class PlayerController : MonoBehaviour
         Move();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-            IsJumping = false;
-    }
-
     private void CheckSliding()
     {
         if (_isTouchingWall && !Grounded)
@@ -79,14 +72,12 @@ public class PlayerController : MonoBehaviour
         if (ready)
         {
             _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
-            IsJumping = true;
         }
     }
 
     private void Move()
     {
-        if (Grounded || IsJumping)
-            _rb.velocity = new Vector2(_movementSpeed * _moveDirection, _rb.velocity.y);
+        _rb.velocity = new Vector2(_movementSpeed * _moveDirection, _rb.velocity.y);
 
         if (_isSliding)
         {

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3467056530616253665}
   - component: {fileID: 3732552707677817643}
   m_Layer: 0
-  m_Name: Armor
+  m_Name: ShieldGadjet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,8 +51,8 @@ MonoBehaviour:
   ID: 2
   ItemType: 3
   IsItem: 0
-  _itemsKey: 
-  _itemsCount: 
+  _itemsKey: 03000000
+  _itemsCount: 02000000
   Data:
     Name: 
     Stack: 0

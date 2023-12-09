@@ -17,7 +17,6 @@ public class JumpPad : MonoBehaviour
                 {
                     _moveCamera.Target = _focesPoint;
                 }
-                collision.gameObject.GetComponent<PlayerController>().IsJumping = true;
             }
             rb.AddForce(Vector2.up * _force, ForceMode2D.Impulse);
         }

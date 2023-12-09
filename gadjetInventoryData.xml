@@ -2,7 +2,7 @@
 <ArrayOfItemData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ItemData>
     <Name>Null</Name>
-    <Stack>0</Stack>
+    <Stack>-2</Stack>
     <MaxStack>0</MaxStack>
     <ID>0</ID>
     <ItemType>Null</ItemType>
@@ -11,17 +11,7 @@
     <_itemsCount />
   </ItemData>
   <ItemData>
-    <Name />
-    <Stack>0</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Armor</Name>
+    <Name>Shield</Name>
     <Stack>1</Stack>
     <MaxStack>1</MaxStack>
     <ID>2</ID>
@@ -32,7 +22,7 @@
   </ItemData>
   <ItemData>
     <Name>Null</Name>
-    <Stack>0</Stack>
+    <Stack>-2</Stack>
     <MaxStack>0</MaxStack>
     <ID>0</ID>
     <ItemType>Null</ItemType>
@@ -42,197 +32,7 @@
   </ItemData>
   <ItemData>
     <Name>Null</Name>
-    <Stack>0</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Null</Name>
-    <Stack>0</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Null</Name>
-    <Stack>0</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Null</Name>
-    <Stack>0</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Null</Name>
-    <Stack>0</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Null</Name>
-    <Stack>0</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Armor</Name>
-    <Stack>1</Stack>
-    <MaxStack>1</MaxStack>
-    <ID>2</ID>
-    <ItemType>ShieldGadjet</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Null</Name>
-    <Stack>0</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Null</Name>
-    <Stack>0</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Armor</Name>
-    <Stack>1</Stack>
-    <MaxStack>1</MaxStack>
-    <ID>2</ID>
-    <ItemType>ShieldGadjet</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name />
-    <Stack>0</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Null</Name>
-    <Stack>0</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Null</Name>
-    <Stack>0</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Armor</Name>
-    <Stack>1</Stack>
-    <MaxStack>1</MaxStack>
-    <ID>2</ID>
-    <ItemType>ShieldGadjet</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name />
-    <Stack>0</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Null</Name>
-    <Stack>0</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Null</Name>
-    <Stack>0</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Armor</Name>
-    <Stack>1</Stack>
-    <MaxStack>1</MaxStack>
-    <ID>2</ID>
-    <ItemType>ShieldGadjet</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name />
-    <Stack>0</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Null</Name>
-    <Stack>0</Stack>
+    <Stack>-2</Stack>
     <MaxStack>0</MaxStack>
     <ID>0</ID>
     <ItemType>Null</ItemType>

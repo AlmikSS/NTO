@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class GadjetsInventory : MonoBehaviour
 {
@@ -16,7 +14,7 @@ public class GadjetsInventory : MonoBehaviour
     public List<Item> Items = new List<Item>(4); // список всех предметов в инвентаре
     private List<ItemData> _itemsData = new List<ItemData>();
     private List<GameObject> _itemObjects = new List<GameObject>();
-    private string _path;
+    private string _path = "gadjetInventory";
 
     private Input _playerInput; // система ввода игрока
 

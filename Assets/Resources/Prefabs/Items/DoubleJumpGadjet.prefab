@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7947270518096621161}
   - component: {fileID: 5236065607868437399}
   m_Layer: 0
-  m_Name: Chest
+  m_Name: DoubleJumpGadjet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,8 +51,8 @@ MonoBehaviour:
   ID: 1
   ItemType: 1
   IsItem: 0
-  _itemsKey: 
-  _itemsCount: 
+  _itemsKey: 03000000
+  _itemsCount: 02000000
   Data:
     Name: 
     Stack: 0

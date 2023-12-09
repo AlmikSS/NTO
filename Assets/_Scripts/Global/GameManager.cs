@@ -9,8 +9,9 @@ public class GameManager : MonoBehaviour
 
     public static void AddItemsToPlayer(Item item, int count, Inventory inventory)
     {
-        Item newItem = new Item();
-        newItem.Stack = count;
-        inventory.AddItem(newItem);
+        for (int i = 0; i < count; i++)
+        {
+            inventory.AddItem(item);
+        }
     }
 }

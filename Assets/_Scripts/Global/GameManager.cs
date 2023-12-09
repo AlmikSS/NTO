@@ -6,4 +6,11 @@ public class GameManager : MonoBehaviour
     {
         JumpPad.SetActive(true);
     }
+
+    public static void AddItemsToPlayer(Item item, int count, Inventory inventory)
+    {
+        Item newItem = new Item();
+        newItem.Stack = count;
+        inventory.AddItem(newItem);
+    }
 }

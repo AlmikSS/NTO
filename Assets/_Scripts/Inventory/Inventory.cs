@@ -13,6 +13,9 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Item _nullItem; // пустой предмет
     [SerializeField] public RawImage MouseItemImage; // текстура предмета в руке
     [SerializeField] private Craft _craftMenu;
+    [SerializeField] private Images _images;
+    private List<ItemData> _itemsData = new List<ItemData>();
+    private List<GameObject> _itemObjects = new List<GameObject>();
     public Item MouseItem; // предмет в руке
 
     private Input _playerInput; // система ввода игрока
@@ -20,6 +23,53 @@ public class Inventory : MonoBehaviour
     public void Awake()
     {
         _playerInput = new Input(); // создаем экземпляр класса Input
+        _playerInput.Temp.Save.performed += context => Save();
+        _playerInput.Temp.Load.performed += context => Load();
+    }
+
+    private void Save()
+    {
+        SaveManager.Save(_itemsData);
+    }
+
+    private void Load()
+    {
+        _itemsData = SaveManager.Load();
+
+        for (int i = 0; i < _itemObjects.Count; i++)
+        {
+            Destroy(_itemObjects[i]);
+        }
+
+        for (int i = 0; i < _itemsData.Count; i++)
+        {
+            GameObject _newItem = new GameObject("Item", typeof(Item)); // создаем предмет
+
+            //задаем характеристики предмета
+            _newItem.GetComponent<Item>().Name = _itemsData[i].Name;
+            _newItem.GetComponent<Item>().ID = _itemsData[i].ID;
+            _newItem.GetComponent<Item>().Stack = _itemsData[i].Stack;
+            _newItem.GetComponent<Item>().MaxStack = _itemsData[i].MaxStack;
+            _newItem.GetComponent<Item>().Image = SetImage(_itemsData[i].ItemType);
+            _newItem.GetComponent<Item>().ItemType = _itemsData[i].ItemType;
+            _newItem.GetComponent<Item>().Data = _itemsData[i];
+            _newItem.GetComponent<Item>().Inizialize();
+            //добавляем предмет в список
+            _items[i] = _newItem.GetComponent<Item>();
+            _itemObjects.Add(_newItem);
+        }
+        Redraw();
+    }
+
+    private Texture SetImage(ItemType type)
+    {
+        if (type == ItemType.Null)
+            return _images.NullItemTexture;
+        else if (type == ItemType.ShieldGadjet)
+            return _images.ArmorItemTexture;
+        else if (type == ItemType.DoubleJumpGadjet)
+            return _images.ChestItemTexture;
+        return null;
     }
 
     private void Start()
@@ -43,8 +93,12 @@ public class Inventory : MonoBehaviour
             _newItem.GetComponent<Item>().MaxStack = _items[i].MaxStack;
             _newItem.GetComponent<Item>().Image = _items[i].Image;
             _newItem.GetComponent<Item>().ItemType = _items[i].ItemType;
+            _newItem.GetComponent<Item>().Data = _items[i].Data;
+            _newItem.GetComponent<Item>().Inizialize();
             //добавляем предмет в список
             _items[i] = _newItem.GetComponent<Item>();
+            _itemObjects.Add(_newItem);
+            _itemsData.Add(_items[i].Data);
         }
 
         Redraw(); // перерисовываем весь инвентарь
@@ -54,6 +108,14 @@ public class Inventory : MonoBehaviour
     private void Update()
     {
         MouseItemImage.transform.position = _playerInput.Player.MousePosition.ReadValue<Vector2>(); // перемещение объекта в руку
+    }
+
+    private void UpdateData()
+    {
+        for (int i = 0; i < _height * _width; i++)
+        {
+            _itemsData[i] = _items[i].Data;
+        }
     }
 
     public void SelectSlot(int ID) // метод выбора слота
@@ -71,7 +133,7 @@ public class Inventory : MonoBehaviour
                 {
                     _items[ID].Stack += MouseItem.Stack; // добавляем предметы в слот
                     // в руке теперь пустота
-                    MouseItem.name = _nullItem.Name;
+                    MouseItem.Name = _nullItem.Name;
                     MouseItem.Image = _nullItem.Image;
                     MouseItem.Stack = 0;
                     MouseItem.MaxStack = 0;
@@ -97,6 +159,8 @@ public class Inventory : MonoBehaviour
 
         Redraw(); // перерисовываем инвентарь
     }
+
+    public List<Item> GetInventoryData() { return _items; }
 
     public void Redraw() // метод перерисовки инвентаря
     {
@@ -130,6 +194,7 @@ public class Inventory : MonoBehaviour
             MouseItemImage.GetComponent<RawImage>().texture = MouseItem.Image; // меняем текстуру в руке
             MouseItemImage.transform.GetChild(0).GetComponent<TMP_Text>().text = MouseItem.Stack.ToString(); // меняем текст в руке
         }
+        UpdateData();
     }
 
     public int CheckObjects(int id) // метод проверки есть ли предмет в инвентаре
@@ -190,7 +255,7 @@ public class Inventory : MonoBehaviour
             {
                 GameObject newItemInv = new GameObject("Item", typeof(Item)); // создаем новый предмет
                 //задаем характеристики
-                newItemInv.GetComponent<Item>().name = newItem.Name;
+                newItemInv.GetComponent<Item>().Name = newItem.Name;
                 newItemInv.GetComponent<Item>().ID = newItem.ID;
                 newItemInv.GetComponent<Item>().Image = newItem.Image;
                 newItemInv.GetComponent<Item>().Stack = 1;

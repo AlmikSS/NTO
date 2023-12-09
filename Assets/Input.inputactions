@@ -65,7 +65,7 @@
                     "id": "01157e50-b92a-42c1-be26-beea58f0c6fb",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "MultiTap(tapTime=0.1,tapDelay=0.1,pressPoint=0.1),Tap(duration=0.1,pressPoint=0.1)",
                     "initialStateCheck": false
                 },
                 {
@@ -376,6 +376,54 @@
                     "processors": "",
                     "groups": "",
                     "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Temp",
+            "id": "373a1a72-934d-482c-bdad-4ce1d538b45a",
+            "actions": [
+                {
+                    "name": "Save",
+                    "type": "Button",
+                    "id": "49f6cff5-6526-4adb-aa3c-a0457ad3582c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Load",
+                    "type": "Button",
+                    "id": "b15e05b0-f1cf-4e86-80be-fdbd0f036ea2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "19f69841-a33b-4f18-b872-a62402fb0e70",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Save",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b00a83d2-737f-483a-9ac6-0acaa7e9ed0c",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Load",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

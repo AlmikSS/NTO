@@ -1,14 +1,14 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
-public class Player : MonoBehaviour, IDamageable, IDamager
+public class Player : MonoBehaviour, IDamageable
 {
-    private const float DOUBLECLICKTIME = 1f; // константа времени двойного клика
     [Header("Attack")]
     [SerializeField] private Transform _attackPosition; // поле позиции нанесени€ урона
     [SerializeField] private LayerMask _attackMask; // слой, которому наносим урон
     [SerializeField] private float _attackRadius; // радиус аттаки
     [SerializeField] private int _damage; // урон
-    private float _lastClickTime; // врем€ последнего клика
 
     [Header("General")]
     [SerializeField] private int _maxHealth; // максимальное здоровье
@@ -24,42 +24,30 @@ public class Player : MonoBehaviour, IDamageable, IDamager
     public void Awake()
     {
         _playerInput = new Input(); // создаем экземпл€р класса Input 
-        _playerInput.Player.MouseLeftButtonClick.performed += context => Attack(); // подписываем метод Attack к событию нажати€ кнопки атаки
+        _playerInput.Player.MouseLeftButtonClick.performed += Attack; // подписываем метод Attack к событию нажати€ кнопки атаки
         _playerInput.Player.ShowInventory.performed += context => ShowCloseInventory(); // подписываем метод ShowCloseInventory к событию нажати€ кнопки инвентар€
     }
 
     private void Start()
     {
-        Load();
         _health = _maxHealth; // текущее здоровье равно максимальному
         _animator = GetComponent<Animator>(); // кэшируем Animator
     }
 
-    private void Load()
-    {
-        int posX = PlayerPrefs.GetInt("PosX");
-        int posY = PlayerPrefs.GetInt("PosY");
 
-        PlayerPrefs.DeleteKey("PosX");
-        PlayerPrefs.DeleteKey("PosY");
-        transform.position = new Vector3(posX, posY, 0);
-    }
-
-    public void Attack() // метод атаки
+    public void Attack(InputAction.CallbackContext context) // метод атаки
     {
-        if (Time.time - _lastClickTime > DOUBLECLICKTIME)
+        if (context.interaction is TapInteraction)
         {
             MakeDamage(_damage); // наносим урон
             _animator.SetTrigger("Attack"); // проигрывем анимацию
         }
 
-        if (Time.time - _lastClickTime < DOUBLECLICKTIME)
+        if (context.interaction is MultiTapInteraction)
         {
             MakeDamage(_damage + 2); // наносим увеличенный урон
             _animator.Play("Combo"); // анимаци€ комбо удара
         }
-
-        _lastClickTime = Time.time; // записываем врем€ последнего клика
     }
 
     private void MakeDamage(int damage) // метод нанесени€ урона

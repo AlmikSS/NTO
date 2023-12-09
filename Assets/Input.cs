@@ -87,7 +87,7 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""id"": ""01157e50-b92a-42c1-be26-beea58f0c6fb"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""MultiTap(tapTime=0.1,tapDelay=0.1,pressPoint=0.1),Tap(duration=0.1,pressPoint=0.1)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -402,6 +402,54 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Temp"",
+            ""id"": ""373a1a72-934d-482c-bdad-4ce1d538b45a"",
+            ""actions"": [
+                {
+                    ""name"": ""Save"",
+                    ""type"": ""Button"",
+                    ""id"": ""49f6cff5-6526-4adb-aa3c-a0457ad3582c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Load"",
+                    ""type"": ""Button"",
+                    ""id"": ""b15e05b0-f1cf-4e86-80be-fdbd0f036ea2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""19f69841-a33b-4f18-b872-a62402fb0e70"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b00a83d2-737f-483a-9ac6-0acaa7e9ed0c"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Load"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -432,6 +480,10 @@ public partial class @Input: IInputActionCollection2, IDisposable
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_MousePosition = m_UI.FindAction("MousePosition", throwIfNotFound: true);
         m_UI_Escape = m_UI.FindAction("Escape", throwIfNotFound: true);
+        // Temp
+        m_Temp = asset.FindActionMap("Temp", throwIfNotFound: true);
+        m_Temp_Save = m_Temp.FindAction("Save", throwIfNotFound: true);
+        m_Temp_Load = m_Temp.FindAction("Load", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -693,6 +745,60 @@ public partial class @Input: IInputActionCollection2, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
+
+    // Temp
+    private readonly InputActionMap m_Temp;
+    private List<ITempActions> m_TempActionsCallbackInterfaces = new List<ITempActions>();
+    private readonly InputAction m_Temp_Save;
+    private readonly InputAction m_Temp_Load;
+    public struct TempActions
+    {
+        private @Input m_Wrapper;
+        public TempActions(@Input wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Save => m_Wrapper.m_Temp_Save;
+        public InputAction @Load => m_Wrapper.m_Temp_Load;
+        public InputActionMap Get() { return m_Wrapper.m_Temp; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(TempActions set) { return set.Get(); }
+        public void AddCallbacks(ITempActions instance)
+        {
+            if (instance == null || m_Wrapper.m_TempActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_TempActionsCallbackInterfaces.Add(instance);
+            @Save.started += instance.OnSave;
+            @Save.performed += instance.OnSave;
+            @Save.canceled += instance.OnSave;
+            @Load.started += instance.OnLoad;
+            @Load.performed += instance.OnLoad;
+            @Load.canceled += instance.OnLoad;
+        }
+
+        private void UnregisterCallbacks(ITempActions instance)
+        {
+            @Save.started -= instance.OnSave;
+            @Save.performed -= instance.OnSave;
+            @Save.canceled -= instance.OnSave;
+            @Load.started -= instance.OnLoad;
+            @Load.performed -= instance.OnLoad;
+            @Load.canceled -= instance.OnLoad;
+        }
+
+        public void RemoveCallbacks(ITempActions instance)
+        {
+            if (m_Wrapper.m_TempActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ITempActions instance)
+        {
+            foreach (var item in m_Wrapper.m_TempActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_TempActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public TempActions @Temp => new TempActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -723,5 +829,10 @@ public partial class @Input: IInputActionCollection2, IDisposable
     {
         void OnMousePosition(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
+    }
+    public interface ITempActions
+    {
+        void OnSave(InputAction.CallbackContext context);
+        void OnLoad(InputAction.CallbackContext context);
     }
 }

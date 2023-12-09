@@ -51,7 +51,7 @@ public class GadjetsInventory : MonoBehaviour
 
     public void SelectSlot(int ID) // метод выбора слота
     {
-        if (_inv.MouseItem.ItemType != ItemType.Item)
+        if (!_inv.MouseItem.IsItem)
         {
             Item tempItem = Items[ID]; // временное поле для хранения предмета в слоте
             Items[ID] = _inv.MouseItem; // в слоте теперь предмет который был в руке

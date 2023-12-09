@@ -49,6 +49,16 @@ MonoBehaviour:
   Stack: 1
   MaxStack: 1
   ID: 2
-  ItemType: 4
+  ItemType: 3
+  IsItem: 0
   _itemsKey: 
   _itemsCount: 
+  Data:
+    Name: 
+    Stack: 0
+    MaxStack: 0
+    ID: 0
+    ItemType: 0
+    IsItem: 0
+    _itemsKey: 
+    _itemsCount: 

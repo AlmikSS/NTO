@@ -37,7 +37,6 @@ public class PauseMenuManager : MonoBehaviour
     public void ExitButton()
     {
         SceneManager.LoadScene(0);
-        SaveManager.Save(_player);
     }
 
     private void OnEnable() => _playerInput.Enable();

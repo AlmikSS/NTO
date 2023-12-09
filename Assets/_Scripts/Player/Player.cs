@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour, IDamageable
 {
@@ -10,16 +12,20 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private LayerMask _attackMask; // слой, которому наносим урон
     [SerializeField] private float _attackRadius; // радиус аттаки
     [SerializeField] private int _damage; // урон
+    [SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] private float _bulletSpeed;
 
     [Header("General")]
-    [SerializeField] private int _maxHealth; // максимальное здоровье
+    [SerializeField] private float _maxHealth; // максимальное здоровье
     [SerializeField] private GameObject _inventory; // поле инвентаря
+    [SerializeField] private Slider _healthBar;
     private Animator _animator; // поле Animator
-    private int _health; // здоровье
+    private float _health; // здоровье
 
     [Header("Gadjets")]
     [SerializeField] private GadjetsAbilitys _abilities;
-
+    [SerializeField] private Transform _rangedPoint;
+    private bool _canRangedAttack = true;
     private Input _playerInput; // ввод игрока
 
     public void Awake()
@@ -27,14 +33,28 @@ public class Player : MonoBehaviour, IDamageable
         _playerInput = new Input(); // создаем экземпляр класса Input 
         _playerInput.Player.MouseLeftButtonClick.performed += Attack; // подписываем метод Attack к событию нажатия кнопки атаки
         _playerInput.Player.ShowInventory.performed += context => ShowCloseInventory(); // подписываем метод ShowCloseInventory к событию нажатия кнопки инвентаря
+        _playerInput.Player.MouseRightButtonClick.performed += context => RangedAttack();
     }
 
     private void Start()
     {
+        _healthBar.maxValue = _maxHealth;
         _health = _maxHealth; // текущее здоровье равно максимальному
         _animator = GetComponent<Animator>(); // кэшируем Animator
+        StartCoroutine(Timer());
     }
 
+    private IEnumerator Timer()
+    {
+        while (_health >= 0)
+        {
+            _health -= Time.deltaTime;
+            _healthBar.value = _health;
+            yield return null;
+        }
+
+        Die();
+    }
 
     public void Attack(InputAction.CallbackContext context) // метод атаки
     {
@@ -51,17 +71,29 @@ public class Player : MonoBehaviour, IDamageable
         }
     }
 
+    private void RangedAttack()
+    {
+        if (_canRangedAttack)
+        {
+            Vector2 direction = Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition);
+            GameObject obj = Instantiate(_bulletPrefab, gameObject.transform.position, Quaternion.identity);
+            obj.GetComponent<Rigidbody2D>().velocity = direction.normalized * _bulletSpeed;
+        }
+    }
+
     private void MakeDamage(int damage) // ����� ��������� �����
     {
         // �������� ��� ���������� � ���� �����
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector2(_attackPosition.position.x, _attackPosition.position.y), _attackRadius, _attackMask);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(_attackPosition.position, _attackRadius, _attackMask);
         // ���������� �� ���� �����������
         foreach (Collider2D enemy in colliders)
         {
-            try{
+            try
+            {
                 enemy.GetComponent<Enemy>().TakeDamage(damage);
             } // ������� ����
-            catch(Exception){
+            catch (Exception)
+            {
                 enemy.GetComponent<ShootingEnemy>().TakeDamage(damage);
             }
         }

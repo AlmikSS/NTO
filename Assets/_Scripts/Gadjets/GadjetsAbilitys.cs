@@ -31,4 +31,9 @@ public class GadjetsAbilitys : MonoBehaviour
         yield return new WaitForSeconds(_shieldCulDown);
         ReadyToInstShield = true;
     }
+
+    public IEnumerator RangedAttack()
+    {
+        yield return null;
+    }
 }

@@ -8,14 +8,17 @@ public class Inventory : MonoBehaviour
     [SerializeField] private int _width, _height; // ширина и высота инвентаря
     [SerializeField] private Transform _inventoryPanel; // ссылка на объект панели инвентаря
     [SerializeField] private GameObject _button; // сылка на префаб слота/кнопки инвентаря
+    [SerializeField] private GadjetsInventory _gadjetInventory;
 
     [SerializeField] private List<Item> _items = new List<Item>(10); // список всех предметов в инвентаре
     [SerializeField] private Item _nullItem; // пустой предмет
     [SerializeField] public RawImage MouseItemImage; // текстура предмета в руке
     [SerializeField] private Craft _craftMenu;
     [SerializeField] private Images _images;
+    private List<GameObject> _slots = new List<GameObject>();
     private List<ItemData> _itemsData = new List<ItemData>();
     private List<GameObject> _itemObjects = new List<GameObject>();
+    private string _path;
     public Item MouseItem; // предмет в руке
 
     private Input _playerInput; // система ввода игрока
@@ -29,19 +32,22 @@ public class Inventory : MonoBehaviour
 
     private void Save()
     {
-        SaveManager.Save(_itemsData);
+        _path = "inventory";
+        SaveManager.Save(_itemsData, _path);
+        _gadjetInventory.Save();
     }
 
     private void Load()
     {
-        _itemsData = SaveManager.Load();
+        _itemsData = SaveManager.Load(_path);
 
         for (int i = 0; i < _itemObjects.Count; i++)
         {
             Destroy(_itemObjects[i]);
         }
 
-        for (int i = 0; i < _itemsData.Count; i++)
+        _itemObjects.Clear();
+        for (int i = 0; i < _items.Count; i++)
         {
             GameObject _newItem = new GameObject("Item", typeof(Item)); // создаем предмет
 
@@ -58,6 +64,7 @@ public class Inventory : MonoBehaviour
             _items[i] = _newItem.GetComponent<Item>();
             _itemObjects.Add(_newItem);
         }
+        _gadjetInventory.Load();
         Redraw();
     }
 
@@ -80,6 +87,7 @@ public class Inventory : MonoBehaviour
             _newSlot.transform.SetParent(_inventoryPanel, false); // делаем созданный слот дочерним объектом от _inventoryPanel
             _newSlot.GetComponent<InventoryButton>().MyInv = this; // добавим кнопке ссылку на инвентарь
             _newSlot.GetComponent<InventoryButton>().MyID = i; // добавим слоту ID
+            _slots.Add(_newSlot);
         }
 
         for (int i = 0; i < _height * _width; i++) // проходимся по всем слотам
@@ -159,8 +167,6 @@ public class Inventory : MonoBehaviour
 
         Redraw(); // перерисовываем инвентарь
     }
-
-    public List<Item> GetInventoryData() { return _items; }
 
     public void Redraw() // метод перерисовки инвентаря
     {
@@ -257,16 +263,20 @@ public class Inventory : MonoBehaviour
                 //задаем характеристики
                 newItemInv.GetComponent<Item>().Name = newItem.Name;
                 newItemInv.GetComponent<Item>().ID = newItem.ID;
-                newItemInv.GetComponent<Item>().Image = newItem.Image;
-                newItemInv.GetComponent<Item>().Stack = 1;
+                newItemInv.GetComponent<Item>().Stack = newItem.Stack;
                 newItemInv.GetComponent<Item>().MaxStack = newItem.MaxStack;
+                newItemInv.GetComponent<Item>().Image = newItem.Image;
                 newItemInv.GetComponent<Item>().ItemType = newItem.ItemType;
+                newItemInv.GetComponent<Item>().Data = newItem.Data;
+                newItemInv.GetComponent<Item>().Inizialize();
                 //добавляем предмет в список
                 _items[i] = newItemInv.GetComponent<Item>();
+                _itemObjects.Add(newItemInv);
                 break; // выходим из цикла
             }
         }
 
+        UpdateData();
         Redraw(); // перерисовываем инвентарь
         _craftMenu.Redraw(); // перерисовывем меню крафта
     }

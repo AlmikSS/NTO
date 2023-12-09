@@ -9,10 +9,13 @@ public class GadjetsInventory : MonoBehaviour
     [SerializeField] private Transform _inventoryPanel; // ссылка на объект панели инвентаря
     [SerializeField] private GameObject _button; // сылка на префаб слота/кнопки инвентаря
     [SerializeField] private Inventory _inv;
-
+    [SerializeField] private Images _images;
     [SerializeField] private GadjetsVisualization _visualization;
     [SerializeField] private Item _nullItem; // пустой предмет
     public List<Item> Items = new List<Item>(4); // список всех предметов в инвентаре
+    private List<ItemData> _itemsData = new List<ItemData>();
+    private List<GameObject> _itemObjects = new List<GameObject>();
+    private string _path;
 
     private Input _playerInput; // система ввода игрока
 
@@ -43,10 +46,69 @@ public class GadjetsInventory : MonoBehaviour
             _newItem.GetComponent<Item>().Image = Items[i].Image;
             _newItem.GetComponent<Item>().ItemType = Items[i].ItemType;
             //добавляем предмет в список
+            _newItem.GetComponent<Item>().Inizialize();
+            //добавляем предмет в список
             Items[i] = _newItem.GetComponent<Item>();
+            _itemObjects.Add(_newItem);
+            _itemsData.Add(Items[i].Data);
         }
         
         Redraw(); // перерисовываем весь инвентарь
+    }
+
+    public void Save()
+    {
+        _path = "gadjetInventory";
+        SaveManager.Save(_itemsData, _path);
+    }
+
+    public void Load()
+    {
+        _itemsData = SaveManager.Load(_path);
+
+        for (int i = 0; i < _itemObjects.Count; i++)
+        {
+            Destroy(_itemObjects[i]);
+        }
+
+        _itemObjects.Clear();
+        for (int i = 0; i < _itemsData.Count; i++)
+        {
+            GameObject _newItem = new GameObject("Item", typeof(Item)); // создаем предмет
+
+            //задаем характеристики предмета
+            _newItem.GetComponent<Item>().Name = _itemsData[i].Name;
+            _newItem.GetComponent<Item>().ID = _itemsData[i].ID;
+            _newItem.GetComponent<Item>().Stack = _itemsData[i].Stack;
+            _newItem.GetComponent<Item>().MaxStack = _itemsData[i].MaxStack;
+            _newItem.GetComponent<Item>().Image = SetImage(_itemsData[i].ItemType);
+            _newItem.GetComponent<Item>().ItemType = _itemsData[i].ItemType;
+            _newItem.GetComponent<Item>().Data = _itemsData[i];
+            _newItem.GetComponent<Item>().Inizialize();
+            //добавляем предмет в список
+            Items[i] = _newItem.GetComponent<Item>();
+            _itemObjects.Add(_newItem);
+        }
+        Redraw();
+    }
+
+    private Texture SetImage(ItemType type)
+    {
+        if (type == ItemType.Null)
+            return _images.NullItemTexture;
+        else if (type == ItemType.ShieldGadjet)
+            return _images.ArmorItemTexture;
+        else if (type == ItemType.DoubleJumpGadjet)
+            return _images.ChestItemTexture;
+        return null;
+    }
+
+    private void UpdateData()
+    {
+        for (int i = 0; i < _height * _width; i++)
+        {
+            _itemsData[i] = Items[i].Data;
+        }
     }
 
     public void SelectSlot(int ID) // метод выбора слота
@@ -73,6 +135,7 @@ public class GadjetsInventory : MonoBehaviour
                 _inventoryPanel.GetChild(i).GetChild(1).GetComponent<RawImage>().color = new Color(0, 0, 0, 0);
         }
 
+        UpdateData();
         _inv.Redraw();
         _visualization.Redraw();
     }

@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] private int _attackDelay = 2; 
     [SerializeField] private LayerMask _attackMask; // ���� �������� ������� ����
 
+    [SerializeField] private LevelManager _levelManager;
     private bool canAttack = true;
     private AIDestinationSetter _destinationSetter; // ������ ���������� ���� �� ������
     private Vector3 _scale; // ������ �����
@@ -65,6 +66,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void Die()
     {
+        if (_levelManager != null)
+            _levelManager.DiedEnemyCount++;
         Destroy(gameObject);
     }
 }

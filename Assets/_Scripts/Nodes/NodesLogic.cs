@@ -19,6 +19,8 @@ public class NodesLogic : MonoBehaviour
     [SerializeField] int CountToPut;
     [SerializeField] Inventory Inventory;
     [SerializeField] GameObject JumpPad;
+    [SerializeField] private AudioSource _source;
+
     private void OnEnable() {
         InputField.text = InputText;
         OutputField.text = OutputText;
@@ -445,6 +447,7 @@ public class NodesLogic : MonoBehaviour
                 if(JumpPad!=null)
                     GameManager.ChalangeComplete(JumpPad);
                 GameManager.AddItemsToPlayer(ItemToPut, CountToPut, Inventory);
+                _source.Play();
             }
         }
 

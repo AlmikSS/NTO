@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform _groundCheck;
     [SerializeField] private LayerMask _groundedMask;
     [SerializeField] private float _jumpForce;
+    [SerializeField] private AudioSource _jumpAudio;
 
     private Rigidbody2D _rb;
     private Animator _animator;
@@ -72,6 +73,7 @@ public class PlayerController : MonoBehaviour
         if (ready)
         {
             _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+            _jumpAudio.Play();
         }
     }
 

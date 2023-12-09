@@ -24,10 +24,14 @@ public class Player : MonoBehaviour, IDamageable
     private Animator _animator; // поле Animator
     private float _health; // здоровье
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource _hertAudio;
+    [SerializeField] private AudioSource _rangedAttackAudio;
+
     [Header("Gadjets")]
     [SerializeField] private GadjetsAbilitys _abilities;
     [SerializeField] private Transform _rangedPoint;
-    private bool _canRangedAttack = true;
+    private bool _canRangedAttack;
     private Input _playerInput; // ввод игрока
 
     public void Awake()
@@ -76,12 +80,11 @@ public class Player : MonoBehaviour, IDamageable
 
     private void RangedAttack()
     {
-        if (_canRangedAttack)
-        {
-            Vector2 direction = Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition);
-            GameObject obj = Instantiate(_bulletPrefab, gameObject.transform.position, Quaternion.identity);
-            obj.GetComponent<Rigidbody2D>().velocity = direction.normalized * _bulletSpeed;
-        }
+        Vector2 mousePos = _playerInput.Player.MousePosition.ReadValue<Vector2>();
+        Vector3 direction = new Vector3(mousePos.x - 700, mousePos.y - 300, 0).normalized;
+        GameObject obj = Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
+        obj.GetComponent<Rigidbody2D>().velocity = direction * _bulletSpeed;
+        _rangedAttackAudio.Play();
     }
 
     private void MakeDamage(int damage) // ����� ��������� �����
@@ -116,6 +119,8 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (damage > 0) // если урон больше 0
             _health -= damage; // наносим урон
+
+        _hertAudio.Play();
 
         if (_health <= 0) // если здоровье меньше или равно нулю
             Die(); // умираем

@@ -6,7 +6,7 @@ public class Ball : MonoBehaviour
     [SerializeField] private int _damage = 15;
     [SerializeField] private float speed = 0.1f;
     private void OnEnable() {
-        StartCoroutine(DeactiveDelay(4));
+        StartCoroutine(DeactiveDelay(2));
     }
     private void Update() {
         transform.position = new Vector2(transform.position.x+speed, transform.position.y);
@@ -19,6 +19,7 @@ public class Ball : MonoBehaviour
     }
     IEnumerator DeactiveDelay(float i){
         yield return new WaitForSeconds(i);
+        GetComponent<Animator>().SetTrigger("Caboom");
         Destroy(gameObject);
     }
 

@@ -15,7 +15,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] public RawImage MouseItemImage; // текстура предмета в руке
     [SerializeField] private Craft _craftMenu;
     [SerializeField] private Images _images;
-    private List<GameObject> _slots = new List<GameObject>();
+    private List<InventoryButton> _slots = new List<InventoryButton>();
     private List<ItemData> _itemsData = new List<ItemData>();
     private List<GameObject> _itemObjects = new List<GameObject>();
     private string _path = "inventory";
@@ -88,7 +88,7 @@ public class Inventory : MonoBehaviour
             _newSlot.transform.SetParent(_inventoryPanel, false); // делаем созданный слот дочерним объектом от _inventoryPanel
             _newSlot.GetComponent<InventoryButton>().MyInv = this; // добавим кнопке ссылку на инвентарь
             _newSlot.GetComponent<InventoryButton>().MyID = i; // добавим слоту ID
-            _slots.Add(_newSlot);
+            _slots.Add(_newSlot.GetComponent<InventoryButton>());
         }
 
         for (int i = 0; i < _height * _width; i++) // проходимся по всем слотам
@@ -205,6 +205,12 @@ public class Inventory : MonoBehaviour
             MouseItemImage.GetComponent<RawImage>().texture = MouseItem.Image; // меняем текстуру в руке
             MouseItemImage.transform.GetChild(0).GetComponent<TMP_Text>().text = MouseItem.Stack.ToString(); // меняем текст в руке
         }
+
+        for (int i = 0; i < _items.Count; i++)
+        {
+            _slots[i].ItemInSlot = _items[i];
+        }
+
         UpdateData();
     }
 

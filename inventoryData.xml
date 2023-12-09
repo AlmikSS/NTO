@@ -11,8 +11,8 @@
     <_itemsCount />
   </ItemData>
   <ItemData>
-    <Name>Null</Name>
-    <Stack>-4</Stack>
+    <Name />
+    <Stack>0</Stack>
     <MaxStack>0</MaxStack>
     <ID>0</ID>
     <ItemType>Null</ItemType>
@@ -41,8 +41,38 @@
     <_itemsCount />
   </ItemData>
   <ItemData>
-    <Name>Null</Name>
-    <Stack>-4</Stack>
+    <Name />
+    <Stack>0</Stack>
+    <MaxStack>0</MaxStack>
+    <ID>0</ID>
+    <ItemType>Null</ItemType>
+    <IsItem>false</IsItem>
+    <_itemsKey />
+    <_itemsCount />
+  </ItemData>
+  <ItemData>
+    <Name />
+    <Stack>0</Stack>
+    <MaxStack>0</MaxStack>
+    <ID>0</ID>
+    <ItemType>Null</ItemType>
+    <IsItem>false</IsItem>
+    <_itemsKey />
+    <_itemsCount />
+  </ItemData>
+  <ItemData>
+    <Name />
+    <Stack>0</Stack>
+    <MaxStack>0</MaxStack>
+    <ID>0</ID>
+    <ItemType>Null</ItemType>
+    <IsItem>false</IsItem>
+    <_itemsKey />
+    <_itemsCount />
+  </ItemData>
+  <ItemData>
+    <Name />
+    <Stack>0</Stack>
     <MaxStack>0</MaxStack>
     <ID>0</ID>
     <ItemType>Null</ItemType>
@@ -61,41 +91,11 @@
     <_itemsCount />
   </ItemData>
   <ItemData>
-    <Name>Null</Name>
-    <Stack>-4</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Null</Name>
-    <Stack>-4</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Null</Name>
-    <Stack>-4</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
-    <_itemsKey />
-    <_itemsCount />
-  </ItemData>
-  <ItemData>
-    <Name>Null</Name>
-    <Stack>-4</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
+    <Name>DoubleJump</Name>
+    <Stack>1</Stack>
+    <MaxStack>1</MaxStack>
+    <ID>1</ID>
+    <ItemType>DoubleJumpGadjet</ItemType>
     <IsItem>false</IsItem>
     <_itemsKey />
     <_itemsCount />

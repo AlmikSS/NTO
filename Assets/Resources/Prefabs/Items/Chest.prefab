@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b019ddc62fed94a9b14469998f717d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Chest
-  Image: {fileID: 2800000, guid: 7e42807775d77b549a10a3743843dcf3, type: 3}
+  Name: DoubleJump
+  Image: {fileID: 2800000, guid: 90d850df84c6d6941bdfc73207ac165c, type: 3}
   Stack: 1
   MaxStack: 1
   ID: 1

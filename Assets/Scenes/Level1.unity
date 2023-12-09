@@ -563,7 +563,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &327958078
 Transform:
   m_ObjectHideFlags: 0
@@ -1406,7 +1406,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &850442652
 Transform:
   m_ObjectHideFlags: 0
@@ -18586,17 +18586,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 686133991514325459, guid: 548244272b211ad4a9af18f40d5904fc, type: 3}
-      propertyPath: _bulletPrefab
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 686133991514325460, guid: 548244272b211ad4a9af18f40d5904fc, type: 3}
-      propertyPath: _groundedMask.m_Bits
-      value: 137
-      objectReference: {fileID: 0}
     - target: {fileID: 686133991514325461, guid: 548244272b211ad4a9af18f40d5904fc, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7945630620374764605, guid: 548244272b211ad4a9af18f40d5904fc, type: 3}
+      propertyPath: m_Value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8436146422198476265, guid: 548244272b211ad4a9af18f40d5904fc, type: 3}
       propertyPath: m_AnchorMax.x
@@ -19055,7 +19051,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1983527017
 Transform:
   m_ObjectHideFlags: 0

@@ -18,7 +18,9 @@ public class Player : MonoBehaviour, IDamageable
     [Header("General")]
     [SerializeField] private float _maxHealth; // максимальное здоровье
     [SerializeField] private GameObject _inventory; // поле инвентаря
+    [SerializeField] private Inventory _inv;
     [SerializeField] private Slider _healthBar;
+    [SerializeField] private GameObject _deathScreen;
     private Animator _animator; // поле Animator
     private float _health; // здоровье
 
@@ -38,6 +40,7 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Start()
     {
+        Time.timeScale = 1;
         _healthBar.maxValue = _maxHealth;
         _health = _maxHealth; // текущее здоровье равно максимальному
         _animator = GetComponent<Animator>(); // кэшируем Animator
@@ -120,7 +123,14 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Die() // метод смерти
     {
-        Destroy(gameObject); // удаление этого объекта
+        _deathScreen.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    private void OnApplicationQuit()
+    {
+        _inv.Save();
+        MainMenuManager.Save("Scene");
     }
 
     private void OnEnable() => _playerInput.Enable(); // включаем систему ввода

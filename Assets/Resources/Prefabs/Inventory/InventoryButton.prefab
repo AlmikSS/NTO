@@ -152,6 +152,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyInv: {fileID: 0}
   MyID: 0
+  Information: 
+  _info: {fileID: 0}
+  _infoText: {fileID: 0}
 --- !u!114 &481757770280671284
 MonoBehaviour:
   m_ObjectHideFlags: 0

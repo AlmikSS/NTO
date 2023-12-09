@@ -442,7 +442,8 @@ public class NodesLogic : MonoBehaviour
             if(allGood){ 
                 GameObject.Find("Correct").GetComponent<Animation>().Play();
                 transform.GetChild(0).gameObject.SetActive(false);
-                GameManager.ChalangeComplete(JumpPad);
+                if(JumpPad!=null)
+                    GameManager.ChalangeComplete(JumpPad);
                 GameManager.AddItemsToPlayer(ItemToPut, CountToPut, Inventory);
             }
         }

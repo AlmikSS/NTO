@@ -1666,6 +1666,10 @@ MonoBehaviour:
   OutputField: {fileID: 4781591807079477303}
   QuizField: {fileID: 4781591806754617214}
   Error: {fileID: 4781591806532465618}
+  ItemToPut: {fileID: 1415834791889380480, guid: 7d31a29efe17800408b90c39c0c56180, type: 3}
+  CountToPut: 1
+  Inventory: {fileID: 0}
+  JumpPad: {fileID: 0}
 --- !u!114 &5697625029557568419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4801,6 +4805,10 @@ MonoBehaviour:
   OutputField: {fileID: 4781591807079477303}
   QuizField: {fileID: 4781591806754617214}
   Error: {fileID: 4781591806532465618}
+  ItemToPut: {fileID: 1415834791889380480, guid: 7d31a29efe17800408b90c39c0c56180, type: 3}
+  CountToPut: 1
+  Inventory: {fileID: 0}
+  JumpPad: {fileID: 0}
 --- !u!114 &2751663107609672279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5603,6 +5611,10 @@ MonoBehaviour:
   OutputField: {fileID: 4781591807079477303}
   QuizField: {fileID: 4781591806754617214}
   Error: {fileID: 4781591806532465618}
+  ItemToPut: {fileID: 1415834791889380480, guid: 7d31a29efe17800408b90c39c0c56180, type: 3}
+  CountToPut: 1
+  Inventory: {fileID: 0}
+  JumpPad: {fileID: 0}
 --- !u!114 &705731447511415857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6395,6 +6407,10 @@ MonoBehaviour:
   OutputField: {fileID: 4781591807079477303}
   QuizField: {fileID: 4781591806754617214}
   Error: {fileID: 4781591806532465618}
+  ItemToPut: {fileID: 1415834791889380480, guid: 7d31a29efe17800408b90c39c0c56180, type: 3}
+  CountToPut: 1
+  Inventory: {fileID: 0}
+  JumpPad: {fileID: 0}
 --- !u!114 &6901190011880898844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6789,6 +6805,10 @@ MonoBehaviour:
   OutputField: {fileID: 4781591807079477303}
   QuizField: {fileID: 4781591806754617214}
   Error: {fileID: 4781591806532465618}
+  ItemToPut: {fileID: 1415834791889380480, guid: 7d31a29efe17800408b90c39c0c56180, type: 3}
+  CountToPut: 1
+  Inventory: {fileID: 0}
+  JumpPad: {fileID: 0}
 --- !u!114 &6877321836764333957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8164,6 +8184,10 @@ MonoBehaviour:
   OutputField: {fileID: 4781591807079477303}
   QuizField: {fileID: 4781591806754617214}
   Error: {fileID: 4781591806532465618}
+  ItemToPut: {fileID: 1415834791889380480, guid: 7d31a29efe17800408b90c39c0c56180, type: 3}
+  CountToPut: 1
+  Inventory: {fileID: 0}
+  JumpPad: {fileID: 0}
 --- !u!114 &6087373897344027953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11059,6 +11083,10 @@ MonoBehaviour:
   OutputField: {fileID: 4781591807079477303}
   QuizField: {fileID: 4781591806754617214}
   Error: {fileID: 4781591806532465618}
+  ItemToPut: {fileID: 1415834791889380480, guid: 7d31a29efe17800408b90c39c0c56180, type: 3}
+  CountToPut: 1
+  Inventory: {fileID: 0}
+  JumpPad: {fileID: 0}
 --- !u!114 &4781591808478808018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12129,6 +12157,10 @@ MonoBehaviour:
   OutputField: {fileID: 4781591807079477303}
   QuizField: {fileID: 4781591806754617214}
   Error: {fileID: 4781591806532465618}
+  ItemToPut: {fileID: 1415834791889380480, guid: 7d31a29efe17800408b90c39c0c56180, type: 3}
+  CountToPut: 1
+  Inventory: {fileID: 0}
+  JumpPad: {fileID: 0}
 --- !u!114 &1317057573945414845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13226,6 +13258,10 @@ MonoBehaviour:
   OutputField: {fileID: 4781591807079477303}
   QuizField: {fileID: 4781591806754617214}
   Error: {fileID: 4781591806532465618}
+  ItemToPut: {fileID: 1415834791889380480, guid: 7d31a29efe17800408b90c39c0c56180, type: 3}
+  CountToPut: 1
+  Inventory: {fileID: 0}
+  JumpPad: {fileID: 0}
 --- !u!114 &6948528403065535971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14246,6 +14282,10 @@ MonoBehaviour:
   OutputField: {fileID: 4781591807079477303}
   QuizField: {fileID: 4781591806754617214}
   Error: {fileID: 4781591806532465618}
+  ItemToPut: {fileID: 1415834791889380480, guid: 7d31a29efe17800408b90c39c0c56180, type: 3}
+  CountToPut: 1
+  Inventory: {fileID: 0}
+  JumpPad: {fileID: 0}
 --- !u!114 &3122193039231528302
 MonoBehaviour:
   m_ObjectHideFlags: 0

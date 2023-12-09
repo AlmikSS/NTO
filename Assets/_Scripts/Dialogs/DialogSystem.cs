@@ -31,6 +31,7 @@ public class DialogSystem : MonoBehaviour
     {
         if (_first)
         {
+            transform.GetChild(0).gameObject.SetActive(false);
             getE = true;
             _first = false;
         }

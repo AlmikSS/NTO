@@ -11,9 +11,13 @@ public class JumpPad : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent(out Rigidbody2D rb))
         {
-            if (_freezeCamera)
+            if (collision.gameObject.CompareTag("Player"))
             {
-                _moveCamera.Target = _focesPoint;
+                if (_freezeCamera)
+                {
+                    _moveCamera.Target = _focesPoint;
+                }
+                collision.gameObject.GetComponent<PlayerController>().IsJumping = true;
             }
             rb.AddForce(Vector2.up * _force, ForceMode2D.Impulse);
         }

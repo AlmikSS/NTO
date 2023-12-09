@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rb;
     private Animator _animator;
     private Input _playerInput;
-    private bool _isJumping;
+    public bool IsJumping;
     private bool _isSliding;
     private bool _isTouchingWall;
     private bool _isFacingRight = true;
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
-            _isJumping = false;
+            IsJumping = false;
     }
 
     private void CheckSliding()
@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
 
     private void ApplyAnimations()
     {
-        _animator.SetFloat("Speed", _moveDirection);
+        _animator.SetFloat("Speed", Mathf.Abs(_moveDirection));
         _animator.SetBool("Grounded", Grounded);
     }
 
@@ -79,13 +79,13 @@ public class PlayerController : MonoBehaviour
         if (ready)
         {
             _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
-            _isJumping = true;
+            IsJumping = true;
         }
     }
 
     private void Move()
     {
-        if (Grounded || _isJumping)
+        if (Grounded || IsJumping)
             _rb.velocity = new Vector2(_movementSpeed * _moveDirection, _rb.velocity.y);
 
         if (_isSliding)

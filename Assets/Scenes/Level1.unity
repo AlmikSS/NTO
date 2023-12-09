@@ -228,11 +228,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4997063067374851842, guid: dad3ceb576bd7304285506026167ef2a, type: 3}
   m_PrefabInstance: {fileID: 87190956}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &141304256 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7567125204848369033, guid: 657e9238adb19d34782932af5bf020d7, type: 3}
-  m_PrefabInstance: {fileID: 7567125204708129865}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &172795215 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4997063067374851842, guid: dad3ceb576bd7304285506026167ef2a, type: 3}
@@ -1411,7 +1406,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &850442652
 Transform:
   m_ObjectHideFlags: 0
@@ -18594,7 +18589,11 @@ PrefabInstance:
     - target: {fileID: 686133991514325459, guid: 548244272b211ad4a9af18f40d5904fc, type: 3}
       propertyPath: _bulletPrefab
       value: 
-      objectReference: {fileID: 141304256}
+      objectReference: {fileID: 0}
+    - target: {fileID: 686133991514325460, guid: 548244272b211ad4a9af18f40d5904fc, type: 3}
+      propertyPath: _groundedMask.m_Bits
+      value: 137
+      objectReference: {fileID: 0}
     - target: {fileID: 686133991514325461, guid: 548244272b211ad4a9af18f40d5904fc, type: 3}
       propertyPath: m_Name
       value: Player
@@ -19056,7 +19055,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1983527017
 Transform:
   m_ObjectHideFlags: 0
@@ -19973,7 +19972,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7567125204848369037, guid: 657e9238adb19d34782932af5bf020d7, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7567125204848369037, guid: 657e9238adb19d34782932af5bf020d7, type: 3}
       propertyPath: m_LocalPosition.x

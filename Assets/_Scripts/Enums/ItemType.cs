@@ -4,5 +4,6 @@
     DoubleJumpGadjet = 1,
     RangedAttackGadjet = 2,
     ShieldGadjet = 3,
-    HPGadjet = 4
+    HPGadjet = 4,
+    Fragment = 5
 }

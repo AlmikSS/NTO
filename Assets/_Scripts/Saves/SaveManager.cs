@@ -30,6 +30,9 @@ public static class SaveManager
 
     public static void SaveScene(int currentScene, string path)
     {
+        if (File.Exists(path + "Data.xml"))
+            File.Delete(path + "Data.xml");
+
         XmlSerializer xml = new XmlSerializer(typeof(int));
         FileStream fs = new FileStream(path + "Data.xml", FileMode.Create);
         xml.Serialize(fs, currentScene);

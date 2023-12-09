@@ -3,6 +3,7 @@
 public class Images : MonoBehaviour
 {
     public Texture NullItemTexture;
-    public Texture ArmorItemTexture;
-    public Texture ChestItemTexture;
+    public Texture ShieldGadjetTexture;
+    public Texture DoubleJumpTexture;
+    public Texture FragmentTexture;
 }

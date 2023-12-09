@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
@@ -5,87 +6,92 @@ using UnityEngine.InputSystem.Interactions;
 public class Player : MonoBehaviour, IDamageable
 {
     [Header("Attack")]
-    [SerializeField] private Transform _attackPosition; // поле позиции нанесения урона
-    [SerializeField] private LayerMask _attackMask; // слой, которому наносим урон
-    [SerializeField] private float _attackRadius; // радиус аттаки
-    [SerializeField] private int _damage; // урон
+    [SerializeField] private Transform _attackPosition; // РїРѕР»Рµ РїРѕР·РёС†РёРё РЅР°РЅРµСЃРµРЅРёСЏ СѓСЂРѕРЅР°
+    [SerializeField] private LayerMask _attackMask; // СЃР»РѕР№, РєРѕС‚РѕСЂРѕРјСѓ РЅР°РЅРѕСЃРёРј СѓСЂРѕРЅ
+    [SerializeField] private float _attackRadius; // СЂР°РґРёСѓСЃ Р°С‚С‚Р°РєРё
+    [SerializeField] private int _damage; // СѓСЂРѕРЅ
 
     [Header("General")]
-    [SerializeField] private int _maxHealth; // максимальное здоровье
-    [SerializeField] private GameObject _inventory; // поле инвентаря
-    private Animator _animator; // поле Animator
-    private int _health; // здоровье
+    [SerializeField] private int _maxHealth; // РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ Р·РґРѕСЂРѕРІСЊРµ
+    [SerializeField] private GameObject _inventory; // РїРѕР»Рµ РёРЅРІРµРЅС‚Р°СЂСЏ
+    private Animator _animator; // РїРѕР»Рµ Animator
+    private int _health; // Р·РґРѕСЂРѕРІСЊРµ
 
     [Header("Gadjets")]
     [SerializeField] private GadjetsAbilitys _abilities;
 
-    private Input _playerInput; // ввод игрока
+    private Input _playerInput; // РІРІРѕРґ РёРіСЂРѕРєР°
 
     public void Awake()
     {
-        _playerInput = new Input(); // создаем экземпляр класса Input 
-        _playerInput.Player.MouseLeftButtonClick.performed += Attack; // подписываем метод Attack к событию нажатия кнопки атаки
-        _playerInput.Player.ShowInventory.performed += context => ShowCloseInventory(); // подписываем метод ShowCloseInventory к событию нажатия кнопки инвентаря
+        _playerInput = new Input(); // СЃРѕР·РґР°РµРј СЌРєР·РµРјРїР»СЏСЂ РєР»Р°СЃСЃР° Input 
+        _playerInput.Player.MouseLeftButtonClick.performed += Attack; // РїРѕРґРїРёСЃС‹РІР°РµРј РјРµС‚РѕРґ Attack Рє СЃРѕР±С‹С‚РёСЋ РЅР°Р¶Р°С‚РёСЏ РєРЅРѕРїРєРё Р°С‚Р°РєРё
+        _playerInput.Player.ShowInventory.performed += context => ShowCloseInventory(); // РїРѕРґРїРёСЃС‹РІР°РµРј РјРµС‚РѕРґ ShowCloseInventory Рє СЃРѕР±С‹С‚РёСЋ РЅР°Р¶Р°С‚РёСЏ РєРЅРѕРїРєРё РёРЅРІРµРЅС‚Р°СЂСЏ
     }
 
     private void Start()
     {
-        _health = _maxHealth; // текущее здоровье равно максимальному
-        _animator = GetComponent<Animator>(); // кэшируем Animator
+        _health = _maxHealth; // С‚РµРєСѓС‰РµРµ Р·РґРѕСЂРѕРІСЊРµ СЂР°РІРЅРѕ РјР°РєСЃРёРјР°Р»СЊРЅРѕРјСѓ
+        _animator = GetComponent<Animator>(); // РєСЌС€РёСЂСѓРµРј Animator
     }
 
 
-    public void Attack(InputAction.CallbackContext context) // метод атаки
+    public void Attack(InputAction.CallbackContext context) // РјРµС‚РѕРґ Р°С‚Р°РєРё
     {
         if (context.interaction is TapInteraction)
         {
-            MakeDamage(_damage); // наносим урон
-            _animator.SetTrigger("Attack"); // проигрывем анимацию
+            MakeDamage(_damage); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+            _animator.SetTrigger("Attack"); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         }
 
         if (context.interaction is MultiTapInteraction)
         {
-            MakeDamage(_damage + 2); // наносим увеличенный урон
-            _animator.Play("Combo"); // анимация комбо удара
+            MakeDamage(_damage + 2); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+            _animator.Play("Combo"); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         }
     }
 
-    private void MakeDamage(int damage) // метод нанесения урона
+    private void MakeDamage(int damage) // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     {
-        // собираем все коллайдеры в зоне атаки
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector2(_attackPosition.position.x, _attackPosition.position.y), _attackRadius, _attackMask);
-        // проходимся по всем коллайдерам
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         foreach (Collider2D enemy in colliders)
         {
-            enemy.GetComponent<Enemy>().TakeDamage(damage); // наносим урон
+            try{
+                enemy.GetComponent<Enemy>().TakeDamage(damage);
+            } // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+            catch(Exception){
+                enemy.GetComponent<ShootingEnemy>().TakeDamage(damage);
+            }
         }
     }
 
-    private void ShowCloseInventory() // метод открытия и закртытия инвентаря
+    private void ShowCloseInventory() // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     {
-        _inventory.SetActive(!_inventory.activeSelf); // включаем/выключаем инвентарь
+        _inventory.SetActive(!_inventory.activeSelf); // РІРєР»СЋС‡Р°РµРј/РІС‹РєР»СЋС‡Р°РµРј РёРЅРІРµРЅС‚Р°СЂСЊ
 
-        if (_inventory.activeSelf) // если инвентарь включен
-            Time.timeScale = 0f; // останавливаем время
-        else if (!_inventory.activeSelf) // если инвентарь выключен
-            Time.timeScale = 1f; // возобновляем время
+        if (_inventory.activeSelf) // РµСЃР»Рё РёРЅРІРµРЅС‚Р°СЂСЊ РІРєР»СЋС‡РµРЅ
+            Time.timeScale = 0f; // РѕСЃС‚Р°РЅР°РІР»РёРІР°РµРј РІСЂРµРјСЏ
+        else if (!_inventory.activeSelf) // РµСЃР»Рё РёРЅРІРµРЅС‚Р°СЂСЊ РІС‹РєР»СЋС‡РµРЅ
+            Time.timeScale = 1f; // РІРѕР·РѕР±РЅРѕРІР»СЏРµРј РІСЂРµРјСЏ
     }
 
-    public void TakeDamage(int damage) // метод получения урона
+    public void TakeDamage(int damage) // РјРµС‚РѕРґ РїРѕР»СѓС‡РµРЅРёСЏ СѓСЂРѕРЅР°
     {
-        if (damage > 0) // если урон больше 0
-            _health -= damage; // наносим урон
+        if (damage > 0) // РµСЃР»Рё СѓСЂРѕРЅ Р±РѕР»СЊС€Рµ 0
+            _health -= damage; // РЅР°РЅРѕСЃРёРј СѓСЂРѕРЅ
 
-        if (_health <= 0) // если здоровье меньше или равно нулю
-            Die(); // умираем
+        if (_health <= 0) // РµСЃР»Рё Р·РґРѕСЂРѕРІСЊРµ РјРµРЅСЊС€Рµ РёР»Рё СЂР°РІРЅРѕ РЅСѓР»СЋ
+            Die(); // СѓРјРёСЂР°РµРј
     }
 
-    private void Die() // метод смерти
+    private void Die() // РјРµС‚РѕРґ СЃРјРµСЂС‚Рё
     {
-        Destroy(gameObject); // удаление этого объекта
+        Destroy(gameObject); // СѓРґР°Р»РµРЅРёРµ СЌС‚РѕРіРѕ РѕР±СЉРµРєС‚Р°
     }
 
-    private void OnEnable() => _playerInput.Enable(); // включаем систему ввода
+    private void OnEnable() => _playerInput.Enable(); // РІРєР»СЋС‡Р°РµРј СЃРёСЃС‚РµРјСѓ РІРІРѕРґР°
 
-    private void OnDisable() => _playerInput.Disable(); // выключаем систему ввода
+    private void OnDisable() => _playerInput.Disable(); // РІС‹РєР»СЋС‡Р°РµРј СЃРёСЃС‚РµРјСѓ РІРІРѕРґР°
 }

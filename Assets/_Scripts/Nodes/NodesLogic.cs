@@ -138,7 +138,7 @@ public class NodesLogic : MonoBehaviour
 
     public void StartProgramm(){
         Error.SetActive(false);//деалем невидимой ошибку
-        OutputField.text = "";//обнуляем строку вывода
+        OutputField.text = OutputText;//обнуляем строку вывода
         List<VariableNode> Variables = new();//создаем список всех переменных
         List<int> _influenceNodes = new(), _elseNodes = new();//создаем список для нодов, которые будут находится под влиянием, список для нодов иначе
         List<string> str = new();//список для нодов в строке

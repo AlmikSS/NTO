@@ -30,14 +30,14 @@ public class Enemy : MonoBehaviour, IDamageable
 
 
     IEnumerator AttackDelay(Collider2D[] colliders){
-        GetComponent<Animator>().SetBool("Attack", true);
+        gameObject.transform.GetChild(1).GetComponent<Animator>().SetBool("Attack", true);
         canAttack = false;
         foreach(Collider2D col in colliders) // ���������� �� ���� �����������
         {
             col.GetComponent<Player>().TakeDamage(_damage); // ������� ����
         }
         yield return new WaitForSeconds(0.45f);
-        GetComponent<Animator>().SetBool("Attack", false);
+        gameObject.transform.GetChild(1).GetComponent<Animator>().SetBool("Attack", false);
         yield return new WaitForSeconds(_attackDelay-0.45f);
         canAttack = true;
     }

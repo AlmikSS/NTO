@@ -18,21 +18,19 @@ public class Inventory : MonoBehaviour
     private List<GameObject> _slots = new List<GameObject>();
     private List<ItemData> _itemsData = new List<ItemData>();
     private List<GameObject> _itemObjects = new List<GameObject>();
-    private string _path;
+    private string _path = "inventory";
     public Item MouseItem; // предмет в руке
 
     private Input _playerInput; // система ввода игрока
 
     public void Awake()
     {
+        _path = "inventory";
         _playerInput = new Input(); // создаем экземпляр класса Input
-        _playerInput.Temp.Save.performed += context => Save();
-        _playerInput.Temp.Load.performed += context => Load();
     }
 
-    private void Save()
+    public void Save()
     {
-        _path = "inventory";
         SaveManager.Save(_itemsData, _path);
         _gadjetInventory.Save();
     }
@@ -73,9 +71,11 @@ public class Inventory : MonoBehaviour
         if (type == ItemType.Null)
             return _images.NullItemTexture;
         else if (type == ItemType.ShieldGadjet)
-            return _images.ArmorItemTexture;
+            return _images.ShieldGadjetTexture;
         else if (type == ItemType.DoubleJumpGadjet)
-            return _images.ChestItemTexture;
+            return _images.DoubleJumpTexture;
+        else if (type == ItemType.Fragment)
+            return _images.FragmentTexture;
         return null;
     }
 
@@ -108,6 +108,9 @@ public class Inventory : MonoBehaviour
             _itemObjects.Add(_newItem);
             _itemsData.Add(_items[i].Data);
         }
+
+        if (SaveManager.Load(_path) != null)
+            Load();
 
         Redraw(); // перерисовываем весь инвентарь
         _craftMenu.Redraw(); // перерисовывем меню крафта

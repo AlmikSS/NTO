@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b019ddc62fed94a9b14469998f717d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Armor
-  Image: {fileID: 2800000, guid: a5b0d171d1c0658448461e765ea19a8b, type: 3}
+  Name: Shield
+  Image: {fileID: 2800000, guid: d6701c16b85b7874d9e7efe2d28c9610, type: 3}
   Stack: 1
   MaxStack: 1
   ID: 2

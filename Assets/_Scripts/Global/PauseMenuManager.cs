@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject _pausePanal;
-    [SerializeField] private Player _player;
+    [SerializeField] private Inventory _inv;
 
     private Input _playerInput;
 
@@ -34,8 +34,14 @@ public class PauseMenuManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public void RestartButton()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void ExitButton()
     {
+        _inv.Save();
         SceneManager.LoadScene(0);
     }
 

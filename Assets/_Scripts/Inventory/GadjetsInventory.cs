@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class GadjetsInventory : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class GadjetsInventory : MonoBehaviour
 
     private void Awake()
     {
+        _path = "gadjetInventory";
         _playerInput = new Input(); // создаем экземпляр класса Input
     }
 
@@ -58,7 +60,6 @@ public class GadjetsInventory : MonoBehaviour
 
     public void Save()
     {
-        _path = "gadjetInventory";
         SaveManager.Save(_itemsData, _path);
     }
 
@@ -72,7 +73,7 @@ public class GadjetsInventory : MonoBehaviour
         }
 
         _itemObjects.Clear();
-        for (int i = 0; i < _itemsData.Count; i++)
+        for (int i = 0; i < Items.Count; i++)
         {
             GameObject _newItem = new GameObject("Item", typeof(Item)); // создаем предмет
 
@@ -97,9 +98,11 @@ public class GadjetsInventory : MonoBehaviour
         if (type == ItemType.Null)
             return _images.NullItemTexture;
         else if (type == ItemType.ShieldGadjet)
-            return _images.ArmorItemTexture;
+            return _images.ShieldGadjetTexture;
         else if (type == ItemType.DoubleJumpGadjet)
-            return _images.ChestItemTexture;
+            return _images.DoubleJumpTexture;
+        else if (type == ItemType.Fragment)
+            return _images.FragmentTexture;
         return null;
     }
 

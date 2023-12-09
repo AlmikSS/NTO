@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 05bc5c3f1d19565469c9f879b69c0042
+guid: dd3321a26605e634490c1d822e6c2abb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 68
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -67,7 +67,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -101,239 +101,299 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: iPhone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SS-attack_0
+      name: Mod 3 all anim_0
       rect:
         serializedVersion: 2
-        x: 1
+        x: 0
         y: 0
-        width: 13
-        height: 13
+        width: 68
+        height: 39
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e33f537d8f222f14c829b3128af7e0da
-      internalID: -1594390550
+      spriteID: 78436d0ae110e0c4ba9237fc2aad8562
+      internalID: 1766977280
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SS-attack_1
+      name: Mod 3 all anim_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 68
         y: 0
-        width: 14
-        height: 13
+        width: 68
+        height: 39
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab1ee3acd770cc44289be7ef0a295aa4
-      internalID: 826431981
+      spriteID: 05199cf5485e1594892026b726be4f9f
+      internalID: -1029740274
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SS-attack_2
+      name: Mod 3 all anim_2
       rect:
         serializedVersion: 2
-        x: 64
+        x: 136
         y: 0
-        width: 19
-        height: 13
+        width: 68
+        height: 39
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 514c00091fd6de041b3b808351a37d23
-      internalID: -327662200
+      spriteID: deebacfd1f0036149b47301f49ca3439
+      internalID: 1823473721
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SS-attack_3
+      name: Mod 3 all anim_3
       rect:
         serializedVersion: 2
-        x: 100
+        x: 204
         y: 0
-        width: 21
-        height: 13
+        width: 68
+        height: 39
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ef17c4236f0130d499733b3549d37a1a
-      internalID: -1528593503
+      spriteID: f5f76b4f6ffe74645aae1c69f375d07d
+      internalID: -2043422645
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SS-attack_5
+      name: Mod 3 all anim_4
       rect:
         serializedVersion: 2
-        x: 131
+        x: 272
         y: 0
-        width: 20
-        height: 13
+        width: 68
+        height: 39
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ddc09b2649e1d414f854ae603bee6013
-      internalID: 1911639613
+      spriteID: 3bcc0a1052225b241a6652e7987166b5
+      internalID: 971982246
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SS-attack_7
+      name: Mod 3 all anim_5
       rect:
         serializedVersion: 2
-        x: 162
+        x: 340
         y: 0
-        width: 19
-        height: 13
+        width: 68
+        height: 39
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 79177cae933d6fb4796bec3c5c6162c4
-      internalID: -1571332068
+      spriteID: 8cec4a698e5f56045a302edea40668f3
+      internalID: -563214869
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SS-attack_8
+      name: Mod 3 all anim_6
       rect:
         serializedVersion: 2
-        x: 194
+        x: 408
         y: 0
-        width: 25
-        height: 13
+        width: 68
+        height: 39
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2d201948653f9934086026c0f0e4c03f
-      internalID: 2113644499
+      spriteID: 6f290732eac55164da8f5d1d1ae5d452
+      internalID: 1404968248
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SS-attack_9
+      name: Mod 3 all anim_7
       rect:
         serializedVersion: 2
-        x: 226
+        x: 476
         y: 0
-        width: 27
-        height: 13
+        width: 68
+        height: 39
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bd2c4460866d1e047baaf4dc58c767cd
-      internalID: 1286363913
+      spriteID: 20e05e8541c75bd4eb8a314ed6686b81
+      internalID: -1306938363
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SS-attack_11
+      name: Mod 3 all anim_8
       rect:
         serializedVersion: 2
-        x: 257
+        x: 544
         y: 0
-        width: 27
-        height: 13
+        width: 68
+        height: 39
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d24f211217e24db47b4d638542e2b05e
-      internalID: 1820000391
+      spriteID: afa6cb29dc6efe346b0c53f0ade0968f
+      internalID: 1107727579
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SS-attack_12
+      name: Mod 3 all anim_9
       rect:
         serializedVersion: 2
-        x: 290
+        x: 612
         y: 0
-        width: 12
-        height: 13
+        width: 68
+        height: 39
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0d3df2c0609736b42948a8d9d9e3a430
-      internalID: -1792299007
+      spriteID: 43b1b2966bab58f46b2ac6b2634c2a9f
+      internalID: 837615770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mod 3 all anim_10
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 0
+        width: 68
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d37037bc746d7949872def06f792ea7
+      internalID: 1900922806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mod 3 all anim_11
+      rect:
+        serializedVersion: 2
+        x: 748
+        y: 0
+        width: 68
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ed18e28f01945e4b8a5a471049cd23c
+      internalID: 1748672644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mod 3 all anim_12
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 0
+        width: 68
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2280b7ba8eb44e4a977d209528be481
+      internalID: 1067004156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mod 3 all anim_13
+      rect:
+        serializedVersion: 2
+        x: 884
+        y: 0
+        width: 68
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09009dad9db2bc24993ceb4d5670c21b
+      internalID: 161852313
       vertices: []
       indices: 
       edges: []
@@ -349,19 +409,20 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SS-attack_0: -1594390550
-      SS-attack_1: 826431981
-      SS-attack_10: -736402561
-      SS-attack_11: 1820000391
-      SS-attack_12: -1792299007
-      SS-attack_2: -327662200
-      SS-attack_3: -1528593503
-      SS-attack_4: -1202278265
-      SS-attack_5: 1911639613
-      SS-attack_6: -1345053898
-      SS-attack_7: -1571332068
-      SS-attack_8: 2113644499
-      SS-attack_9: 1286363913
+      Mod 3 all anim_0: 1766977280
+      Mod 3 all anim_1: -1029740274
+      Mod 3 all anim_10: 1900922806
+      Mod 3 all anim_11: 1748672644
+      Mod 3 all anim_12: 1067004156
+      Mod 3 all anim_13: 161852313
+      Mod 3 all anim_2: 1823473721
+      Mod 3 all anim_3: -2043422645
+      Mod 3 all anim_4: 971982246
+      Mod 3 all anim_5: -563214869
+      Mod 3 all anim_6: 1404968248
+      Mod 3 all anim_7: -1306938363
+      Mod 3 all anim_8: 1107727579
+      Mod 3 all anim_9: 837615770
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

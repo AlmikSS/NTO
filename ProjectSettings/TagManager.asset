@@ -31,7 +31,7 @@ TagManager:
   - Ground
   - Obstacle
   - Shield
-  - 
+  - NoLight
   - 
   - 
   - 
@@ -56,4 +56,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: NoLight
+    uniqueID: 2308934643
     locked: 0

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4257130646698712080}
   - component: {fileID: 2798681261807826732}
   - component: {fileID: 7285936592614237226}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 15
-  speed: 0.2
+  speed: 0.15
 --- !u!58 &2798681261807826732
 CircleCollider2D:
   m_ObjectHideFlags: 0

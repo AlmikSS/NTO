@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 public class NodesLogic : MonoBehaviour
 {
+    [Header("Nodes")]
     [HideInInspector] public List<List<string>> Programm = new(); // список позиций нодов для конечной программы
     [HideInInspector] public List<List<List<string>>>  AllCombinatoins = new(); // список позиций всех нодов по группам
 
@@ -13,7 +14,11 @@ public class NodesLogic : MonoBehaviour
     [SerializeField] string[] InputValues, Answers;//переменная для текста ввода, значиния ввода и правильного ответа
     [SerializeField] TMP_Text InputField, OutputField, QuizField;//переменная для поля ввода и вывода
     [SerializeField] GameObject Error;//изображение ошибки
-
+    [Header("Win")]
+    [SerializeField] Item ItemToPut;
+    [SerializeField] int CountToPut;
+    [SerializeField] Inventory Inventory;
+    [SerializeField] GameObject JumpPad;
     private void OnEnable() {
         InputField.text = InputText;
         OutputField.text = OutputText;
@@ -425,13 +430,26 @@ public class NodesLogic : MonoBehaviour
             _answerInd++;
             
         }
+
+
+
+        ////////////////////////////////////////тесты
         if(Programm.Count>0 && Tests.Count>0){
             bool allGood = true;
             foreach(bool cond in Tests){
                 if(cond==false) {GameObject.Find("Incorrect").GetComponent<Animation>().Play(); allGood = false; break;}
             }
-            if(allGood) GameObject.Find("Correct").GetComponent<Animation>().Play();
+            if(allGood){ 
+                GameObject.Find("Correct").GetComponent<Animation>().Play();
+                transform.GetChild(0).gameObject.SetActive(false);
+                GameManager.ChalangeComplete(JumpPad);
+                GameManager.AddItemsToPlayer(ItemToPut, CountToPut, Inventory);
+            }
         }
+
+
+
+
         ////////////////////////////////////////проверка условия
         string CheckCondition(int str){
             List<string> _currentStr = Programm[str], _simplifiedString = new();

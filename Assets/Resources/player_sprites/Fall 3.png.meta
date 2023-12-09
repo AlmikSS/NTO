@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 35b13580b7f6fe64d8a7ac85f5522d53
+guid: bc5e2e0f9e3fd5549ada269f93bdbd1d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -101,41 +101,17 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: iPhone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SS-jump_0
+      name: Fall 3_0
       rect:
         serializedVersion: 2
-        x: 1
+        x: 0
         y: 0
-        width: 15
-        height: 12
+        width: 48
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,20 +119,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6eaecd5a33c445d4db92e463ec1fc845
-      internalID: -104519110
+      spriteID: f3384023286ecac4aa00a064d23da6c4
+      internalID: 1512480966
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SS-jump_1
+      name: Fall 3_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 48
         y: 0
-        width: 17
-        height: 11
+        width: 48
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -164,20 +140,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ab60eb7406107e48b6204a6e9702d4e
-      internalID: -625980969
+      spriteID: 624d9e678dd4eb846beba6914271e9a4
+      internalID: -2132916404
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SS-jump_2
+      name: Fall 3_2
       rect:
         serializedVersion: 2
-        x: 66
+        x: 96
         y: 0
-        width: 12
-        height: 13
+        width: 48
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -185,20 +161,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e69ee7bdaafc7f46a19ded01ac17d41
-      internalID: 362165804
+      spriteID: 83728c858cbea0f45ada8042548a7eb2
+      internalID: 863770676
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SS-jump_3
+      name: Fall 3_3
       rect:
         serializedVersion: 2
-        x: 99
+        x: 144
         y: 0
-        width: 10
-        height: 13
+        width: 48
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -206,29 +182,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 86bd3ee79d98f464d8e65278e6e7ad4e
-      internalID: 781239678
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SS-jump_4
-      rect:
-        serializedVersion: 2
-        x: 130
-        y: 0
-        width: 12
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 86c6536c6ded5e246a49e62db8132cb2
-      internalID: -322301525
+      spriteID: b7cef42674254954596de5c9ad7f27c4
+      internalID: -1588859405
       vertices: []
       indices: 
       edges: []
@@ -244,11 +199,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SS-jump_0: -104519110
-      SS-jump_1: -625980969
-      SS-jump_2: 362165804
-      SS-jump_3: 781239678
-      SS-jump_4: -322301525
+      Fall 3_0: 1512480966
+      Fall 3_1: -2132916404
+      Fall 3_2: 863770676
+      Fall 3_3: -1588859405
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <ArrayOfItemData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ItemData>
-    <Name>Null</Name>
-    <Stack>0</Stack>
-    <MaxStack>0</MaxStack>
-    <ID>0</ID>
-    <ItemType>Null</ItemType>
-    <IsItem>false</IsItem>
+    <Name>Fragment</Name>
+    <Stack>1</Stack>
+    <MaxStack>16</MaxStack>
+    <ID>3</ID>
+    <ItemType>Fragment</ItemType>
+    <IsItem>true</IsItem>
     <_itemsKey />
     <_itemsCount />
   </ItemData>

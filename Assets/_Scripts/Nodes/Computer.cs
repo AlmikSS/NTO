@@ -32,7 +32,7 @@ public class Computer : MonoBehaviour
             _quiz.SetActive(false);
             _nodesUI.SetActive(false);
             _back.SetActive(false);//скрываем UI
-            _playerInput.UI.Disable();//выключаем карту инпута
+            //_playerInput.UI.Disable();//выключаем карту инпута
             _pc.enabled = true;
             _pl.enabled = true;
             _pm.enabled = true;//активируем скрипты
@@ -58,7 +58,7 @@ public class Computer : MonoBehaviour
         _quiz.SetActive(false);
         _nodesUI.SetActive(false);
         _back.SetActive(false);//скрываем UI
-        _playerInput.UI.Disable();//выключаем карту инпута
+        //_playerInput.UI.Disable();//выключаем карту инпута
         _pc.enabled = true;
         _pl.enabled = true;
         _pm.enabled = true;//активируем скрипты

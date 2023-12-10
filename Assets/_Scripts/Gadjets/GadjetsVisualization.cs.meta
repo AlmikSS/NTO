@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+<<<<<<< Updated upstream
+<<<<<<<< Updated upstream:Assets/_Scripts/Global/PauseMenuManager.cs.meta
+guid: d13b978f9239f6d4c9b9f7f5771a1342
+========
+guid: 5ce725c738ab184409e13a523fdad4b5
+>>>>>>>> Stashed changes:Assets/_Scripts/Gadjets/GadjetsVisualization.cs.meta
+=======
+guid: c9fffcbd5fe2ba8469e7b2b191282cbf
+>>>>>>> Stashed changes
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

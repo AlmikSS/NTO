@@ -3,21 +3,37 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - WhileNode
+  - InputNode
+  - StringNode
+  - EmptyNode
+  - LogicalNodes
+  - MathNodes
+  - ElseNode
+  - BeginNode
+  - VariableNode
+  - EndNode
+  - IfNode
+  - OutputNode
+  - NumberNode
+  - ElementParseNode
+  - Ground
+  - Bullet
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Enemy
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Ground
+  - Obstacle
+  - Shield
+  - NoLight
+  - Bullet
+  - post processing
   - 
   - 
   - 
@@ -40,4 +56,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: NoLight
+    uniqueID: 2308934643
     locked: 0

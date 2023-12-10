@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3208601296762705722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3467056530616253665}
+  - component: {fileID: 3732552707677817643}
+  m_Layer: 0
+  m_Name: ShieldGadjet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3467056530616253665
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3208601296762705722}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3732552707677817643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3208601296762705722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5b019ddc62fed94a9b14469998f717d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Shield
+  Image: {fileID: 2800000, guid: d6701c16b85b7874d9e7efe2d28c9610, type: 3}
+  Stack: 1
+  MaxStack: 1
+  ID: 2
+  ItemType: 3
+  IsItem: 0
+  Description: "\u0413\u0410\u0414\u0416\u0415\u0422 \u041D\u0410\u041A\u041B\u0410\u0414\u042B\u0412\u0410\u0415\u0422
+    \u0429\u0418\u0422\u042C \u041D\u0410 \u041E\u041F\u0420\u0415\u0414\u0415\u041B\u0401\u041D\u041D\u041E\u0415
+    \u0412\u0420\u0415\u041C\u042F"
+  _itemsKey: 03000000
+  _itemsCount: 02000000
+  Data:
+    Name: 
+    Stack: 0
+    MaxStack: 0
+    ID: 0
+    ItemType: 0
+    IsItem: 0
+    Description: 
+    _itemsKey: 
+    _itemsCount: 

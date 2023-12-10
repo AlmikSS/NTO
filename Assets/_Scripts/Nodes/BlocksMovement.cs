@@ -1,6 +1,8 @@
+
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BlocksMovement : MonoBehaviour
 {
@@ -17,6 +19,8 @@ public class BlocksMovement : MonoBehaviour
         _nodesLogic = GetComponent<NodesLogic>();
     }
 
+    
+
     private void OnEnable()
     {
         _playerInput.Enable();
@@ -29,18 +33,18 @@ public class BlocksMovement : MonoBehaviour
     public void OnInitializeDrag(GameObject Obj){//когда пользователь начинает двигать нод
         if(Obj.transform.parent.parent.parent.name == "NodesView"){//проверяем находится ли он в теле нодов
             GameObject _newObj = Instantiate(Obj, new Vector2(Obj.transform.position.x, Obj.transform.position.y),  Quaternion.identity, Obj.transform.parent);
-            AllNodes.Add(_newObj);//создаем копию и добавляем в список ко всем
+            gameObject.GetComponent<BlocksMovement>().AllNodes.Add(_newObj);//создаем копию и добавляем в список ко всем
         }
     }
 
     public void MoveBlock(GameObject Obj){//когда пользователь двигает блок
-        if(Obj.transform.position.x >= 0 && Obj.transform.position.x <= Screen.width && Obj.transform.position.y>= 0 && Obj.transform.position.y <= Screen.height){
+        if(Obj.transform.position.x - Obj.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f)*0.5f >= 0 && Obj.transform.position.x + Obj.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f)*0.5f<= Screen.width && Obj.transform.position.y - Obj.GetComponent<RectTransform>().sizeDelta.y*(Screen.height/1080f)*0.5f >= 0 && Obj.transform.position.y + Obj.GetComponent<RectTransform>().sizeDelta.y*(Screen.height/1080f)*0.5f <= Screen.height){
             Obj.transform.SetParent(GameObject.Find("Canvas").transform);
-            Vector2 pos = _playerInput.UI.MousePosition.ReadValue<Vector2>();
+            Vector2 pos = Mouse.current.position.ReadValue();//_playerInput.UI.MousePosition.ReadValue<Vector2>();
             Obj.transform.position = new Vector3(pos.x, pos.y, 0);//если блок находится в пределах экрана и не выходит за границы, то копирует позицию мыши
         }
         else{
-            AllNodes.Remove(Obj.gameObject);
+            gameObject.GetComponent<BlocksMovement>().AllNodes.Remove(Obj.gameObject);
             bool _del = false;
             foreach(List<List<string>> i in _nodesLogic.AllCombinatoins){
                 foreach(List<string> j in i){
@@ -76,10 +80,10 @@ public class BlocksMovement : MonoBehaviour
         Vector2 _objSize = new Vector2(Obj.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f),Obj.GetComponent<RectTransform>().sizeDelta.y*(Screen.height/1080f)); // размеры текущего нода
         
         float _minDist = 1000000000000000000f;// задаем минимум
-        foreach (GameObject i in AllNodes)//перебираем все ноды
+        foreach (GameObject i in gameObject.GetComponent<BlocksMovement>().AllNodes)//перебираем все ноды
         {
             //находим дистанцию до нода
-            if (i != Obj && Obj.transform.parent.parent.parent.name == i.transform.parent.parent.parent.name){// если не равен передвигаемому ноду и общий родитель
+            if (i != Obj && Obj.transform.parent.parent.parent.name == i.transform.parent.parent.parent.name && Obj.transform.parent.parent.parent.parent.name == i.transform.parent.parent.parent.parent.name){// если не равен передвигаемому ноду и общий родитель
                 _collSize = new Vector2(i.GetComponent<RectTransform>().sizeDelta.x*(Screen.width/1920f),i.GetComponent<RectTransform>().sizeDelta.y*(Screen.height/1080f)); // размеры проверяемого нода
 
                 float _leftDist = Vector2.Distance(new Vector2(i.transform.position.x-_collSize.x*0.5f, i.transform.position.y), new Vector2(Obj.transform.position.x+_objSize.x*0.5f, Obj.transform.position.y)); //дистанция между левой стороной проверяемого нода и правой текущего нода
@@ -94,6 +98,7 @@ public class BlocksMovement : MonoBehaviour
             }
            
         }
+        
         if(Coll == null){
             return "";
         }

@@ -14,7 +14,6 @@ public class ShootingEnemy : MonoBehaviour, IDamageable
     private void Start()
     {
         _health = _maxHealth;
-        
     }
 
     public IEnumerator AttackDelay(){

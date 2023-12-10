@@ -2380,6 +2380,10 @@ PrefabInstance:
       propertyPath: _nodesUI
       value: 
       objectReference: {fileID: 124353051}
+    - target: {fileID: 4174208080846129294, guid: 24587fdc6321eda4a951f98906d5893a, type: 3}
+      propertyPath: _healthBar
+      value: 
+      objectReference: {fileID: 1597721987}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24587fdc6321eda4a951f98906d5893a, type: 3}
 --- !u!1 &593723963
@@ -23027,6 +23031,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 548244272b211ad4a9af18f40d5904fc, type: 3}
+--- !u!1 &1597721987 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 174829483934060233, guid: 548244272b211ad4a9af18f40d5904fc, type: 3}
+  m_PrefabInstance: {fileID: 1597721986}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1599513507
 GameObject:
   m_ObjectHideFlags: 0

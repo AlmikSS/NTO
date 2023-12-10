@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Computer : MonoBehaviour
 {
-    [SerializeField] private GameObject _quiz, _nodesUI, _back;//переменные для UI элементов
+    [SerializeField] private GameObject _quiz, _nodesUI, _back, _healthBar;//переменные для UI элементов
     [SerializeField] private PlayerController _pc;//контроллер
     [SerializeField] private Player _pl;//скрипт игрока
     [SerializeField] private PauseMenuManager _pm;//скрипт паузы
@@ -29,13 +29,14 @@ public class Computer : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other) {//когда игрок выходит
         if(other.gameObject.tag=="Player"){
             _collides = false;// !записываем столкновение
+            _healthBar.SetActive(false);
             _quiz.SetActive(false);
-            _nodesUI.SetActive(false);
+            _nodesUI.SetActive(true);
             _back.SetActive(false);//скрываем UI
-            //_playerInput.UI.Disable();//выключаем карту инпута
             _pc.enabled = true;
             _pl.enabled = true;
             _pm.enabled = true;//активируем скрипты
+            StartCoroutine(_pl.Timer());
         }
     }
     private void PerformIteract(InputAction.CallbackContext context)
@@ -43,11 +44,13 @@ public class Computer : MonoBehaviour
         if(_collides){
 
             _playerInput.UI.Enable();//включаем карту инпута
+            StopCoroutine(_pl.Timer());
             _pl.enabled = false;
             _pc.enabled = false;
             _pm.enabled = false;//деактивируем скрипты
             _quiz.SetActive(true);
             _nodesUI.SetActive(true);
+            _healthBar.SetActive(false);
             _back.SetActive(true);//включаем UI
         }
     }
@@ -57,11 +60,13 @@ public class Computer : MonoBehaviour
         _collides = false;// !записываем столкновение
         _quiz.SetActive(false);
         _nodesUI.SetActive(false);
+        _healthBar.SetActive(true);
         _back.SetActive(false);//скрываем UI
         //_playerInput.UI.Disable();//выключаем карту инпута
         _pc.enabled = true;
         _pl.enabled = true;
         _pm.enabled = true;//активируем скрипты
+        StartCoroutine(_pl.Timer());
     }
 
 }

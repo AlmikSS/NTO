@@ -51,7 +51,7 @@ public class Player : MonoBehaviour, IDamageable
         StartCoroutine(Timer());
     }
 
-    private IEnumerator Timer()
+    public IEnumerator Timer()
     {
         while (_health >= 0)
         {

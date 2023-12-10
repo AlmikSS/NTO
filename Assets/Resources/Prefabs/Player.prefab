@@ -1249,10 +1249,10 @@ RectTransform:
   m_Father: {fileID: 686133990851783627}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 524.66046, y: -540}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1715045706
 CanvasRenderer:
@@ -2453,10 +2453,10 @@ RectTransform:
   m_Father: {fileID: 686133990851783627}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 274.66046, y: -540}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &686133991111488580
 CanvasRenderer:
@@ -3433,6 +3433,7 @@ MonoBehaviour:
   _craftMenu: {fileID: 686133990851783621}
   _images: {fileID: 666847486}
   MouseItem: {fileID: 1415834791889380480, guid: a93593eaa7e38384f9811ce2544db983, type: 3}
+  InfoSpawn: {fileID: 686133990524198495}
 --- !u!114 &2723019360840995781
 MonoBehaviour:
   m_ObjectHideFlags: 0

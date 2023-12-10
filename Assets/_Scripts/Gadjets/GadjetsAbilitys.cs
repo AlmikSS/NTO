@@ -22,12 +22,14 @@ public class GadjetsAbilitys : MonoBehaviour
         }
     }
 
-    public IEnumerator ShieldGadjet(Transform transform)
+    public IEnumerator ShieldGadjet(Player player)
     {
         GameObject shield = Instantiate(_shieldPrefab, _shiledSpawnPoint.position, Quaternion.identity, transform);
         ReadyToInstShield = false;
+        player.CanTakeDamage = false;
         yield return new WaitForSeconds(_shieldTime);
         Destroy(shield.gameObject);
+        player.CanTakeDamage = false;
         yield return new WaitForSeconds(_shieldCulDown);
         ReadyToInstShield = true;
     }

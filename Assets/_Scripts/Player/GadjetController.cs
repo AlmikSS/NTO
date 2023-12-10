@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(Player))]
+[RequireComponent(typeof(PlayerController))]
+[RequireComponent(typeof(GadjetsAbilitys))]
 public class GadjetController : MonoBehaviour
 {
     [SerializeField] private GadjetsInventory _inv;
     private GadjetsAbilitys _abilities;
     private PlayerController _controller;
+    private Player _player;
 
     private Input _playerInput;
 
@@ -12,6 +16,7 @@ public class GadjetController : MonoBehaviour
     {
         _controller = GetComponent<PlayerController>();
         _abilities = GetComponent<GadjetsAbilitys>();
+        _player = GetComponent<Player>();
 
         _playerInput = new Input();
         _playerInput.Player.Gadjet1.performed += context => AbilityOnGadjet(_inv.Items[0]);
@@ -30,7 +35,7 @@ public class GadjetController : MonoBehaviour
                 break;
             case ItemType.ShieldGadjet:
                 if (_abilities.ReadyToInstShield)
-                    StartCoroutine(_abilities.ShieldGadjet(_controller.transform));
+                    StartCoroutine(_abilities.ShieldGadjet(_player));
                 break;
         }
     }

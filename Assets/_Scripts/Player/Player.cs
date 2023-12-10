@@ -31,7 +31,7 @@ public class Player : MonoBehaviour, IDamageable
     [Header("Gadjets")]
     [SerializeField] private GadjetsAbilitys _abilities;
     [SerializeField] private Transform _rangedPoint;
-    private bool _canRangedAttack;
+    public bool CanTakeDamage = true;
     private Input _playerInput; // ввод игрока
 
     public void Awake()
@@ -117,6 +117,8 @@ public class Player : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage) // метод получения урона
     {
+        if (!CanTakeDamage)
+            return;
         if (damage > 0) // если урон больше 0
             _health -= damage; // наносим урон
 

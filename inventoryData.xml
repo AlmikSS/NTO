@@ -91,11 +91,11 @@
     <_itemsCount />
   </ItemData>
   <ItemData>
-    <Name>DoubleJump</Name>
-    <Stack>1</Stack>
-    <MaxStack>1</MaxStack>
-    <ID>1</ID>
-    <ItemType>DoubleJumpGadjet</ItemType>
+    <Name />
+    <Stack>0</Stack>
+    <MaxStack>0</MaxStack>
+    <ID>0</ID>
+    <ItemType>Null</ItemType>
     <IsItem>false</IsItem>
     <_itemsKey />
     <_itemsCount />

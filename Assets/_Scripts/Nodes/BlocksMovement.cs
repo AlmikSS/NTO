@@ -11,11 +11,15 @@ public class BlocksMovement : MonoBehaviour
     private NodesLogic _nodesLogic; //записываем скрипт логики в переменную 
     private Input _playerInput;
 
-    private void OnEnable()
+    private void Awake()
     {
         _playerInput = new Input();
-        _playerInput.Enable();
         _nodesLogic = GetComponent<NodesLogic>();
+    }
+
+    private void OnEnable()
+    {
+        _playerInput.Enable();
     }
     private void OnDisable()
     {
@@ -32,7 +36,8 @@ public class BlocksMovement : MonoBehaviour
     public void MoveBlock(GameObject Obj){//когда пользователь двигает блок
         if(Obj.transform.position.x >= 0 && Obj.transform.position.x <= Screen.width && Obj.transform.position.y>= 0 && Obj.transform.position.y <= Screen.height){
             Obj.transform.SetParent(GameObject.Find("Canvas").transform);
-            Obj.transform.position = _playerInput.UI.MousePosition.ReadValue<Vector2>();//если блок находится в пределах экрана и не выходит за границы, то копирует позицию мыши
+            Vector2 pos = _playerInput.UI.MousePosition.ReadValue<Vector2>();
+            Obj.transform.position = new Vector3(pos.x, pos.y, 0);//если блок находится в пределах экрана и не выходит за границы, то копирует позицию мыши
         }
         else{
             AllNodes.Remove(Obj.gameObject);

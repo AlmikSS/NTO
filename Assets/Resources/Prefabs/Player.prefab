@@ -2820,6 +2820,7 @@ MonoBehaviour:
   _rangedAttackAudio: {fileID: 686133990963481689}
   _abilities: {fileID: 2637835109291219835}
   _rangedPoint: {fileID: 7608583644215800312}
+  CanTakeDamage: 1
 --- !u!114 &1238577459165696521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3703,7 +3704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pausePanal: {fileID: 5951842608270302379}
-  _inv: {fileID: 0}
+  _inv: {fileID: 4294130541930936800}
 --- !u!1 &5951842606848200948
 GameObject:
   m_ObjectHideFlags: 0

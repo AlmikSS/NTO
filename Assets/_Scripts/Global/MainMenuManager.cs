@@ -23,8 +23,8 @@ public class MainMenuManager : MonoBehaviour
 
     public static void Load(string path)
     {
-        if (SaveManager.LoadScene("Scene") > CurrentScene)
-            CurrentScene = SaveManager.LoadScene("Scene");
+        if (SaveManager.LoadScene(path) > CurrentScene)
+            CurrentScene = SaveManager.LoadScene(path);
         else
             CurrentScene = 1;
     }

@@ -6,7 +6,7 @@ using TMPro;
 public class Inventory : MonoBehaviour
 {
     [SerializeField] private int _width, _height; // ширина и высота инвентаря
-    [SerializeField] private Transform _inventoryPanel; // ссылка на объект панели инвентаря
+    [SerializeField] public Transform _inventoryPanel; // ссылка на объект панели инвентаря
     [SerializeField] private GameObject _button; // сылка на префаб слота/кнопки инвентаря
     [SerializeField] private GadjetsInventory _gadjetInventory;
 
@@ -20,6 +20,7 @@ public class Inventory : MonoBehaviour
     private List<GameObject> _itemObjects = new List<GameObject>();
     private string _path = "inventory";
     public Item MouseItem; // предмет в руке
+    public Transform InfoSpawn;
 
     private Input _playerInput; // система ввода игрока
 
@@ -206,12 +207,16 @@ public class Inventory : MonoBehaviour
             MouseItemImage.transform.GetChild(0).GetComponent<TMP_Text>().text = MouseItem.Stack.ToString(); // меняем текст в руке
         }
 
+        UpdateSlots();
+        UpdateData();
+    }
+
+    private void UpdateSlots()
+    {
         for (int i = 0; i < _items.Count; i++)
         {
             _slots[i].ItemInSlot = _items[i];
         }
-
-        UpdateData();
     }
 
     public int CheckObjects(int id) // метод проверки есть ли предмет в инвентаре
@@ -278,7 +283,7 @@ public class Inventory : MonoBehaviour
                 newItemInv.GetComponent<Item>().MaxStack = newItem.MaxStack;
                 newItemInv.GetComponent<Item>().Image = newItem.Image;
                 newItemInv.GetComponent<Item>().ItemType = newItem.ItemType;
-                newItemInv.GetComponent<Item>().Data = newItem.Data;
+                //newItemInv.GetComponent<Item>().Data = newItem.Data;
                 newItemInv.GetComponent<Item>().IsItem = newItem.IsItem;
                 newItemInv.GetComponent<Item>().Inizialize();
                 //добавляем предмет в список
@@ -288,8 +293,8 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        UpdateData();
         Redraw(); // перерисовываем инвентарь
+        UpdateData();
         _craftMenu.Redraw(); // перерисовывем меню крафта
     }
 

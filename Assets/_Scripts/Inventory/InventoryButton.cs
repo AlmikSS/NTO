@@ -21,18 +21,18 @@ public class InventoryButton : MonoBehaviour
     {
         if (ItemInSlot.ItemType != ItemType.Null)
         {
-            _info = Instantiate(_infoPrefab, _infoPos.position, Quaternion.identity);
+            _info = Instantiate(_infoPrefab, _infoPos.position, Quaternion.identity, MyInv.InfoSpawn);
 
             switch (ItemInSlot.ItemType)
             {
                 case ItemType.ShieldGadjet:
-                    _info.GetComponent<ShowInfo>().Show(_descriptions[0]);
+                    _info.transform.GetChild(0).GetComponent<ShowInfo>().Show(_descriptions[0]);
                     break;
                 case ItemType.DoubleJumpGadjet:
-                    _info.GetComponent<ShowInfo>().Show(_descriptions[1]);
+                    _info.transform.GetChild(0).GetComponent<ShowInfo>().Show(_descriptions[1]);
                     break;
                 case ItemType.Fragment:
-                    _info.GetComponent<ShowInfo>().Show(_descriptions[2]);
+                    _info.transform.GetChild(0).GetComponent<ShowInfo>().Show(_descriptions[2]);
                     break;
             }
         }

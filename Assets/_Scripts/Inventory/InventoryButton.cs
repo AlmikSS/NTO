@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class InventoryButton : MonoBehaviour
@@ -37,6 +36,10 @@ public class InventoryButton : MonoBehaviour
             }
         }
     }
+
+    private void OnDisable() => Destroy(_info);
+
+    private void OnEnable() => Destroy(_info);
 
     public void OnHoverExit()
     {

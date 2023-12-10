@@ -80,10 +80,13 @@ public class Player : MonoBehaviour, IDamageable
 
     private void RangedAttack()
     {
-        Vector2 mousePos = _playerInput.Player.MousePosition.ReadValue<Vector2>();
-        Vector3 direction = new Vector3(mousePos.x - 700, mousePos.y - 300, 0).normalized;
+        _animator.SetTrigger("RangedAttack");
+    }
+
+    public void Shoot()
+    {
         GameObject obj = Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
-        obj.GetComponent<Rigidbody2D>().velocity = direction * _bulletSpeed;
+        obj.GetComponent<Rigidbody2D>().velocity = (Vector2.right * transform.localScale.x) * _bulletSpeed;
         _rangedAttackAudio.Play();
     }
 

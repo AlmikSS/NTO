@@ -180,6 +180,8 @@ MonoBehaviour:
   _attackMask:
     serializedVersion: 2
     m_Bits: 64
+  _spriteRenderer: {fileID: 6470605551134594143}
+  _levelManager: {fileID: 0}
 --- !u!114 &6470605551552431172
 MonoBehaviour:
   m_ObjectHideFlags: 0

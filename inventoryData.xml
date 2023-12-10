@@ -81,7 +81,7 @@
     <_itemsCount />
   </ItemData>
   <ItemData>
-    <Name>Null</Name>
+    <Name />
     <Stack>0</Stack>
     <MaxStack>0</MaxStack>
     <ID>0</ID>
@@ -91,7 +91,7 @@
     <_itemsCount />
   </ItemData>
   <ItemData>
-    <Name>Null</Name>
+    <Name />
     <Stack>0</Stack>
     <MaxStack>0</MaxStack>
     <ID>0</ID>

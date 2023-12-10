@@ -227,8 +227,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4ce821a176e6aa4691fa7fdf0f35666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _levelManager: {fileID: 0}
   _maxHealth: 50
   _attackDelay: 2
   _ball: {fileID: 4257130646698712084, guid: 83e1c8ef219328340a3d297190a06dce, type: 3}
   _pivot: {fileID: 0}
+  _spriteRenderer: {fileID: 7003934707676109412}
   canAttack: 1

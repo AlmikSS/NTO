@@ -7,6 +7,7 @@ public class ShootingEnemy : MonoBehaviour, IDamageable
     [SerializeField] private LevelManager _levelManager;
     [SerializeField] private int _maxHealth, _attackDelay;
     [SerializeField] private GameObject _ball,_pivot;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
     private Coroutine _attackCoroutine;
     private int _health; 
     [HideInInspector] public bool canAttack = true;
@@ -29,12 +30,22 @@ public class ShootingEnemy : MonoBehaviour, IDamageable
     }
     public void TakeDamage(int damage) 
     {
-        if(damage > 0) 
+        if(damage > 0)
+        {
             _health -= damage;
+            StartCoroutine(ChangeColor());
+        }
         if (_health < 0)
             Die();
     }
     
+    private IEnumerator ChangeColor()
+    {
+        _spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(.1f);
+        _spriteRenderer.color = Color.white;
+    }
+
     private void Die()
     {
         if (_levelManager != null)

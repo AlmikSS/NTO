@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] private int _damage;// ����
     [SerializeField] private int _attackDelay = 2; 
     [SerializeField] private LayerMask _attackMask; // ���� �������� ������� ����
+    [SerializeField] private SpriteRenderer _spriteRenderer;
 
     [SerializeField] private LevelManager _levelManager;
     private bool canAttack = true;
@@ -59,9 +60,19 @@ public class Enemy : MonoBehaviour, IDamageable
     public void TakeDamage(int damage) // ����� ��������� �����
     {
         if(damage > 0) // ���� ���� ������ 0
-            _health -= damage; // ������� ����
+        {
+            _health -= damage;
+            StartCoroutine(ChangeColor());
+        }
         if (_health < 0)
             Die();
+    }
+
+    private IEnumerator ChangeColor()
+    {
+        _spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(.1f);
+        _spriteRenderer.color = Color.white;
     }
 
     private void Die()

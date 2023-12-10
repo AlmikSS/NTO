@@ -8,9 +8,12 @@ public class ToLevel : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        _inv.Save();
-        MainMenuManager.CurrentScene = SceneIndex;
-        MainMenuManager.Save("Scene");
-        SceneManager.LoadScene(SceneIndex);
+        if (other.gameObject.CompareTag("Player"))
+        {
+            _inv.Save();
+            MainMenuManager.CurrentScene = SceneIndex;
+            MainMenuManager.Save("Scene");
+            SceneManager.LoadScene(SceneIndex);
+        }
     }
 }

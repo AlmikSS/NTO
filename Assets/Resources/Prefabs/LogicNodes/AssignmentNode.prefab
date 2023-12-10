@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4342123875348550962}
   - component: {fileID: 4342123875348550961}
   - component: {fileID: 4342123875348550960}
-  - component: {fileID: 4342123875348550963}
+  - component: {fileID: 272542533284480952}
   m_Layer: 5
   m_Name: AssignmentNode
   m_TagString: LogicalNodes
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4342123875348550963
+--- !u!114 &272542533284480952
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,58 +87,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4342123875348550965}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Script: {fileID: 11500000, guid: f5521b3aaef5f40429fe9a97fac9bcef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 5
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: BlocksMovement, Assembly-CSharp
-          m_MethodName: MoveBlock
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 4342123875348550965}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 13
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: BlocksMovement, Assembly-CSharp
-          m_MethodName: OnInitializeDrag
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 4342123875348550965}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 14
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: NodesLogic, Assembly-CSharp
-          m_MethodName: OnDrop
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 4342123875348550965}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &4342123875666055995
 GameObject:
   m_ObjectHideFlags: 0

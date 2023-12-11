@@ -29,9 +29,9 @@ public class Computer : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other) {//когда игрок выходит
         if(other.gameObject.tag=="Player"){
             _collides = false;// !записываем столкновение
-            _healthBar.SetActive(false);
+            _healthBar.SetActive(true);
             _quiz.SetActive(false);
-            _nodesUI.SetActive(true);
+            _nodesUI.SetActive(false);
             _back.SetActive(false);//скрываем UI
             _pc.enabled = true;
             _pl.enabled = true;

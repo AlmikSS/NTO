@@ -2214,6 +2214,7 @@ GameObject:
   - component: {fileID: 2339269910164611694}
   - component: {fileID: 5697625029557568419}
   - component: {fileID: 500289079}
+  - component: {fileID: 1180964902}
   m_Layer: 5
   m_Name: Quiz_3
   m_TagString: Untagged
@@ -2257,8 +2258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VarCount: 2
-  InputText: "\u041B\u044E\u0431\u043E\u0435 \u0446\u0435\u043B\u043E\u0435 \u0447\u0438\u0441\u043B\u043E
-    \u0431\u043E\u043B\u044C\u0448\u0435 "
+  InputText: "\u041B\u044E\u0431\u043E\u0435 \u0446\u0435\u043B\u043E\u0435 \u0447\u0438\u0441\u043B\u043E"
   OutputText: "\u0411\u0435\u0437 \u043F\u0440\u043E\u0431\u043B\u043E\u0432 \u0432
     \u043E\u0434\u043D\u0443 \u0441\u0442\u0440\u043E\u043A\u0443"
   QuizText: "\u0410\u043B\u044C\u0444\u0430 \u043F\u0440\u0438\u0448\u0451\u043B
@@ -2283,6 +2283,7 @@ MonoBehaviour:
   OutputField: {fileID: 4781591807079477303}
   QuizField: {fileID: 4781591806754617214}
   Error: {fileID: 4781591806532465618}
+  Sign: {fileID: 0}
   ItemToPut: {fileID: 1415834791889380480, guid: 7d31a29efe17800408b90c39c0c56180, type: 3}
   CountToPut: 1
   Inventory: {fileID: 0}
@@ -2413,6 +2414,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1180964902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814996405839485829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f75ba2aecc93ac4ca8a43719aca46e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &815989949963227076
 GameObject:
   m_ObjectHideFlags: 0
@@ -6011,6 +6024,7 @@ GameObject:
   - component: {fileID: 2432869235443566901}
   - component: {fileID: 2751663107609672279}
   - component: {fileID: 1929188242}
+  - component: {fileID: 1561201066}
   m_Layer: 5
   m_Name: Quiz_9
   m_TagString: Untagged
@@ -6080,6 +6094,7 @@ MonoBehaviour:
   OutputField: {fileID: 4781591807079477303}
   QuizField: {fileID: 4781591806754617214}
   Error: {fileID: 4781591806532465618}
+  Sign: {fileID: 0}
   ItemToPut: {fileID: 1415834791889380480, guid: 7d31a29efe17800408b90c39c0c56180, type: 3}
   CountToPut: 1
   Inventory: {fileID: 0}
@@ -6224,6 +6239,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1561201066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2410170862438365841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f75ba2aecc93ac4ca8a43719aca46e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2424755030750328677
 GameObject:
   m_ObjectHideFlags: 0
@@ -7106,6 +7133,7 @@ GameObject:
   - component: {fileID: 6575655893878489810}
   - component: {fileID: 705731447511415857}
   - component: {fileID: 624831037}
+  - component: {fileID: 1119647134}
   m_Layer: 5
   m_Name: Quiz_5
   m_TagString: Untagged
@@ -7174,6 +7202,7 @@ MonoBehaviour:
   OutputField: {fileID: 4781591807079477303}
   QuizField: {fileID: 4781591806754617214}
   Error: {fileID: 4781591806532465618}
+  Sign: {fileID: 0}
   ItemToPut: {fileID: 1415834791889380480, guid: 7d31a29efe17800408b90c39c0c56180, type: 3}
   CountToPut: 1
   Inventory: {fileID: 0}
@@ -7315,6 +7344,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1119647134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2677663767925357780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f75ba2aecc93ac4ca8a43719aca46e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2714309319654254911
 GameObject:
   m_ObjectHideFlags: 0
@@ -8142,6 +8183,7 @@ GameObject:
   - component: {fileID: 2754324693003102802}
   - component: {fileID: 6901190011880898844}
   - component: {fileID: 729875256}
+  - component: {fileID: 2090214494}
   m_Layer: 5
   m_Name: Quiz_4
   m_TagString: Untagged
@@ -8211,6 +8253,7 @@ MonoBehaviour:
   OutputField: {fileID: 4781591807079477303}
   QuizField: {fileID: 4781591806754617214}
   Error: {fileID: 4781591806532465618}
+  Sign: {fileID: 0}
   ItemToPut: {fileID: 1415834791889380480, guid: 7d31a29efe17800408b90c39c0c56180, type: 3}
   CountToPut: 1
   Inventory: {fileID: 0}
@@ -8341,6 +8384,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2090214494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3029184434437110019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f75ba2aecc93ac4ca8a43719aca46e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3101049787717677183
 GameObject:
   m_ObjectHideFlags: 0
@@ -8681,6 +8736,7 @@ GameObject:
   - component: {fileID: 4986421214715491677}
   - component: {fileID: 6877321836764333957}
   - component: {fileID: 698382798}
+  - component: {fileID: 1010763501}
   m_Layer: 5
   m_Name: Quiz_8
   m_TagString: Untagged
@@ -8745,6 +8801,7 @@ MonoBehaviour:
   OutputField: {fileID: 4781591807079477303}
   QuizField: {fileID: 4781591806754617214}
   Error: {fileID: 4781591806532465618}
+  Sign: {fileID: 0}
   ItemToPut: {fileID: 1415834791889380480, guid: 7d31a29efe17800408b90c39c0c56180, type: 3}
   CountToPut: 1
   Inventory: {fileID: 0}
@@ -8889,6 +8946,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1010763501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3305993211133996458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f75ba2aecc93ac4ca8a43719aca46e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3375047452036775759
 GameObject:
   m_ObjectHideFlags: 0
@@ -10960,6 +11029,7 @@ GameObject:
   - component: {fileID: 1232084352092637240}
   - component: {fileID: 6087373897344027953}
   - component: {fileID: 633244040}
+  - component: {fileID: 1919374309}
   m_Layer: 5
   m_Name: Quiz_6
   m_TagString: Untagged
@@ -11023,6 +11093,7 @@ MonoBehaviour:
   OutputField: {fileID: 4781591807079477303}
   QuizField: {fileID: 4781591806754617214}
   Error: {fileID: 4781591806532465618}
+  Sign: {fileID: 0}
   ItemToPut: {fileID: 1415834791889380480, guid: 7d31a29efe17800408b90c39c0c56180, type: 3}
   CountToPut: 1
   Inventory: {fileID: 0}
@@ -11164,6 +11235,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1919374309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4514006902952217568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f75ba2aecc93ac4ca8a43719aca46e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4568223076368460492
 GameObject:
   m_ObjectHideFlags: 0
@@ -11961,9 +12044,9 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -17, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &4781591806617263387
 CanvasRenderer:
@@ -12049,8 +12132,8 @@ RectTransform:
   m_Father: {fileID: 4781591808403031134}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.6447516}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -12273,7 +12356,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.00024414062}
   m_SizeDelta: {x: 0, y: -0.00012207}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4781591806939853347
@@ -12915,7 +12998,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4781591808234026571}
   m_HandleRect: {fileID: 4781591808234026570}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -12957,9 +13040,9 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -17, y: -14.280029}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &4781591807383927069
 CanvasRenderer:
@@ -13082,8 +13165,8 @@ RectTransform:
   m_Father: {fileID: 4781591808013563136}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.034409773, y: 0}
+  m_AnchorMax: {x: 0.47134408, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -13498,7 +13581,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 855.0301, y: -967.1044}
+  m_AnchoredPosition: {x: 750.5301, y: -967.10455}
   m_SizeDelta: {x: 1710.0698, y: 1934.209}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4781591808218423534
@@ -13537,9 +13620,9 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0.016}
+  m_AnchorMax: {x: 1, y: 0.016}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -17, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4781591808218423530
 CanvasRenderer:
@@ -13622,7 +13705,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4781591807521675251}
   m_HandleRect: {fileID: 4781591807521675250}
   m_Direction: 0
-  m_Value: 0.0000028553293
+  m_Value: 0.061111473
   m_Size: 0.43693432
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -13662,7 +13745,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -13715,7 +13798,7 @@ GameObject:
   - component: {fileID: 4781591808402081820}
   - component: {fileID: 4781591808402081822}
   - component: {fileID: 4781591808402081821}
-  - component: {fileID: 4781591808402081823}
+  - component: {fileID: 4673459005093815062}
   m_Layer: 5
   m_Name: Incorrect
   m_TagString: Untagged
@@ -13781,22 +13864,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!111 &4781591808402081823
-Animation:
+--- !u!95 &4673459005093815062
+Animator:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4781591808402081891}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 60dcbb5aee455904f8966f82f27792f2, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 60dcbb5aee455904f8966f82f27792f2, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 023d9f1b5ffd518499ea4c813332041d, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4781591808403031133
 GameObject:
   m_ObjectHideFlags: 0
@@ -13870,9 +13958,9 @@ RectTransform:
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: 0}
+  m_SizeDelta: {x: 20, y: -14.280029}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &4781591808451537973
 CanvasRenderer:
@@ -13955,8 +14043,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4781591806676617068}
   m_HandleRect: {fileID: 4781591806676617075}
   m_Direction: 2
-  m_Value: 0.99999774
-  m_Size: 0.35524842
+  m_Value: 1
+  m_Size: 0.3552484
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -13973,6 +14061,7 @@ GameObject:
   - component: {fileID: 4781591808478808019}
   - component: {fileID: 4781591808478808018}
   - component: {fileID: 1407588693}
+  - component: {fileID: 855840450}
   m_Layer: 5
   m_Name: Quiz_1
   m_TagString: Untagged
@@ -14035,6 +14124,7 @@ MonoBehaviour:
   OutputField: {fileID: 4781591807079477303}
   QuizField: {fileID: 4781591806754617214}
   Error: {fileID: 4781591806532465618}
+  Sign: {fileID: 0}
   ItemToPut: {fileID: 542819410423610237, guid: bf7d9788acdc3ee4c938fd1f76b2d109, type: 3}
   CountToPut: 2
   Inventory: {fileID: 0}
@@ -14164,6 +14254,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &855840450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4781591808478808016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f75ba2aecc93ac4ca8a43719aca46e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4781591808523734466
 GameObject:
   m_ObjectHideFlags: 0
@@ -14309,8 +14411,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4781591808638796268}
   - component: {fileID: 4781591808638796270}
-  - component: {fileID: 4781591808638796271}
   - component: {fileID: 4781591808638796269}
+  - component: {fileID: 5382899040542653893}
   m_Layer: 5
   m_Name: Correct
   m_TagString: Untagged
@@ -14346,22 +14448,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4781591808638796275}
   m_CullTransparentMesh: 1
---- !u!111 &4781591808638796271
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4781591808638796275}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 60dcbb5aee455904f8966f82f27792f2, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 60dcbb5aee455904f8966f82f27792f2, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &4781591808638796269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14392,6 +14478,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &5382899040542653893
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4781591808638796275}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 39e19db43828c104e85ddfaf86f9ad71, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4873498150971848808
 GameObject:
   m_ObjectHideFlags: 0
@@ -15460,6 +15567,7 @@ GameObject:
   - component: {fileID: 7528833040641599157}
   - component: {fileID: 1317057573945414845}
   - component: {fileID: 1931153588}
+  - component: {fileID: 32932196}
   m_Layer: 5
   m_Name: Quiz_2
   m_TagString: Untagged
@@ -15516,12 +15624,13 @@ MonoBehaviour:
   - 545773
   Answers:
   - 1
-  - 4
+  - 3004
   - 545
   InputField: {fileID: 4781591808523734524}
   OutputField: {fileID: 4781591807079477303}
   QuizField: {fileID: 4781591806754617214}
   Error: {fileID: 4781591806532465618}
+  Sign: {fileID: 0}
   ItemToPut: {fileID: 1415834791889380480, guid: 7d31a29efe17800408b90c39c0c56180, type: 3}
   CountToPut: 2
   Inventory: {fileID: 0}
@@ -15651,6 +15760,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &32932196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5509119298241729395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f75ba2aecc93ac4ca8a43719aca46e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5533346181473355656
 GameObject:
   m_ObjectHideFlags: 0
@@ -17143,6 +17264,7 @@ GameObject:
   - component: {fileID: 2189806236686580916}
   - component: {fileID: 6948528403065535971}
   - component: {fileID: 198952018}
+  - component: {fileID: 1140552432}
   m_Layer: 5
   m_Name: Quiz_7
   m_TagString: Untagged
@@ -17187,7 +17309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VarCount: 1
   InputText: "\u0421\u0442\u0440\u043E\u043A\u0430"
-  OutputText: "\u041B\u044E\u0431\u043E\u0435 \u0446\u0435\u043B\u043E\u0435 \u0447\u0438\u0441\u043B\u043E"
+  OutputText: "\u0414\u043B\u0438\u043D\u043D\u0430 \u0441\u0442\u0440\u043E\u043A\u0438"
   QuizText: "\u0410\u043B\u044C\u0444\u0435 \u0434\u0430\u043B\u0438 \u0441\u0442\u0440\u043E\u043A\u0443,
     \u043D\u043E \u0432 \u044D\u0442\u043E\u0442 \u0440\u0430\u0437 \u043E\u043D
     \u0437\u0430\u0445\u043E\u0442\u0435\u043B \u043D\u0430\u0439\u0442\u0438 \u0435\u0435
@@ -17204,6 +17326,7 @@ MonoBehaviour:
   OutputField: {fileID: 4781591807079477303}
   QuizField: {fileID: 4781591806754617214}
   Error: {fileID: 4781591806532465618}
+  Sign: {fileID: 0}
   ItemToPut: {fileID: 1415834791889380480, guid: 7d31a29efe17800408b90c39c0c56180, type: 3}
   CountToPut: 1
   Inventory: {fileID: 0}
@@ -17347,6 +17470,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1140552432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6411266289482590371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f75ba2aecc93ac4ca8a43719aca46e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6459211727274293814
 GameObject:
   m_ObjectHideFlags: 0
@@ -18670,6 +18805,7 @@ GameObject:
   - component: {fileID: 6444897703831392050}
   - component: {fileID: 3122193039231528302}
   - component: {fileID: 1071738646}
+  - component: {fileID: 1564171002}
   m_Layer: 5
   m_Name: Quiz_10
   m_TagString: Untagged
@@ -18743,6 +18879,7 @@ MonoBehaviour:
   OutputField: {fileID: 4781591807079477303}
   QuizField: {fileID: 4781591806754617214}
   Error: {fileID: 4781591806532465618}
+  Sign: {fileID: 0}
   ItemToPut: {fileID: 1415834791889380480, guid: 7d31a29efe17800408b90c39c0c56180, type: 3}
   CountToPut: 1
   Inventory: {fileID: 0}
@@ -18887,6 +19024,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1564171002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7036615820980104818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f75ba2aecc93ac4ca8a43719aca46e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7058905706638484405
 GameObject:
   m_ObjectHideFlags: 0

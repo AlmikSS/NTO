@@ -175,7 +175,7 @@ MonoBehaviour:
   _maxHealth: 50
   _attackPoint: {fileID: 6470605551776064714}
   _attackRadius: 2
-  _damage: 5
+  _damage: 15
   _attackDelay: 2
   _attackMask:
     serializedVersion: 2

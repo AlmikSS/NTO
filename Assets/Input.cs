@@ -64,15 +64,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""NodsPanelOpen"",
-                    ""type"": ""Button"",
-                    ""id"": ""6ffdc755-d568-4752-a37f-bb3c55750c73"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Close"",
                     ""type"": ""Button"",
                     ""id"": ""600698db-ec2c-4ac8-8056-f885281da471"",
@@ -189,6 +180,39 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
+                    ""name"": ""Arrow Axis"",
+                    ""id"": ""972cbdd9-cf84-428f-a935-bb6bf70967d4"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""044ca16d-1ae4-49b7-b273-d332f6cc4b51"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""5749a109-1dbe-46a4-b3a9-41f4334d8cb1"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
                     ""name"": """",
                     ""id"": ""7f5b02b7-9bf7-4401-bb77-eb495d796f88"",
                     ""path"": ""<Keyboard>/space"",
@@ -218,17 +242,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""MousePosition"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""cc086750-9c31-4645-846c-4489af680f12"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""NodsPanelOpen"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -352,6 +365,17 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""action"": ""Iteract"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ebe54533-f2e3-4ef6-8493-5401b423969d"",
+                    ""path"": ""<Keyboard>/rightCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Iteract"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -466,7 +490,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_TakeAllStack = m_Player.FindAction("TakeAllStack", throwIfNotFound: true);
         m_Player_MousePosition = m_Player.FindAction("MousePosition", throwIfNotFound: true);
-        m_Player_NodsPanelOpen = m_Player.FindAction("NodsPanelOpen", throwIfNotFound: true);
         m_Player_Close = m_Player.FindAction("Close", throwIfNotFound: true);
         m_Player_MouseLeftButtonClick = m_Player.FindAction("MouseLeftButtonClick", throwIfNotFound: true);
         m_Player_ShowInventory = m_Player.FindAction("ShowInventory", throwIfNotFound: true);
@@ -549,7 +572,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_TakeAllStack;
     private readonly InputAction m_Player_MousePosition;
-    private readonly InputAction m_Player_NodsPanelOpen;
     private readonly InputAction m_Player_Close;
     private readonly InputAction m_Player_MouseLeftButtonClick;
     private readonly InputAction m_Player_ShowInventory;
@@ -567,7 +589,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @TakeAllStack => m_Wrapper.m_Player_TakeAllStack;
         public InputAction @MousePosition => m_Wrapper.m_Player_MousePosition;
-        public InputAction @NodsPanelOpen => m_Wrapper.m_Player_NodsPanelOpen;
         public InputAction @Close => m_Wrapper.m_Player_Close;
         public InputAction @MouseLeftButtonClick => m_Wrapper.m_Player_MouseLeftButtonClick;
         public InputAction @ShowInventory => m_Wrapper.m_Player_ShowInventory;
@@ -598,9 +619,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @MousePosition.started += instance.OnMousePosition;
             @MousePosition.performed += instance.OnMousePosition;
             @MousePosition.canceled += instance.OnMousePosition;
-            @NodsPanelOpen.started += instance.OnNodsPanelOpen;
-            @NodsPanelOpen.performed += instance.OnNodsPanelOpen;
-            @NodsPanelOpen.canceled += instance.OnNodsPanelOpen;
             @Close.started += instance.OnClose;
             @Close.performed += instance.OnClose;
             @Close.canceled += instance.OnClose;
@@ -644,9 +662,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @MousePosition.started -= instance.OnMousePosition;
             @MousePosition.performed -= instance.OnMousePosition;
             @MousePosition.canceled -= instance.OnMousePosition;
-            @NodsPanelOpen.started -= instance.OnNodsPanelOpen;
-            @NodsPanelOpen.performed -= instance.OnNodsPanelOpen;
-            @NodsPanelOpen.canceled -= instance.OnNodsPanelOpen;
             @Close.started -= instance.OnClose;
             @Close.performed -= instance.OnClose;
             @Close.canceled -= instance.OnClose;
@@ -814,7 +829,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnTakeAllStack(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
-        void OnNodsPanelOpen(InputAction.CallbackContext context);
         void OnClose(InputAction.CallbackContext context);
         void OnMouseLeftButtonClick(InputAction.CallbackContext context);
         void OnShowInventory(InputAction.CallbackContext context);

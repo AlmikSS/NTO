@@ -90,7 +90,8 @@ public class BlocksMovement : MonoBehaviour
                 float _rightDist = Vector2.Distance(new Vector2(i.transform.position.x+_collSize.x*0.5f, i.transform.position.y), new Vector2(Obj.transform.position.x-_objSize.x*0.5f, Obj.transform.position.y));//дистанция между правой стороной проверяемого нода и леовй текущего нода
                 float _upDist = Vector2.Distance(new Vector2(i.transform.position.x,i.transform.position.y+_collSize.y*0.5f), new Vector2(Obj.transform.position.x, Obj.transform.position.y-_objSize.y*0.5f));//дистанция между верхней стороной проверяемого нода и нижней текущего нода
                 float _downDist = Vector2.Distance(new Vector2(i.transform.position.x,i.transform.position.y-_collSize.y*0.5f), new Vector2(Obj.transform.position.x, Obj.transform.position.y+_objSize.y*0.5f));//дистанция между нижней стороной проверяемого нода и верхней текущего нода
-                if( Mathf.Min(_leftDist,_rightDist,_upDist,_downDist)<_minDist){
+                if( Mathf.Min(_leftDist,_rightDist,_upDist,_downDist)<_minDist || _leftDist == _minDist || _rightDist == _minDist){
+                    
                     _minDist = Mathf.Min(_leftDist,_rightDist,_upDist,_downDist);
                     Coll = i;//находим минимум и присваиваем переменной для сталкивающегося с текущим нодом значение проверяемого
                 }

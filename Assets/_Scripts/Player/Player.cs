@@ -22,7 +22,7 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private Slider _healthBar;
     [SerializeField] private GameObject _deathScreen;
     private Animator _animator; // поле Animator
-    private float _health; // здоровье
+    [HideInInspector] public float _health; // здоровье
 
     [Header("Audio")]
     [SerializeField] private AudioSource _hertAudio;
@@ -36,6 +36,7 @@ public class Player : MonoBehaviour, IDamageable
 
     public void Awake()
     {
+        
         _playerInput = new Input(); // создаем экземпляр класса Input 
         _playerInput.Player.MouseLeftButtonClick.performed += Attack; // подписываем метод Attack к событию нажатия кнопки атаки
         _playerInput.Player.ShowInventory.performed += context => ShowCloseInventory(); // подписываем метод ShowCloseInventory к событию нажатия кнопки инвентаря
@@ -57,10 +58,11 @@ public class Player : MonoBehaviour, IDamageable
         {
             _health -= Time.deltaTime;
             _healthBar.value = _health;
+            print(_health);
             yield return null;
         }
-
-        Die();
+        if(_health!=-500)
+            Die();
     }
 
     public void Attack(InputAction.CallbackContext context) // метод атаки
@@ -103,7 +105,10 @@ public class Player : MonoBehaviour, IDamageable
             } // ������� ����
             catch (Exception)
             {
-                enemy.GetComponent<ShootingEnemy>().TakeDamage(damage);
+                if(enemy.TryGetComponent<ShootingEnemy>(out ShootingEnemy component))
+                    enemy.GetComponent<ShootingEnemy>().TakeDamage(damage) ;
+                else
+                    enemy.GetComponent<Lever>().TakeDamage(damage);
             }
         }
     }

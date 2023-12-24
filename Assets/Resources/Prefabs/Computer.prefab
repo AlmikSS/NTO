@@ -99,9 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 586f64ce8e99ef1429a38a3c80f96971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _quiz: {fileID: 0}
-  _nodesUI: {fileID: 0}
-  _back: {fileID: 0}
+  ToHide: []
+  ToActivate: []
   _pc: {fileID: 0}
   _pl: {fileID: 0}
   _pm: {fileID: 0}

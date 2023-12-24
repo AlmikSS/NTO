@@ -31,9 +31,7 @@ public class DialogSystem : MonoBehaviour
     {
         if (_first)
         {
-            transform.GetChild(0).gameObject.SetActive(false);
             getE = true;
-            _first = false;
         }
     }
 
@@ -51,6 +49,7 @@ public class DialogSystem : MonoBehaviour
     {
         if (getE && other.gameObject.tag == "Player")
         {
+            if(_first) transform.GetChild(0).gameObject.SetActive(false); _first=false;
             PreparePrint();
             getE = false;
         }

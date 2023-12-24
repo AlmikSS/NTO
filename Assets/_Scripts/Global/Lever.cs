@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Lever : MonoBehaviour
+public class Lever : MonoBehaviour, IDamageable
 {
     [SerializeField] private List<GameObject> objects = new List<GameObject>();
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void TakeDamage(int damage)
     {
-        if (collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Player"))
+        for (int i = 0; i < objects.Count; i++)
         {
-            for (int i = 0; i < objects.Count; i++)
-            {
-                objects[i].SetActive(!objects[i].activeSelf);
-            }
+            objects[i].SetActive(false);
         }
+        
     }
+
 }

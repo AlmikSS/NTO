@@ -2,9 +2,10 @@
 
 public class GameManager : MonoBehaviour
 {
-    public static void ChalangeComplete(GameObject JumpPad)
+    public static void ChalangeComplete(GameObject JumpPad, GameObject sign)
     {
         JumpPad.SetActive(true);
+        sign.SetActive(false);
     }
 
     public static void AddItemsToPlayer(Item item, int count, Inventory inventory)

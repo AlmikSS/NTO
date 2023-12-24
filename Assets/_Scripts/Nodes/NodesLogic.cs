@@ -13,7 +13,7 @@ public class NodesLogic : MonoBehaviour
     [SerializeField] string InputText, OutputText, QuizText;
     [SerializeField] string[] InputValues, Answers;//переменная для текста ввода, значиния ввода и правильного ответа
     [SerializeField] TMP_Text InputField, OutputField, QuizField;//переменная для поля ввода и вывода
-    [SerializeField] GameObject Error;//изображение ошибки
+    [SerializeField] GameObject Error, Sign;//изображение ошибки
     [Header("Win")]
     [SerializeField] Item ItemToPut;
     [SerializeField] int CountToPut;
@@ -439,13 +439,13 @@ public class NodesLogic : MonoBehaviour
         if(Programm.Count>0 && Tests.Count>0){
             bool allGood = true;
             foreach(bool cond in Tests){
-                if(cond==false) {GameObject.Find("Incorrect").GetComponent<Animation>().Play(); allGood = false; break;}
+                if(cond==false) {GameObject.Find("Incorrect").GetComponent<Animator>().Play("ShowAnswer"); allGood = false; break;}
             }
             if(allGood){ 
-                GameObject.Find("Correct").GetComponent<Animation>().Play();
+                GameObject.Find("Correct").GetComponent<Animator>().Play("ShowAnswer");
                 transform.GetChild(0).gameObject.SetActive(false);
                 if(JumpPad!=null)
-                    GameManager.ChalangeComplete(JumpPad);
+                    GameManager.ChalangeComplete(JumpPad, Sign);
                 GameManager.AddItemsToPlayer(ItemToPut, CountToPut, Inventory);
                 _source.Play();
             }
